@@ -473,6 +473,87 @@ svg.body{width:100%;max-width:220px;height:auto}
 .danger-link{color:var(--con);display:inline-flex;align-items:center;gap:6px;align-self:flex-start}
 .danger-link .ic{width:16px;height:16px}
 .howtag{white-space:nowrap}
+
+/* mastery, connect, tray, conditions */
+.mast{display:block;width:100%;height:5px;border-radius:3px;background:var(--rule);overflow:hidden;margin-top:auto}
+.mast i{display:block;height:100%}
+.mast.m1 i{background:var(--con)}.mast.m2 i{background:var(--se)}.mast.m3 i{background:var(--ind)}
+.tile .mast{margin-top:6px}
+.mrow{display:flex;align-items:center;gap:10px;margin-top:12px;flex-wrap:wrap}
+.mrow .mast{width:120px;margin:0}
+.mlabel{font-size:.72rem;font-weight:700;border-radius:999px;padding:2px 10px;background:var(--rule)}
+.mlabel.m1{background:var(--con-bg);color:var(--con)}.mlabel.m2{background:var(--se-bg);color:var(--se)}.mlabel.m3{background:var(--ind-bg);color:var(--ind)}
+.vline{display:flex;align-items:center;gap:6px;font-size:.72rem;color:var(--ink-soft);margin:8px 0 0}
+.vline .ic{width:14px;height:14px}
+.mastercard{background:var(--sheet);border:1px solid var(--rule);border-radius:18px;padding:14px;display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.mc-top{display:flex;gap:14px;align-items:center}
+.ring{--p:0;width:64px;height:64px;border-radius:50%;background:conic-gradient(var(--ind) calc(var(--p)*1%),var(--rule) 0);display:grid;place-items:center;flex:none}
+.ring span{width:48px;height:48px;border-radius:50%;background:var(--sheet);display:grid;place-items:center;font-family:var(--font-display);font-weight:800;font-size:.9rem}
+.hist{display:flex;gap:8px;align-items:flex-end;height:70px;padding-top:4px}
+.hist span{flex:1;max-width:42px;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:2px}
+.hist i{display:block;width:100%;border-radius:6px 6px 2px 2px}
+.hist i.hi{background:var(--ind)}.hist i.mid{background:var(--se)}.hist i.lo{background:var(--con)}
+.hist em{font-style:normal;font-size:.65rem;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.chip.weak{border-color:var(--con);color:var(--con)}
+.duebadge{font-style:normal;font-size:.68rem;font-weight:700;color:var(--int);background:var(--int-bg);border-radius:999px;padding:1px 8px;display:inline-flex;align-items:center;gap:4px}
+.duebadge .ic{width:12px;height:12px}
+.traybtn{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:2px solid var(--moa);background:var(--moa-bg);border-radius:16px;padding:12px 14px;margin-top:10px;color:var(--ink)}
+.traybtn>.ic{color:var(--moa)}.traybtn>span:nth-child(2){flex:1}.traybtn b{display:block}.traybtn em{font-style:normal;font-size:.76rem;color:var(--ink-soft)}
+.tray-opts{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:3px}
+.tray-opts li.right{font-weight:700;color:var(--ind)}
+.approve{border-color:var(--ind);color:var(--ind)}
+.approve .ic,.danger-btn .ic{width:14px;height:14px;vertical-align:-2px}
+.linkbadge{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:700;color:var(--int);background:var(--int-bg);border-radius:8px;padding:3px 8px;align-self:flex-start}
+.linkbadge .ic{width:14px;height:14px}
+.connect{background:var(--int-bg);border:0;border-radius:18px;padding:14px;margin-top:16px}
+.connect .eyebrow{color:var(--int)}.connect .eyebrow .ic,.connect h2 .ic{width:16px;height:16px;vertical-align:-2px}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
+.cchip{display:flex;align-items:center;gap:10px;text-align:left;border:1px solid var(--rule);background:var(--sheet);border-radius:14px;padding:10px;color:var(--ink)}
+.cchip>span:nth-child(2){min-width:0}.cchip b{display:block;font-size:.85rem;line-height:1.25}.cchip em{font-style:normal;font-size:.72rem;color:var(--ink-soft)}
+.chart.cond .rx{color:var(--con);border-color:var(--con)}.chart.cond .rx .ic{width:30px;height:30px}
+.chain{list-style:none;padding:0!important;display:flex!important;flex-direction:column;gap:0!important;counter-reset:ch}
+.chain li{position:relative;background:var(--sheet);border-radius:12px;padding:8px 12px 8px 40px;margin-bottom:18px;counter-increment:ch}
+.chain li::before{content:counter(ch);position:absolute;left:10px;top:8px;width:20px;height:20px;border-radius:50%;background:var(--moa);color:#fff;font-size:.72rem;font-weight:700;display:grid;place-items:center}
+.chain li:not(:last-child)::after{content:"↓";position:absolute;left:50%;bottom:-17px;color:var(--moa);font-weight:800}
+.chain li:last-child{border:2px solid var(--con);margin-bottom:0}
+.np{display:flex;flex-direction:column;gap:8px}
+.npstep{background:var(--paper)!important;border-radius:14px!important;padding:10px 12px!important}
+.npstep summary{display:flex;gap:10px;align-items:center;list-style:none;color:var(--ink)!important}
+.npstep summary::-webkit-details-marker{display:none}
+.npstep summary b{display:block}.npstep summary em{font-style:normal;font-size:.75rem;color:var(--ink-soft);font-weight:400}
+.npn{width:36px;height:36px;border-radius:10px;background:var(--nur);color:#fff;display:grid;place-items:center;flex:none}
+.npn .ic{width:20px;height:20px}
+.npstep>ul{margin-top:8px!important}
+.why-list{list-style:none;padding:0!important}
+.why-list li{background:var(--sheet);border-radius:10px;padding:8px 10px;display:flex;flex-direction:column;gap:2px}
+.why-list span{font-size:.82rem;color:var(--nur)}
+.updbar{position:fixed;left:50%;transform:translateX(-50%);top:calc(10px + env(safe-area-inset-top,0px));z-index:60;display:flex;gap:12px;align-items:center;background:var(--ink);color:var(--sheet);border-radius:16px;padding:10px 14px;width:min(94vw,460px);box-shadow:0 6px 24px rgba(0,0,0,.25)}
+.updbar span{flex:1}.updbar small{opacity:.75}
+.result .ic{width:14px;height:14px;vertical-align:-2px}
+
+/* short tabbed topic pages */
+.phead{display:flex;gap:12px;align-items:center;background:var(--sheet);border:1px solid var(--rule);border-left:6px solid var(--accent);border-radius:18px;padding:12px 14px}
+.phead h1{font-size:1.5rem;font-weight:800;line-height:1.1}
+.phead p{margin:0}.phead .mrow{margin-top:6px}
+.rx.sm{width:44px;height:44px;font-size:1.8rem;border-width:2px;border-radius:12px}.rx.sm .ic{width:24px;height:24px;color:var(--con)}
+.ptabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:8;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;background:var(--paper);padding:10px 0 8px;margin-top:4px}
+.ptabs::-webkit-scrollbar{display:none}
+.ptab{flex:none;display:flex;flex-direction:column;align-items:center;gap:2px;min-width:58px;border:1px solid var(--rule);background:var(--sheet);border-radius:12px;padding:6px 8px;font-size:.7rem;font-weight:600;color:var(--ink-soft)}
+.ptab .ic{width:20px;height:20px}
+.ptab[aria-current="true"]{background:var(--ink);color:var(--sheet);border-color:var(--ink)}
+.psec>.panel:first-child,.psec>.chart:first-child{margin-top:0}
+.psec>.chart+.panel{margin-top:12px}
+.pnav{display:flex;justify-content:space-between;gap:8px;margin-top:14px}
+.pnav .ic{width:16px;height:16px;vertical-align:-3px}
+/* body + info side by side, even on phones */
+.bodypanel .bodygrid{grid-template-columns:minmax(110px,40%) minmax(0,1fr)!important;gap:10px;align-items:start}
+.bodypanel svg.body{max-width:170px}
+.bodypanel .organ{position:sticky;top:90px;min-height:0;padding:12px}
+.bodypanel .organ-h{font-size:1.05rem}
+.bodypanel .organ .kicker{display:none}
+.bodypanel .onote p{font-size:.86rem}
+.bodypanel .legend{justify-content:flex-start}
+.chart.cond .kardex{grid-template-columns:1fr}
 </style>
 </head>
 <body>
@@ -808,6 +889,79 @@ function organPanel(d, k){
 }
 
 
+/* ===================== CONTENT VERSION (shown on every topic page) ===================== */
+const CONTENT_INFO={version:"1.2",date:"30 Oct 2026",reviewed:false,reviewer:""};
+
+/* ===================== CONDITIONS (nursing-process template) ===================== */
+ORGANS.gallbladder={n:"Gallbladder",x:95,y:178};
+ORGANS.shoulder={n:"Right shoulder",x:62,y:80};
+PICS.gallbladder=`<svg class="pic" viewBox="0 0 220 130" role="img" aria-label="A gallstone blocks the cystic duct, bile is trapped and the gallbladder swells and becomes inflamed">
+  <path d="M14 22 Q70 4 150 18 Q176 24 168 46 Q150 70 96 66 Q40 62 14 22z" fill="var(--se-bg)" stroke="var(--se)" stroke-width="2"/>
+  ${T(46,40,10,"liver: makes bile")}
+  <path d="M104 66 L104 80" stroke="var(--ind)" stroke-width="5"/>
+  <path class="an-blink" d="M86 82 Q76 96 84 112 Q100 128 120 116 Q134 102 124 86 Q114 74 104 80 Q94 78 86 82z" fill="var(--con-bg)" stroke="var(--con)" stroke-width="3"/>
+  <circle cx="104" cy="80" r="6" fill="var(--ink-soft)" stroke="var(--ink)" stroke-width="1.5"/>
+  ${T(140,92,10,"stone blocks the duct","font-weight='600'")}
+  <path d="M138 89 L114 82" stroke="var(--ink)" stroke-width="1.5"/>
+  ${T(140,112,10,"gallbladder swells,")} ${T(140,124,10,"inflamed, infected")}
+ </svg>`;
+
+const CONDITIONS=[
+{ id:"cholecystitis", module:"medsurg", pic:"gallbladder", tone:"c-se", name:"Acute cholecystitis", say:"koh-lee-sis-TY-tis", system:"Digestive system · gallbladder",
+  one:"Sudden inflammation of the gallbladder, usually because a gallstone blocks its outlet.",
+  big:"A gallstone blocks the gallbladder's exit. Bile is trapped, the gallbladder swells, its wall becomes inflamed and then infected.",
+  keys:["Right upper belly pain","Murphy's sign","Nil by mouth + IV fluids","Low-fat diet"],
+  organs:{gallbladder:[["harm","Blocked by a stone, swollen, inflamed and often infected."]],liver:[["check","Makes the bile. LFTs rise if the common bile duct is blocked too."]],shoulder:[["harm","Pain can spread (refer) to the right shoulder or shoulder blade."]],skin:[["check","Yellow skin and eyes (jaundice) means bile can't drain: report."]],blood:[["check","Raised white cell count (FBC) shows infection."]],gut:[["check","Pale stools and dark urine point to a blocked bile duct."]]},
+  path:["Gallstone lodges in the cystic duct","Bile is trapped in the gallbladder","Gallbladder swells; bile irritates the wall (inflammation)","Blood supply to the wall falls","Gut bacteria (often E. coli) infect it","If untreated: gangrene, perforation, peritonitis"],
+  risks:["Female","About 40 years or older","Pregnancy or many pregnancies","Overweight, or rapid weight loss","Diabetes"],
+  signs:["Constant pain in the right upper abdomen, often after a fatty meal, lasting over 6 hours","Pain spreading to the right shoulder or shoulder blade","Nausea and vomiting","Fever","Murphy's sign: patient stops breathing in when you press under the right ribs"],
+  red:["Yellow eyes or skin, dark urine, pale stools (blocked bile duct)","Rigid, board-like abdomen (peritonitis)","High fever with rigors, low blood pressure (sepsis)"],
+  tests:["Abdominal ultrasound: first choice, shows stones and a thick gallbladder wall","Full Blood Count (FBC): raised white cells","Liver function tests (LFTs)","Amylase or lipase: to rule out pancreatitis","CRP: inflammation marker"],
+  treat:["Nil by mouth, IV fluids","Pain relief as prescribed","IV antibiotics as prescribed, often ceftriaxone with metronidazole","Nasogastric (NG) tube if vomiting a lot","Surgery: removal of the gallbladder (cholecystectomy), usually by keyhole surgery"],
+  np:{
+   assess:["Pain: site, score, spread to shoulder, link to meals","Vital signs, especially temperature and pulse","Vomiting, fluid intake and output","Skin and eyes for jaundice; colour of urine and stools","Abdomen: tenderness, guarding, rigidity"],
+   diagnose:["Acute pain related to inflammation and swelling of the gallbladder","Risk for deficient fluid volume related to vomiting and nil by mouth","Hyperthermia related to infection","Imbalanced nutrition: less than body needs, related to nausea and diet limits","Deficient knowledge about diet and the condition"],
+   plan:["Pain score falls to 3/10 or less","Temperature returns to normal","Fluid intake and output balance","Patient can describe a low-fat diet before discharge"],
+   act:[["Give analgesia as prescribed; reassess pain 30 minutes later","Relief lets the patient breathe deeply and rest; reassessing shows if it worked"],["Nurse in semi-Fowler's position","Takes pressure off the abdomen and eases breathing"],["Keep nil by mouth; run IV fluids as prescribed","Resting the gut stops the gallbladder contracting; fluids replace losses"],["Check vital signs 4-hourly or more often","Rising temperature or pulse can mean worsening infection or perforation"],["Keep an intake and output chart; care for the NG tube","Detects dehydration early and keeps the stomach empty"],["Give IV antibiotics on time","Keeps drug levels high enough to control the infection"],["Watch for jaundice, rigid abdomen, falling blood pressure","These are complications that need the doctor urgently"],["Prepare for surgery as instructed","Fasting, consent and baseline tests make surgery safer"]],
+   evaluate:["Pain controlled; patient sleeps and moves","Afebrile, stable pulse and blood pressure","Balanced fluid chart; tolerating diet after recovery","Patient explains the low-fat diet in their own words"]},
+  teach:["Low-fat diet: avoid fried and fatty foods (fatty meat, mandazi, chips)","Eat small, frequent meals","More vegetables, fruit and whole grains","Lose weight slowly if overweight; crash diets cause stones","Come back for yellow eyes, high fever or severe pain"],
+  case:{s:"Mama Atieno, 44, a mother of five, ate nyama choma at a family party. For 7 hours she has had pain under her right ribs spreading to her right shoulder. She has vomited twice. Temperature 38.4 °C. When you press under her right ribs, she stops breathing in.",a:"Suspect acute cholecystitis (positive Murphy's sign). Report to the doctor. Keep her nil by mouth, start IV fluids and analgesia as prescribed, take full vital signs and start an intake and output chart. Expect an ultrasound, FBC and LFTs. Watch for jaundice and a rigid abdomen."},
+  trick:"Risk factors: the 4 F's. Female, Forty, Fertile, Fat. Signs: pain after a Fatty meal, Fever, and Murphy's sign."}
+];
+
+/* ===================== CROSS-MODULE "CONNECT" QUESTIONS ===================== */
+const BRIDGE=[
+ {id:"br1",module:"pharm",topic:"paracetamol",links:[{m:"anat",label:"Temperature control"}],q:"Which part of the brain sets body temperature?",o:["Hypothalamus","Cerebellum","Medulla oblongata","Pituitary gland"],a:0,e:"Paracetamol brings fever down by acting on the hypothalamus, the brain's thermostat."},
+ {id:"br2",module:"pharm",topic:"ibuprofen",links:[{m:"anat",label:"Stomach lining"}],q:"How do prostaglandins protect the stomach?",o:["They increase mucus and bicarbonate and keep blood flowing to the lining","They make more acid","They kill H. pylori","They speed up digestion"],a:0,e:"Ibuprofen blocks prostaglandins, so this protection is lost. That's why it causes ulcers."},
+ {id:"br3",module:"pharm",topic:"flucytosine",links:[{m:"micro",label:"Fungi"}],q:"Cryptococcus, the cause of cryptococcal meningitis, is a…",o:["Yeast (a fungus)","Bacterium","Virus","Protozoan"],a:0,e:"It's an encapsulated yeast, which is why antifungals like flucytosine treat it."},
+ {id:"br4",module:"pharm",topic:"amphotericin",links:[{m:"anat",label:"Kidney tubules"}],q:"Where in the kidney is potassium mainly reabsorbed or lost?",o:["Renal tubules","Bowman's capsule","Ureter","Bladder"],a:0,e:"Amphotericin damages the tubules, so potassium leaks into the urine."},
+ {id:"br5",module:"pharm",topic:"amoxicillin",links:[{m:"paed",label:"IMCI pneumonia"}],q:"In IMCI, fast breathing for a child aged 12 months up to 5 years is…",o:["40 breaths per minute or more","30 or more","50 or more","60 or more"],a:0,e:"50 or more for 2–12 months; 40 or more for 12 months–5 years. Fast breathing with cough = treat for pneumonia with amoxicillin."},
+ {id:"br6",module:"pharm",topic:"metronidazole",links:[{m:"micro",label:"Anaerobes"}],q:"Anaerobic bacteria grow best…",o:["Where there is no oxygen","In bright sunlight","Only on the skin","Only in the lungs"],a:0,e:"Deep abscesses and the gut have little oxygen. That's where metronidazole works best."},
+ {id:"br7",module:"pharm",topic:"metronidazole",links:[{m:"rh",label:"Trichomoniasis"}],q:"A woman is treated for trichomoniasis. What else is needed?",o:["Treat her sexual partner(s) too","Nothing else","Repeat treatment every year","Stop breastfeeding permanently"],a:0,e:"Untreated partners pass the infection back."},
+ {id:"br8",module:"pharm",topic:"al",links:[{m:"micro",label:"Plasmodium"}],q:"Malaria fever happens when parasites burst out of…",o:["Red blood cells","White blood cells","Nerve cells","Skin cells"],a:0,e:"Parasites multiply in red cells, then burst out together, causing fever and anaemia."},
+ {id:"br9",module:"pharm",topic:"al",links:[{m:"nutr",label:"Fat and absorption"}],q:"Lumefantrine needs fat to be absorbed. What's the easiest way to give it to a child?",o:["With a cup of milk","With plain water","With black tea","On an empty stomach"],a:0,e:"Milk has enough fat to help absorption."},
+ {id:"br10",module:"pharm",topic:"al",links:[{m:"chn",label:"Malaria prevention"}],q:"Best community measure to prevent malaria in children under 5?",o:["Sleeping under an insecticide-treated net every night","Drinking boiled water","Hand washing","Vitamin A"],a:0,e:"Nets stop night-biting Anopheles mosquitoes."},
+ {id:"br11",module:"medsurg",topic:"cholecystitis",links:[{m:"nutr",label:"Low-fat diet"}],q:"Best diet advice after cholecystitis?",o:["Low-fat food in small, frequent meals","High-fat, high-protein meals","Fast for 3 days every week","Only liquids for life"],a:0,e:"Fat makes the gallbladder contract, which causes pain."},
+ {id:"br12",module:"medsurg",topic:"cholecystitis",links:[{m:"anat",label:"Bile"}],q:"Bile is made in the ___ and stored in the ___.",o:["Liver; gallbladder","Gallbladder; liver","Pancreas; duodenum","Stomach; liver"],a:0,e:"The gallbladder stores and concentrates bile, then squeezes it out after fatty meals."},
+ {id:"br13",module:"medsurg",topic:"cholecystitis",links:[{m:"pharm",t:"metronidazole",label:"Metronidazole"}],q:"In infected cholecystitis, metronidazole is added mainly to cover…",o:["Anaerobic bacteria","Fungi","Viruses","Malaria parasites"],a:0,e:"Gut anaerobes can infect the gallbladder. See the metronidazole drug profile."},
+ {id:"br14",module:"medsurg",topic:"cholecystitis",links:[{m:"micro",label:"Gut bacteria"}],q:"Which bacterium most often infects the gallbladder?",o:["Escherichia coli (E. coli)","Plasmodium falciparum","Candida albicans","Mycobacterium tuberculosis"],a:0,e:"E. coli normally lives in the gut and can travel up the bile ducts."},
+ {id:"br15",module:"anat",topic:"",links:[{m:"nutr",label:"Calcium"}],q:"Which mineral is needed for muscles to contract?",o:["Calcium","Iron","Iodine","Fluoride"],a:0,e:"Calcium released inside muscle cells lets the fibres slide and contract. Low calcium causes cramps and spasms."},
+ {id:"br16",module:"paed",topic:"",links:[{m:"nutr",label:"Colostrum"}],q:"Colostrum, the first breast milk, is especially rich in…",o:["Antibodies that protect the newborn","Fat only","Sugar only","Iron only"],a:0,e:"That's why newborns should breastfeed within the first hour."},
+ {id:"br17",module:"paed",topic:"",links:[{m:"anat",label:"Liver and bilirubin"}],q:"Newborn jaundice happens mainly because the baby's liver…",o:["Is still immature at clearing bilirubin","Makes no bile at all","Has gallstones","Is always infected"],a:0,e:"Most newborn jaundice is physiological and settles in 1–2 weeks. Jaundice in the first 24 hours is a danger sign."}
+].map(b=>({...b,type:"mcq",src:"ScrubUp connect"}));
+
+const COND_Q=[
+ {d:"cholecystitis",q:"Most acute cholecystitis is caused by…",o:["A gallstone blocking the cystic duct","A virus","Alcohol","H. pylori"],a:0,e:"About 9 in 10 cases follow a stone blocking the gallbladder's outlet."},
+ {d:"cholecystitis",q:"Murphy's sign is positive when the patient…",o:["Stops breathing in when you press under the right ribs","Has pain in the left lower abdomen","Has pain when you release pressure at McBurney's point","Has yellow eyes"],a:0,e:"The inflamed gallbladder moves down onto your fingers as they breathe in."},
+ {d:"cholecystitis",q:"First-choice imaging for suspected cholecystitis?",o:["Abdominal ultrasound","Chest X-ray","ECG","CT of the head"],a:0,e:"Ultrasound shows stones and a thickened gallbladder wall, with no radiation."},
+ {d:"cholecystitis",q:"Pale stools and dark urine in a patient with cholecystitis suggest…",o:["A stone blocking the common bile duct","Dehydration only","A urinary tract infection","Normal recovery"],a:0,e:"Bile can't reach the gut (pale stools) and spills into the blood and urine (dark urine). Report it."},
+ {d:"cholecystitis",q:"Why is the patient kept nil by mouth?",o:["Food makes the gallbladder contract and worsens pain","To lose weight","Because antibiotics need an empty stomach","To prevent jaundice"],a:0,e:"Resting the gut rests the gallbladder."}
+];
+const COND_SAQ=[
+ {d:"cholecystitis",q:"State four nursing diagnoses for a patient with acute cholecystitis.",m:4,a:["Acute pain related to inflammation and swelling of the gallbladder","Risk for deficient fluid volume related to vomiting and nil by mouth","Hyperthermia related to infection","Imbalanced nutrition: less than body needs / deficient knowledge about diet"]},
+ {d:"cholecystitis",q:"Outline the dietary advice you would give a patient after cholecystitis.",m:4,a:["Low-fat diet; avoid fried and fatty foods","Small, frequent meals","More vegetables, fruit and fibre","Gradual weight loss if overweight"]}
+];
+
 /* ===================== MODULES + QUESTION BANK ===================== */
 const BUILTIN_MODULES = [
  {id:"pharm", name:"Pharmacology", code:"Rx", color:"var(--accent)"},
@@ -840,14 +994,19 @@ function builtinQuestions(){
   const mc = QUIZ.map((q,i)=>({id:"bq"+i,module:"pharm",topic:q.d,type:"mcq",q:q.q,o:q.o,a:q.a,e:q.e,src:"ScrubUp"}));
   const sa = SAQ.map((q,i)=>({id:"bs"+i,module:"pharm",topic:q.d,type:"short",q:q.q,m:q.m,model:q.a.join("\n"),src:"ScrubUp"}));
   const cs = DRUGS.map(d=>({id:"bc_"+d.id,module:"pharm",topic:d.id,type:"case",q:d.case.s+"\n\nWhat do you suspect, and what would you do?",m:4,model:d.case.a,src:"ScrubUp ward case"}));
-  return [...mc,...sa,...cs];
+  const cq=COND_Q.map((q,i)=>({id:"cq"+i,module:"medsurg",topic:q.d,type:"mcq",q:q.q,o:q.o,a:q.a,e:q.e,src:"ScrubUp"}));
+  const csq=COND_SAQ.map((q,i)=>({id:"cs"+i,module:"medsurg",topic:q.d,type:"short",q:q.q,m:q.m,model:q.a.join("\n"),src:"ScrubUp"}));
+  const cc=CONDITIONS.map(c=>({id:"bc_"+c.id,module:c.module,topic:c.id,type:"case",q:c.case.s+"\n\nWhat do you suspect, and what would you do?",m:4,model:c.case.a,src:"ScrubUp ward case"}));
+  return [...mc,...sa,...cs,...cq,...csq,...cc,...BRIDGE];
 }
 let PACK = {modules:[],resources:[],questions:[]};      // your own content pack (content.json), loaded if present
 let USER = {res:[],qs:[],mods:[]};
 const allModules = ()=>[...BUILTIN_MODULES,...PACK.modules,...USER.mods.map(m=>({...m,mine:true}))];
 const modById = id=>allModules().find(m=>m.id===id) || {id, name:"Unknown module", code:"?", color:"var(--ink-soft)"};
 const allQs = ()=>[...builtinQuestions(),...PACK.questions,...USER.qs];
-const qsFor = m=>allQs().filter(q=>q.module===m);
+const testable=q=>!(q.ai&&!q.checked);
+const qsFor = m=>allQs().filter(q=>testable(q)&&(q.module===m||(q.links||[]).some(l=>l.m===m)));
+const isMine=q=>!/^ScrubUp/.test(q.src||"");
 const resFor = (m,topic)=>[...PACK.resources.map(r=>({...r,pack:true})),...USER.res].filter(r=>(!m||r.module===m)&&(!topic||r.topic===topic));
 
 /* ===================== STATE + DEVICE STORAGE (works offline) ===================== */
@@ -871,6 +1030,41 @@ let STORE_OK=true;
 async function loadUser(){try{USER={res:await DB.all("res"),qs:await DB.all("qs"),mods:await DB.all("mods")};STORE_OK=true}catch(e){STORE_OK=false}}
 async function loadPack(){try{const r=await fetch("content.json",{cache:"no-cache"});if(r.ok){const j=await r.json();PACK={modules:j.modules||[],resources:j.resources||[],questions:j.questions||[]}}}catch(e){}}
 const newId=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+
+/* ===================== TOPICS (drugs + conditions) ===================== */
+const TOPICS=()=>[...DRUGS.map(d=>({...d,kind:"drug",module:"pharm"})),...CONDITIONS.map(c=>({...c,kind:"cond"}))];
+const topicById=id=>TOPICS().find(t=>t.id===id);
+const topicName=id=>(topicById(id)||{}).name||"";
+const topicAttr=t=>t.kind==="drug"?`data-profile="${t.id}"`:`data-cond="${t.id}"`;
+
+/* ===================== MASTERY: spaced repetition + history ===================== */
+const BOXDAYS=[1,2,4,7,15,30];
+let MS=store.get("rn_mastery",{});
+function recordAns(q,ok){
+  if(!q||!q.id)return;
+  const r=MS[q.id]||{box:0,seen:0,right:0,wrong:0};
+  r.seen++; if(ok){r.right++;r.box=Math.min(r.box+1,5)}else{r.wrong++;r.box=0}
+  r.due=todayStr(BOXDAYS[r.box]); r.last=ok?1:0; r.at=Date.now();
+  MS[q.id]=r; store.set("rn_mastery",MS);
+}
+const dueQs=m=>qsFor(m).filter(q=>MS[q.id]&&MS[q.id].due<=todayStr());
+const mistakeQs=m=>qsFor(m).filter(q=>MS[q.id]&&MS[q.id].last===0);
+function mastery(list){ if(!list.length)return {pct:0,seen:0,n:0}; let sum=0,seen=0; list.forEach(q=>{const r=MS[q.id];if(r){seen++;sum+=r.box}}); return {pct:Math.round(sum/(list.length*5)*100),seen,n:list.length}; }
+const topicMastery=id=>mastery(allQs().filter(q=>testable(q)&&q.topic===id));
+const mLabel=p=>p.seen===0?"Not started":p.seen/p.n<0.3?"Just started":p.pct<40?"Weak":p.pct<75?"Getting there":"Strong";
+const mClass=p=>p.seen===0||p.seen/p.n<0.3?"m0":p.pct<40?"m1":p.pct<75?"m2":"m3";
+const mBar=p=>`<span class="mast ${mClass(p)}" title="Mastery ${p.pct}%"><i style="width:${Math.max(p.seen?6:0,p.pct)}%"></i></span>`;
+function weakTopics(m){
+  const ids=TOPICS().filter(t=>t.module===m).map(t=>t.id);
+  return ids.map(id=>{const qs=allQs().filter(q=>testable(q)&&q.topic===id&&MS[q.id]);const wrong=qs.filter(q=>MS[q.id].last===0).length;return {id,p:{pct:qs.length?Math.round((qs.length-wrong)/qs.length*100):0},seen:qs.length,wrong}})
+   .filter(x=>x.seen&&x.wrong/x.seen>=0.5).sort((a,b)=>a.p.pct-b.p.pct);
+}
+let ATT=store.get("rn_attempts",[]);
+function saveAttempt(T,got,total){ if(T.saved)return; T.saved=true; ATT.unshift({at:Date.now(),module:T.module,topic:T.topic||"",mode:T.mode,got,total,pct:total?Math.round(got/total*100):0}); ATT=ATT.slice(0,60); store.set("rn_attempts",ATT); }
+const trayFor=m=>USER.qs.filter(q=>q.ai&&!q.checked&&(!m||q.module===m));
+
+/* ===================== UPDATE NOTICE ===================== */
+window.showUpdate=()=>{ if(document.getElementById("updbar"))return; const b=document.createElement("div"); b.id="updbar"; b.className="updbar"; b.innerHTML=`<span><b>New ScrubUp notes are ready</b><br><small>Tap refresh to load the latest version</small></span><button class="btn small-btn" data-reload>Refresh</button>`; document.body.appendChild(b); };
 
 let view={tab:"home",module:null,profile:null,organ:null,deck:null,slide:0,game:null,test:null};
 let form=null, confirmDel=null;
@@ -954,6 +1148,7 @@ const steth=`<svg class="steth" viewBox="0 0 24 24" fill="none" stroke="currentC
 const stepper=n=>`<ol class="stepper" aria-label="Study steps">${["Module","Goal","Study"].map((t,i)=>`<li class="${i+1<n?'done':i+1===n?'now':''}"><span>${i+1}</span>${t}</li>`).join("")}</ol>`;
 function modProgress(m){
   if(m.id==="pharm"){const d=DRUGS.filter(x=>P.done[x.id]).length;return {pct:d/DRUGS.length*100,txt:`${d}/${DRUGS.length} drugs done`}}
+  const cs=CONDITIONS.filter(c=>c.module===m.id); if(cs.length){const d=cs.filter(c=>P.done[c.id]).length;return {pct:d/cs.length*100,txt:`${d}/${cs.length} conditions done`}}
   const r=resFor(m.id).length,q=qsFor(m.id).length;return {pct:0,txt:r||q?`${r} notes · ${q} Qs`:"Add your notes"};
 }
 function home(){
@@ -963,7 +1158,7 @@ function home(){
   ${last?`<button class="resume" data-profile="${last.id}"><span class="qi">${PICS[last.pic].replace('class="pic"','')}</span><span><em>Continue</em><b>Pharmacology · ${last.name}</b></span><span aria-hidden="true">→</span></button>`:""}
   ${stepper(1)}
   <h1 class="ask">Pick a module</h1>
-  <div class="modgrid2">${allModules().map(m=>{const p=modProgress(m);return `<button class="mod2" data-module="${m.id}" style="--mc:${m.color}"><span class="mcode big">${esc(m.code)}</span><b>${esc(m.name)}</b><span class="mtxt">${p.txt}</span>${m.id==="pharm"?`<span class="mbar"><i style="width:${p.pct}%"></i></span><em class="ready">Notes ready</em>`:""}</button>`}).join("")}
+  <div class="modgrid2">${allModules().map(m=>{const p=modProgress(m);return `<button class="mod2" data-module="${m.id}" style="--mc:${m.color}"><span class="mcode big">${esc(m.code)}</span><b>${esc(m.name)}</b><span class="mtxt">${p.txt}</span>${m.id==="pharm"||CONDITIONS.some(c=>c.module===m.id)?`<span class="mbar"><i style="width:${p.pct}%"></i></span><em class="ready">Notes ready</em>`:""}${dueQs(m.id).length?`<em class="duebadge">${ic("timer")} ${dueQs(m.id).length} to review</em>`:""}</button>`}).join("")}
    <button class="mod2 add" data-addmod><span class="mcode big">+</span><b>Add module</b></button></div>
   ${form&&form.type==="mod"?modForm():""}
   ${installCard()}`;
@@ -988,7 +1183,25 @@ function moduleView(){
   <div class="goals">${GOALS.map(g=>`<button class="goal-c" data-goal="${g.id}" style="--gc:${g.c}"><span class="gi">${ic(g.ic)}</span><b>${g.t}</b><em>${g.s}</em>${hint[g.id]?`<small>${hint[g.id]}</small>`:""}</button>`).join("")}</div>`;
 }
 /* ===================== STEP 3: choose how (tools for the goal) ===================== */
-const drugTiles=(attr)=>[...new Set(DRUGS.map(d=>d.group))].map(g=>`<p class="group-h sub2">${g}</p><div class="tiles">${DRUGS.filter(d=>d.group===g).map(d=>`<button class="tile ${d.tone}" ${attr(d)}>${P.done[d.id]?'<span class="done" aria-label="studied">✓</span>':''}${PICS[d.pic].replace('class="pic"','class="mini"')}<b>${d.name}</b><span>${esc(d.cls)}</span></button>`).join("")}</div>`).join("");
+const drugTiles=(attr)=>[...new Set(DRUGS.map(d=>d.group))].map(g=>`<p class="group-h sub2">${g}</p><div class="tiles">${DRUGS.filter(d=>d.group===g).map(d=>`<button class="tile ${d.tone}" ${attr(d)}>${P.done[d.id]?'<span class="done" aria-label="studied">✓</span>':''}${PICS[d.pic].replace('class="pic"','class="mini"')}<b>${d.name}</b><span>${esc(d.cls)}</span>${mBar(topicMastery(d.id))}</button>`).join("")}</div>`).join("");
+const condTiles=mid=>{const cs=CONDITIONS.filter(c=>c.module===mid);return cs.length?`<p class="group-h">Conditions</p><div class="tiles">${cs.map(c=>`<button class="tile ${c.tone}" data-sheet="cond" data-id="${c.id}">${P.done[c.id]?'<span class="done" aria-label="studied">✓</span>':''}${PICS[c.pic].replace('class="pic"','class="mini"')}<b>${c.name}</b><span>${esc(c.system)}</span>${mBar(topicMastery(c.id))}</button>`).join("")}</div>`:""};
+function connectList(mid){
+  const inbound=BRIDGE.filter(b=>b.module!==mid&&b.links.some(l=>l.m===mid));
+  const outbound=BRIDGE.filter(b=>b.module===mid);
+  if(!inbound.length&&!outbound.length)return "";
+  const chip=(b,label,code,color)=>`<button class="cchip" data-sheet="bridge" data-id="${b.id}" style="--mc:${color}"><span class="mcode">${esc(code)}</span><span><b>${esc(label)}</b><em>${MS[b.id]?(MS[b.id].last?"✓ recalled":"✗ retry"):"Tap to recall"}</em></span></button>`;
+  return `<section class="connect"><p class="eyebrow">${ic("link")} Connect your modules</p>
+   ${inbound.length?`<p class="small" style="margin:6px 0 4px"><b>Recall from other modules</b></p><div class="cgrid">${inbound.map(b=>{const m=modById(b.module);return chip(b,(topicName(b.topic)||m.name)+" → "+b.links.find(l=>l.m===mid).label,m.code,m.color)}).join("")}</div>`:""}
+   ${outbound.length?`<p class="small" style="margin:10px 0 4px"><b>Links to other modules</b></p><div class="cgrid">${outbound.map(b=>{const l=b.links[0],m=modById(l.m);return chip(b,l.label,m.code,m.color)}).join("")}</div>`:""}</section>`;
+}
+function trayView(m){
+  const list=trayFor(m.id);
+  return `<h1 class="ask">Check the AI's questions</h1><p class="muted small sub">Compare each one with your notes. Only approved questions go into tests.</p>
+  ${list.length?`<div class="stack">${list.map(q=>`<div class="mark"><span class="aibadge">AI draft · ${esc(q.src.replace("AI draft from: ",""))}</span><p><b>${esc(q.q)}</b></p>
+   ${q.type==="mcq"?`<ol class="tray-opts" type="A">${q.o.map((o,i)=>`<li class="${i===q.a?'right':''}">${esc(o)}${i===q.a?" ✓":""}</li>`).join("")}</ol>${q.e?`<p class="small muted">${esc(q.e)}</p>`:""}`:`<p class="eyebrow">Marking scheme</p>${L(String(q.model).split("\n").filter(Boolean))}`}
+   <div class="row-btns"><button class="btn small-btn approve" data-approve="${q.id}">${ic("exam")} Correct, keep</button>${confirmDel===q.id?`<button class="btn small-btn danger-btn" data-delyes="${q.id}" data-store="qs">Yes, delete</button><button class="btn small-btn" data-delno>Keep</button>`:`<button class="btn small-btn danger-btn" data-del="${q.id}">${ic("trash")} Wrong, delete</button>`}</div></div>`).join("")}</div>`:`<p class="muted">All checked. Nice work.</p>`}
+  <button class="btn wide" data-traydone>Done</button>`;
+}
 const noteItems=(res)=>`<div class="notelist">${res.map(r=>`<button class="noteitem" data-sheet="res" data-id="${r.id}"><span class="rkind">${r.ai?"AI":{file:"FILE",link:"LINK",note:"NOTE"}[r.kind]}</span><span><b>${esc(r.title)}</b><em>${r.kind==="file"?(r.type||"").includes("pdf")?"PDF":"Photo":r.kind==="link"?"Link":"Note"}${r.pack?" · from ScrubUp":""}${r.ai?" · AI draft":""}</em></span><span aria-hidden="true">→</span></button>`).join("")}</div>`;
 const helper=(m,text)=>`<section class="helper"><b>${text}</b><div class="iconrow"><button class="ib" data-addres="${m.id}" data-k="file">${ic("camera")}<span>Photo</span></button><button class="ib" data-addres="${m.id}" data-k="file">${ic("file")}<span>PDF</span></button><button class="ib" data-addres="${m.id}" data-k="link">${ic("link")}<span>Link</span></button><button class="ib" data-addres="${m.id}" data-k="note">${ic("pen")}<span>Note</span></button></div><p class="small muted" style="margin:0">${ic("spark")} AI can turn it into revision points and questions.</p></section>`;
 function goalView(m){
@@ -997,18 +1210,27 @@ function goalView(m){
   if(g.id==="learn"){
     body=`<h1 class="ask">Pick a topic</h1>
     ${isPh?`<p class="group-h">Drugs</p>${drugTiles(d=>`data-sheet="drug" data-id="${d.id}"`)}`:""}
-    ${res.length?`<p class="group-h">Your notes</p>${noteItems(res)}`:isPh?"":`<div class="empty">${cross("var(--organ)")}<div><b>ScrubUp notes coming soon.</b><p class="muted small">Add your class notes below to start.</p></div></div>`}
-    ${helper(m,isPh?"Still confused? Add your lecturer's notes":"Add your notes")}`;
+    ${condTiles(m.id)}
+    ${res.length?`<p class="group-h">Your notes</p>${noteItems(res)}`:isPh||CONDITIONS.some(c=>c.module===m.id)?"":`<div class="empty">${cross("var(--organ)")}<div><b>ScrubUp notes coming soon.</b><p class="muted small">Add your class notes below to start.</p></div></div>`}
+    ${connectList(m.id)}
+    ${helper(m,isPh||CONDITIONS.some(c=>c.module===m.id)?"Still confused? Add your lecturer's notes":"Add your notes")}`;
   }
   if(g.id==="exam"){
     const aiable=res.filter(r=>!r.ai&&!r.pack&&(r.kind==="note"||r.kind==="file"));
-    body=`<h1 class="ask">Pick how</h1><div class="howlist">
+    const due=dueQs(m.id).length, mis=mistakeQs(m.id).length, mp=mastery(qs), weak=weakTopics(m.id), tray=trayFor(m.id).length, att=ATT.filter(a=>a.module===m.id).slice(0,6).reverse();
+    body=`<section class="mastercard"><div class="mc-top"><div class="ring" style="--p:${mp.pct}"><span>${mp.pct}%</span></div><div><b>Mastery: ${mLabel(mp)}</b><p class="small muted" style="margin:0">${mp.seen} of ${mp.n} questions tried</p></div></div>
+      ${att.length?`<div class="hist" aria-label="Last test scores">${att.map(a=>`<span title="${a.pct}%"><i style="height:${Math.max(6,a.pct)}%" class="${a.pct>=70?'hi':a.pct>=50?'mid':'lo'}"></i><em>${a.pct}</em></span>`).join("")}</div><p class="small muted" style="margin:0">Last ${att.length} tests</p>`:""}
+      ${weak.length?`<p class="group-h" style="margin:6px 0 0">Weak spots</p><div class="chips" style="margin:4px 0 0">${weak.slice(0,6).map(w=>`<button class="chip weak" ${topicAttr(topicById(w.id)||{kind:"drug",id:w.id})}>${esc(topicName(w.id))} · ${w.p.pct}% right</button>`).join("")}</div>`:""}</section>
+    ${tray?`<button class="traybtn" data-tray>${ic("spark")}<span><b>${tray} AI questions to check</b><em>Check them before they go into your tests</em></span><span aria-hidden="true">→</span></button>`:""}
+    <h1 class="ask">Pick how</h1><div class="howlist">
+     ${due?opt(`data-review="due"`,ic("timer"),"Review due today","Spaced repetition: the best way to remember",due+" due"):""}
+     ${mis?opt(`data-review="mistakes"`,ic("q"),"Retest my mistakes","Questions you got wrong last time",mis+" Qs"):""}
      ${opt(`data-test="${m.id}" ${qs.length?"":"disabled"}`,ic("exam"),"Full past paper",qs.length?`MCQs, short answers, a case · timed`:"Add questions first",qs.length?qs.length+" Qs":"")}
      ${isPh?opt('data-game="tf"',ic("timer"),"True or false","60 seconds","Fun")+opt('data-game="match"',ic("match"),"Match it","Drugs and their hooks","Fun"):""}
      ${aiable.length?opt(`data-sheet="res" data-id="${aiable[0].id}"`,ic("spark"),"Questions from my notes",esc(aiable[0].title),"AI"):""}
      ${opt(`data-addq="${m.id}"`,ic("q"),"Add a past-paper question","From a past paper or CAT")}
     </div>
-    ${isPh?`<p class="group-h">One drug only</p><div class="chips">${DRUGS.map(d=>`<button class="chip" data-test="pharm" data-topic="${d.id}">${d.name}</button>`).join("")}</div>`:""}
+    ${TOPICS().some(t=>t.module===m.id)?`<p class="group-h">One topic only</p><div class="chips">${TOPICS().filter(t=>t.module===m.id).map(t=>`<button class="chip" data-test="${m.id}" data-topic="${t.id}">${t.name}</button>`).join("")}</div>`:""}
     ${qs.length?"":helper(m,"No questions yet. Add notes first")}`;
   }
   if(g.id==="cases"){
@@ -1026,9 +1248,11 @@ function goalView(m){
       <button class="addc" data-addres="${m.id}" data-k="note"><span class="gi">${ic("pen")}</span><b>Note</b><em>Type it in</em></button>
       <button class="addc wide2" data-addq="${m.id}"><span class="gi">${ic("q")}</span><b>Past-paper question</b><em>MCQ, short answer or case</em></button>
     </div>
+    ${trayFor(m.id).length?`<button class="traybtn" data-tray>${ic("spark")}<span><b>${trayFor(m.id).length} AI questions to check</b><em>Approve the right ones</em></span><span aria-hidden="true">→</span></button>`:""}
     ${res.length?`<p class="group-h">Saved</p>${noteItems(res)}`:""}
-    ${qs.filter(q=>q.src!=="ScrubUp"&&q.src!=="ScrubUp ward case").length?`<p class="group-h">My questions</p>${qList(qs.filter(q=>q.src!=="ScrubUp"&&q.src!=="ScrubUp ward case"),m.id)}`:""}`;
+    ${qs.filter(isMine).length?`<p class="group-h">My questions</p>${qList(qs.filter(isMine),m.id)}`:""}`;
   }
+  if(view.tray) body=trayView(m);
   return `${modHead(m,"Change goal")}${stepper(3)}<p class="goal-tag" style="--gc:${g.c}"><span class="gi">${ic(g.ic)}</span>${g.t}</p>
    ${form&&(form.type==="res"||form.type==="q")?formFor(m.id):""}${body}${view.sheet?sheet(m):""}`;
 }
@@ -1051,6 +1275,19 @@ function sheet(m){
      +opt(`data-test="pharm" data-topic="${d.id}"`,ic("exam"),"Test me",`${n} questions`)
      +opt(`data-casepop="${d.id}"`,ic("steth"),"Ward case","What would you do?");
   }
+  if(S.kind==="cond"){
+    const c=CONDITIONS.find(x=>x.id===S.id), n=qs.filter(q=>q.topic===c.id).length;
+    title=c.name; sub=esc(c.system);
+    opts=opt(`data-cond="${c.id}"`,ic("book"),"Full summary","Why it happens, signs, nursing process","8 min")
+     +opt(`data-test="${m.id}" data-topic="${c.id}"`,ic("exam"),"Test me",`${n} questions`)
+     +opt(`data-casepop="${c.id}"`,ic("steth"),"Ward case","What would you do?");
+  }
+  if(S.kind==="bridge"){
+    const b=BRIDGE.find(x=>x.id===S.id), from=modById(b.module), ans=view.bans;
+    title="Connect: "+esc(b.links.map(l=>l.label).join(", ")); sub=`${esc(from.name)}${b.topic?" · "+esc(topicName(b.topic)):""} ↔ ${b.links.map(l=>esc(modById(l.m).name)).join(", ")}`;
+    opts=`<p class="qtext">${esc(b.q)}</p><div class="opts">${b.o.map((o,i)=>`<button class="opt ${ans!=null?(i===b.a?'right':i===ans?'wrong':''):''}" data-bans="${i}" ${ans!=null?"disabled":""}>${esc(o)}</button>`).join("")}</div>
+     ${ans!=null?`<div class="explain"><b>${ans===b.a?"Correct.":"Not quite."}</b> ${linkTerms(esc(b.e))}</div>${b.topic?`<button class="how" ${topicAttr(topicById(b.topic))}><span class="howi">${ic("book")}</span><span><b>Open ${esc(topicName(b.topic))}</b><em>See it in context</em></span></button>`:""}${b.links.filter(l=>l.t).map(l=>`<button class="how" ${topicAttr(topicById(l.t))}><span class="howi">${ic("rx")}</span><span><b>Open ${esc(topicName(l.t))}</b><em>${esc(modById(l.m).name)}</em></span></button>`).join("")}`:""}`;
+  }
   if(S.kind==="res"){
     const r=resFor(m.id).find(x=>x.id===S.id); if(!r){view.sheet=null;return ""}
     const canAI=!r.pack&&!r.ai&&(r.kind==="note"||(r.kind==="file"&&/^image\/|pdf$/.test(r.type||"")));
@@ -1069,70 +1306,64 @@ function sheet(m){
    <div class="grab"></div>${stepper(3)}<h2>${title}</h2><p class="muted small">${sub}</p><div class="howlist">${opts}</div>
    <button class="btn wide" data-closesheet>Back</button></section>`;
 }
-function casePop(d){return `${back(d.name)}<section class="panel case"><p class="eyebrow">${cross("var(--con)")} Ward case · ${d.name}</p><p class="lead">${esc(d.case.s)}</p><details><summary>What would you do? Tap to check</summary><p>${linkTerms(esc(d.case.a))}</p></details></section><button class="btn primary wide" data-profile="${d.id}">Read the ${d.name} profile</button>`}
+function casePop(d){ if(!d) return "";return `${back(d.name)}<section class="panel case"><p class="eyebrow">${cross("var(--con)")} Ward case · ${d.name}</p><p class="lead">${esc(d.case.s)}</p><details><summary>What would you do? Tap to check</summary><p>${linkTerms(esc(d.case.a))}</p></details></section><button class="btn primary wide" data-profile="${d.id}">Read the ${d.name} profile</button>`}
 
 /* ===================== DRUG PROFILE (summary page) ===================== */
+/* ---- shared: one short section at a time, with tabs ---- */
+function tabbedPage(head,secs,testBtn){
+  const cur=secs.find(x=>x.k===view.psec)||secs[0], i=secs.indexOf(cur);
+  return `${back("Back")}${head}
+  <nav class="ptabs" aria-label="Sections">${secs.map(x=>`<button class="ptab" aria-current="${x===cur}" data-psec="${x.k}">${ic(x.icon)}<span>${x.label}</span></button>`).join("")}</nav>
+  <div class="psec" id="psec">${cur.html}</div>
+  <div class="pnav">${i>0?`<button class="btn" data-psec="${secs[i-1].k}">← ${secs[i-1].label}</button>`:"<span></span>"}${i<secs.length-1?`<button class="btn primary" data-psec="${secs[i+1].k}">${secs[i+1].label} →</button>`:testBtn}</div>`;
+}
+const bodyPanel=(t,sel,title)=>`<section class="panel bodypanel"><div class="panel-h"><h2>${title}</h2><p class="muted small">Tap a dot</p></div>
+  <div class="bodygrid"><div class="bodywrap">${bodyMap(t,sel)}</div><div class="organ" id="organ" aria-live="polite">${organPanel(t,sel)}</div></div>
+  <div class="legend">${Object.entries(TYPE).map(([k,[l,c]])=>`<span><i style="background:${c}"></i>${l}</span>`).join("")}</div></section>`;
+const miniHead=(t,eyebrow,mark)=>`<section class="phead"><span class="rx sm">${mark}</span><div style="min-width:0"><p class="eyebrow">${eyebrow}</p><h1>${t.name}</h1><p class="muted small">Say it: ${t.say}</p>${masteryPanel(t.id)}</div></section>`;
+
 function profile(){
   const d=DRUGS.find(x=>x.id===view.profile); P.lastDrug=d.id; save();
   const sel=view.organ&&d.organs[view.organ]?view.organ:Object.keys(d.organs)[0];
   const res=resFor("pharm",d.id), qn=qsFor("pharm").filter(q=>q.topic===d.id).length;
-  return `${back("Back")}
-  <section class="chart">
-    <div class="chart-top"><span class="rx">℞</span><div style="min-width:0"><p class="eyebrow">Drug profile · ${esc(d.group)}</p><h1>${d.name}</h1><p class="muted small">Say it: ${d.say}</p></div></div>
-    <dl class="kardex">
-      <div><dt>Class</dt><dd>${linkTerms(esc(d.cls))}</dd></div>
-      <div><dt>Route</dt><dd>${d.route.join(" · ")}</dd></div>
-      <div><dt>Brands</dt><dd>${esc(d.brands.join(", "))}</dd></div>
-      <div class="full"><dt>In one line</dt><dd>${linkTerms(esc(d.one))}</dd></div>
-    </dl>
-    <div class="keys">${d.keys.map(k=>`<span class="key">${cross("var(--accent)")}${esc(k)}</span>`).join("")}</div>
-  </section>
+  const secs=[
+   {k:"over",label:"Overview",icon:"rx",html:`<section class="chart">
+      <p class="lead" style="margin:0">${linkTerms(esc(d.one))}</p>
+      <dl class="kardex"><div><dt>Class</dt><dd>${linkTerms(esc(d.cls))}</dd></div><div><dt>Route</dt><dd>${d.route.join(" · ")}</dd></div><div><dt>Brands</dt><dd>${esc(d.brands.join(", "))}</dd></div></dl>
+      <div class="keys">${d.keys.map(k=>`<span class="key">${cross("var(--accent)")}${esc(k)}</span>`).join("")}</div>${versionLine()}</section>
+     <section class="panel c-moa tint"><div class="panel-h"><h2>How it works</h2><span class="muted small">Mode of action</span></div>${PICS[d.pic]}<p class="lead">${linkTerms(esc(d.big))}</p><details><summary>Step by step</summary><ol>${d.moa.map(x=>`<li>${linkTerms(esc(x))}</li>`).join("")}</ol></details></section>`},
+   {k:"body",label:"Body",icon:"steth",html:bodyPanel(d,sel,"Where it acts")},
+   {k:"use",label:"Use",icon:"book",html:`<section class="panel c-ind tint"><h2>Why we give it</h2>${more(d.ind,3)}</section><section class="panel c-con tint"><h2>When NOT to give it</h2>${more(d.con,3,"Also take care")}</section>`},
+   {k:"risk",label:"Risks",icon:"cross",html:`<section class="panel c-se tint"><h2>Side effects</h2>${L(d.se.common)}<div class="danger"><b>Red flags: report</b>${L(d.se.danger)}</div></section><section class="panel c-int tint"><h2>Mixing problems</h2>${more(d.inter,3)}</section>`},
+   {k:"nurse",label:"Nurse",icon:"exam",html:`<section class="panel"><div class="panel-h"><h2>The nurse's journey</h2><span class="muted small">Nursing responsibilities</span></div><ol class="journey">${[["Before","Assess",d.nurse.assess,"var(--int)"],["During","Give",d.nurse.give,"var(--nur)"],["After","Teach & monitor",d.nurse.teach,"var(--ind)"]].map(([w,t,a,c])=>`<li style="--jc:${c}"><span class="jdot"></span><p class="eyebrow" style="color:${c}">${w}</p><h3>${t}</h3>${more(a,2,"More")}</li>`).join("")}</ol></section>`},
+   {k:"case",label:"Case",icon:"q",html:`<section class="panel case"><p class="eyebrow">${cross("var(--con)")} Ward case</p><p class="lead">${esc(d.case.s)}</p><details><summary>What would you do?</summary><p>${linkTerms(esc(d.case.a))}</p></details></section><section class="panel c-trick tint"><p class="eyebrow" style="color:var(--trick)">Memory trick</p><p class="trickline">${esc(d.trick)}</p><p class="small"><b>In Kenya:</b> ${linkTerms(esc(d.kenya))}</p></section>`},
+   {k:"more",label:"Connect",icon:"link",html:`${connectTopic(d.id)}<div class="actions"><button class="btn primary" data-open="${d.id}">${ic("cards")} Bite-size cards</button><button class="btn" data-test="pharm" data-topic="${d.id}">${ic("exam")} Test me (${qn})</button></div><section class="panel"><div class="panel-h"><h2>My notes on ${d.name}</h2><button class="btn small-btn" data-addres="pharm" data-topic="${d.id}">+ Add</button></div>${form&&form.type==="res"?resFormHTML("pharm",d.id):""}${resList(res)}</section>`}
+  ];
+  return tabbedPage(miniHead(d,"Drug · "+esc(d.group),"℞"),secs,`<button class="btn primary" data-test="pharm" data-topic="${d.id}">${ic("exam")} Test me</button>`);
+}
 
-  <section class="panel">
-    <div class="panel-h"><h2>Where it acts in the body</h2><p class="muted small">Tap a dot.</p></div>
-    <div class="bodygrid">
-      <div class="bodywrap">${bodyMap(d,sel)}<div class="legend">${Object.entries(TYPE).map(([k,[l,c]])=>`<span><i style="background:${c}"></i>${l}</span>`).join("")}</div></div>
-      <div class="organ" id="organ">${organPanel(d,sel)}</div>
-    </div>
-  </section>
-
-  <section class="panel c-moa tint">
-    <div class="panel-h"><h2>How it works</h2><span class="muted small">Mode of action</span></div>
-    ${PICS[d.pic]}
-    <p class="lead">${linkTerms(esc(d.big))}</p>
-    <details><summary>Step by step</summary><ol>${d.moa.map(s=>`<li>${linkTerms(esc(s))}</li>`).join("")}</ol></details>
-  </section>
-
-  <div class="two">
-    <section class="panel c-ind tint"><h2>Why we give it</h2>${more(d.ind,3)}</section>
-    <section class="panel c-con tint"><h2>When NOT to give it</h2>${more(d.con,3,"Also take care")}</section>
-  </div>
-
-  <section class="panel">
-    <div class="panel-h"><h2>The nurse's journey</h2><span class="muted small">Nursing responsibilities</span></div>
-    <ol class="journey">
-      ${[["Before","Assess",d.nurse.assess,"var(--int)"],["During","Give",d.nurse.give,"var(--nur)"],["After","Teach & monitor",d.nurse.teach,"var(--ind)"]].map(([w,t,a,c])=>`<li style="--jc:${c}"><span class="jdot"></span><p class="eyebrow" style="color:${c}">${w}</p><h3>${t}</h3>${more(a,2,"More")}</li>`).join("")}
-    </ol>
-  </section>
-
-  <div class="two">
-    <section class="panel c-se tint"><h2>Side effects</h2>${L(d.se.common)}<div class="danger"><b>Red flags: report</b>${L(d.se.danger)}</div></section>
-    <section class="panel c-int tint"><h2>Mixing problems</h2>${more(d.inter,3)}</section>
-  </div>
-
-  <section class="panel case">
-    <p class="eyebrow">${cross("var(--con)")} Ward case</p>
-    <p class="lead">${esc(d.case.s)}</p>
-    <details><summary>What would you do?</summary><p>${linkTerms(esc(d.case.a))}</p></details>
-  </section>
-
-  <section class="panel c-trick tint"><p class="eyebrow" style="color:var(--trick)">Memory trick</p><p class="trickline">${esc(d.trick)}</p><p class="small"><b>In Kenya:</b> ${linkTerms(esc(d.kenya))}</p></section>
-
-  <div class="actions">
-    <button class="btn primary" data-open="${d.id}">Study in bite-size cards</button>
-    <button class="btn" data-test="pharm" data-topic="${d.id}">Test me on ${d.name} (${qn})</button>
-  </div>
-  <section class="panel"><div class="panel-h"><h2>My resources for ${d.name}</h2><button class="btn small-btn" data-addres="pharm" data-topic="${d.id}">+ Add</button></div>${form&&form.type==="res"?resFormHTML("pharm",d.id):""}${resList(res)}</section>`;
+/* ===================== CONDITION PAGE (nursing process) ===================== */
+const versionLine=()=>`<p class="vline">${ic("file")} Notes v${CONTENT_INFO.version} · ${CONTENT_INFO.date} · ${CONTENT_INFO.reviewed?`Reviewed by ${esc(CONTENT_INFO.reviewer)}`:"Awaiting nurse-educator review"}</p>`;
+function connectTopic(id){
+  const bs=BRIDGE.filter(b=>b.topic===id||b.links.some(l=>l.t===id)); if(!bs.length)return "";
+  return `<section class="panel connect"><div class="panel-h"><h2>${ic("link")} Connects to</h2><span class="muted small">Recall it from other modules</span></div><div class="cgrid">${bs.map(b=>{const l=b.topic===id?b.links[0]:{m:b.module,label:topicName(b.topic)};const m=modById(l.m);return `<button class="cchip" data-sheet="bridge" data-id="${b.id}" style="--mc:${m.color}"><span class="mcode">${esc(m.code)}</span><span><b>${esc(l.label)}</b><em>${esc(m.name)} · ${MS[b.id]?(MS[b.id].last?"✓ recalled":"✗ retry"):"tap to recall"}</em></span></button>`}).join("")}</div></section>`;
+}
+const masteryPanel=id=>{const p=topicMastery(id);return `<div class="mrow"><span class="mlabel ${mClass(p)}">${mLabel(p)}</span>${mBar(p)}<span class="small muted">${p.seen}/${p.n} questions tried</span></div>`};
+function condView(){
+  const c=CONDITIONS.find(x=>x.id===view.cond); P.done[c.id]=true; save();
+  const sel=view.organ&&c.organs[view.organ]?view.organ:Object.keys(c.organs)[0], qn=qsFor(c.module).filter(q=>q.topic===c.id).length;
+  const NP=[["assess","Assess","What you check","steth"],["diagnose","Nursing diagnoses","The patient's problems","q"],["plan","Plan","Goals to reach","exam"],["act","Interventions","What you do, and why","cross"],["evaluate","Evaluate","Did it work?","timer"]];
+  const secs=[
+   {k:"over",label:"Overview",icon:"book",html:`<section class="chart cond"><p class="lead" style="margin:0">${linkTerms(esc(c.one))}</p><dl class="kardex"><div><dt>Body system</dt><dd>${esc(c.system)}</dd></div></dl><div class="keys">${c.keys.map(k=>`<span class="key">${cross("var(--accent)")}${esc(k)}</span>`).join("")}</div>${versionLine()}</section>
+     <section class="panel c-moa tint"><div class="panel-h"><h2>Why it happens</h2><span class="muted small">Pathophysiology</span></div>${PICS[c.pic]}<ol class="chain">${c.path.map(p=>`<li>${linkTerms(esc(p))}</li>`).join("")}</ol><details><summary>Who gets it? Risk factors</summary>${L(c.risks)}</details></section>`},
+   {k:"body",label:"Body",icon:"steth",html:bodyPanel(c,sel,"Where it shows")},
+   {k:"signs",label:"Signs",icon:"cross",html:`<section class="panel c-se tint"><h2>Signs & symptoms</h2>${L(c.signs)}<div class="danger"><b>Red flags: report</b>${L(c.red)}</div></section>`},
+   {k:"tests",label:"Tests",icon:"file",html:`<section class="panel c-int tint"><h2>Investigations</h2>${L(c.tests)}</section><section class="panel c-ind tint"><h2>Treatment</h2>${L(c.treat)}</section>`},
+   {k:"np",label:"Nursing",icon:"exam",html:`<section class="panel"><div class="panel-h"><h2>The nursing process</h2><span class="muted small">Tap each step</span></div><div class="np">${NP.map(([k,t,sub,icon],i)=>`<details class="npstep" ${i===0?"open":""}><summary><span class="npn">${ic(icon)}</span><span><b>${i+1}. ${t}</b><em>${sub}</em></span></summary>${k==="act"?`<ul class="why-list">${c.np.act.map(([a2,w])=>`<li><b>${linkTerms(esc(a2))}</b><span>Why: ${linkTerms(esc(w))}</span></li>`).join("")}</ul>`:L(c.np[k])}</details>`).join("")}</div></section>`},
+   {k:"case",label:"Case",icon:"q",html:`<section class="panel case"><p class="eyebrow">${cross("var(--con)")} Ward case</p><p class="lead">${esc(c.case.s)}</p><details><summary>What would you do?</summary><p>${linkTerms(esc(c.case.a))}</p></details></section><section class="panel c-ind tint"><h2>Teach the patient</h2>${L(c.teach)}</section><section class="panel c-trick tint"><p class="eyebrow" style="color:var(--trick)">Memory trick</p><p class="trickline">${esc(c.trick)}</p></section>`},
+   {k:"more",label:"Connect",icon:"link",html:`${connectTopic(c.id)}<div class="actions"><button class="btn primary" data-test="${c.module}" data-topic="${c.id}">${ic("exam")} Test me (${qn})</button></div>`}
+  ];
+  return tabbedPage(miniHead(c,"Condition · "+esc(modById(c.module).name),ic("cross")),secs,`<button class="btn primary" data-test="${c.module}" data-topic="${c.id}">${ic("exam")} Test me</button>`);
 }
 
 /* ===================== DECK (bite-size cards) ===================== */
@@ -1180,26 +1411,34 @@ function casesView(){
 
 /* --- past-paper test engine --- */
 let timerId=null;
-function startTest(module,topic){
-  let qs=qsFor(module); if(topic) qs=qs.filter(q=>q.topic===topic);
+function startReview(module,mode){
+  const list=mode==="due"?dueQs(module):mistakeQs(module);
+  startTest(module,null,shuffle(list).slice(0,15),mode);
+}
+function startTest(module,topic,list=null,mode="paper"){
+  if(list){ const items=list.map(q=>({q,sec:q.type==="mcq"?"A":q.type==="short"?"B":"C"})).sort((a,b)=>a.sec.localeCompare(b.sec));
+    if(!items.length){toast("Nothing to review right now");return}
+    view.test={module,topic:null,items,i:0,ans:{},self:{},start:Date.now(),done:false,mode,rec:{}};
+    clearInterval(timerId); timerId=setInterval(()=>{const el=document.getElementById("clock");if(el)el.textContent=clock()},1000); render(); scrollTo(0,0); return; }
+  let qs=qsFor(module); if(topic) qs=qs.filter(q=>q.topic===topic||(q.links||[]).some(l=>l.t===topic));
   const A=shuffle(qs.filter(q=>q.type==="mcq")).slice(0,topic?6:10), B=shuffle(qs.filter(q=>q.type==="short")).slice(0,topic?2:4), C=shuffle(qs.filter(q=>q.type==="case")).slice(0,1);
   const items=[...A.map(q=>({q,sec:"A"})),...B.map(q=>({q,sec:"B"})),...C.map(q=>({q,sec:"C"}))];
   if(!items.length){toast("No questions yet. Add some first.");return}
-  view.test={module,topic,items,i:0,ans:{},self:{},start:Date.now(),done:false};
+  view.test={module,topic,items,i:0,ans:{},self:{},start:Date.now(),done:false,mode,rec:{}};
   clearInterval(timerId); timerId=setInterval(()=>{const el=document.getElementById("clock");if(el)el.textContent=clock()},1000);
   render(); scrollTo(0,0);
 }
-const clock=()=>{const s=Math.floor((Date.now()-view.test.start)/1000);return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0")};
+const clock=()=>{const s=Math.floor(((view.test.end||Date.now())-view.test.start)/1000);return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0")};
 const SEC={A:"Section A · Multiple choice",B:"Section B · Short answer",C:"Section C · Case study"};
 function testView(){
   const T=view.test, m=modById(T.module);
   if(T.done) return markView();
   const it=T.items[T.i], q=it.q;
-  return `<div class="topbar"><button class="x" data-back aria-label="Quit test">×</button><span class="crumb">${esc(m.name)} · Past paper</span><span class="clock" id="clock">${clock()}</span></div>
+  return `<div class="topbar"><button class="x" data-back aria-label="Quit test">×</button><span class="crumb">${esc(m.name)} · ${{paper:"Past paper",due:"Review",mistakes:"Retest mistakes"}[T.mode||"paper"]}</span><span class="clock" id="clock">${clock()}</span></div>
   <div class="paper">
     <div class="paper-h"><span>${SEC[it.sec]}</span><span>Q${T.i+1} of ${T.items.length}${q.m?` · ${q.m} marks`:""}</span></div>
     <div class="bar thin"><span style="width:${(T.i)/T.items.length*100}%"></span></div>
-    ${q.ai?'<span class="aibadge">AI draft question · check with your notes</span>':""}<p class="qtext">${esc(q.q).replace(/\n/g,"<br>")}</p>
+    ${q.ai?'<span class="aibadge">AI question · checked by you</span>':""}${q.links&&q.module!==T.module?`<span class="linkbadge">${ic("link")} From ${esc(modById(q.module).name)}</span>`:q.links?`<span class="linkbadge">${ic("link")} Connects to ${q.links.map(l=>esc(modById(l.m).name)).join(", ")}</span>`:""}<p class="qtext">${esc(q.q).replace(/\n/g,"<br>")}</p>
     ${q.type==="mcq"?`<div class="opts">${q.o.map((o,i)=>`<button class="opt ${T.ans[T.i]===i?'sel':''}" data-tans="${i}"><span class="ol">${"ABCD"[i]}</span>${esc(o)}</button>`).join("")}</div>`
       :`<label class="small muted" for="ta">Write your answer as you would in the exam</label><textarea id="ta" rows="6" class="answer">${esc(T.ans[T.i]||"")}</textarea>`}
     <div class="row-btns"><button class="btn" data-tprev ${T.i===0?"disabled":""}>Previous</button><button class="btn primary" data-tnext>${T.i===T.items.length-1?"Hand in paper":"Next"}</button></div>
@@ -1208,15 +1447,17 @@ function testView(){
 function markView(){
   const T=view.test; let got=0,total=0; const weak=new Set();
   const rows=T.items.map((it,i)=>{const q=it.q;
-    if(q.type==="mcq"){total+=1;const ok=T.ans[i]===q.a;if(ok)got+=1;else if(q.topic)weak.add(q.topic);
+    if(q.type==="mcq"){total+=1;const ok=T.ans[i]===q.a;if(ok)got+=1;else if(q.topic)weak.add(q.topic);if(!T.rec[i]){T.rec[i]=1;recordAns(q,ok)}
       return `<div class="mark ${ok?'ok':'no'}"><p class="eyebrow">Q${i+1} · Section A · ${ok?"1/1":"0/1"}</p><p><b>${esc(q.q)}</b></p><p class="small">Your answer: ${T.ans[i]==null?"none":esc(q.o[T.ans[i]])}${ok?"":` · Correct: <b>${esc(q.o[q.a])}</b>`}</p>${q.e?`<p class="small muted">${linkTerms(esc(q.e))}</p>`:""}</div>`}
     total+=q.m||1; const s=T.self[i]; if(s!=null)got+=s; if(s!=null&&s<(q.m||1)/2&&q.topic)weak.add(q.topic);
     return `<div class="mark"><p class="eyebrow">Q${i+1} · ${it.sec==="B"?"Section B":"Section C"} · ${q.m||1} marks</p><p><b>${esc(q.q).replace(/\n/g,"<br>")}</b></p>
       <div class="cmp"><div><p class="eyebrow">Your answer</p><p class="small">${esc(T.ans[i]||"(blank)").replace(/\n/g,"<br>")}</p></div><div><p class="eyebrow">Marking scheme</p>${L(String(q.model).split("\n").filter(Boolean))}</div></div>
       <p class="small">Give yourself marks honestly:</p><div class="marks">${Array.from({length:(q.m||1)+1},(_,k)=>`<button class="mk ${s===k?'on':''}" data-self="${i}" data-v="${k}">${k}</button>`).join("")}</div></div>`});
   const unmarked=T.items.some((it,i)=>it.q.type!=="mcq"&&T.self[i]==null), pct=total?Math.round(got/total*100):0;
-  return `${back("Practice")}<section class="result"><p class="eyebrow">${esc(modById(T.module).name)} · time ${clock()}</p><h1>${got} / ${total} marks${unmarked?"":` · ${pct}%`}</h1><p>${unmarked?"Mark your written answers below to see your final score.":pct>=70?"Strong paper. Keep it up.":pct>=50?"A pass. Revise the topics below.":"Keep going. Revise the topics below and try again."}</p>
-   ${weak.size?`<div class="revise"><b>Revise:</b> ${[...weak].map(id=>`<button class="pill strong" data-profile="${id}">${esc((DRUGS.find(d=>d.id===id)||{name:id}).name)}</button>`).join(" ")}</div>`:""}
+  if(!unmarked)saveAttempt(T,got,total);
+  return `${back("Done")}<section class="result"><p class="eyebrow">${esc(modById(T.module).name)} · time ${clock()}</p><h1>${got} / ${total} marks${unmarked?"":` · ${pct}%`}</h1><p>${unmarked?"Mark your written answers below to see your final score.":pct>=70?"Strong paper. Keep it up.":pct>=50?"A pass. Revise the topics below.":"Keep going. Revise the topics below and try again."}</p>
+   ${weak.size?`<div class="revise"><b>Revise:</b> ${[...weak].filter(topicById).map(id=>`<button class="pill strong" ${topicAttr(topicById(id))}>${esc(topicName(id))}</button>`).join(" ")}</div>`:""}
+   <p class="small" style="opacity:.8">${ic("timer")} Wrong answers come back tomorrow; right ones in a few days. That's how you remember.</p>
    ${!unmarked&&!T.xp?`<button class="btn primary" data-claim>Collect +${Math.max(5,Math.round(pct/5))} XP</button>`:""}</section>
    <div class="stack">${rows.join("")}</div><button class="btn primary wide" data-test="${T.module}" ${T.topic?`data-topic="${T.topic}"`:""}>New paper</button>`;
 }
@@ -1270,9 +1511,9 @@ async function runAI(id){
     aiCount();
     const now=Date.now();
     await DB.put("res",{id:newId(),kind:"note",ai:true,title:"Revision points: "+r.title,module:r.module,topic:r.topic||"",text:j.summary.map(x=>"• "+x).join("\n"),added:now+1});
-    for(const q of j.questions)await DB.put("qs",{...q,id:newId(),module:r.module,topic:r.topic||"",ai:true,src:"AI draft from: "+r.title,added:now});
+    for(const q of j.questions)await DB.put("qs",{...q,id:newId(),module:r.module,topic:r.topic||"",ai:true,checked:false,src:"AI draft from: "+r.title,added:now});
     delete AI_BUSY[id];await loadUser();redraw();addXP(10);
-    toast(`Made ${j.questions.length} questions. Find them in Take a past-paper test.`);
+    toast(`${j.questions.length} questions made. Check them, then they join your tests.`);
   }catch(e){delete AI_BUSY[id];redraw();toast(e.message||"Something went wrong.")}
 }
 
@@ -1368,17 +1609,20 @@ function render(){
   if(view.notes){app.innerHTML=notesView();return}
   if(view.cases){app.innerHTML=casesView();return}
   if(view.install){app.innerHTML=installView();return}
-  if(view.casepop){app.innerHTML=casePop(DRUGS.find(d=>d.id===view.casepop));return}
-  if(view.profile){app.innerHTML=profile();return}
+  if(view.casepop){app.innerHTML=casePop(topicById(view.casepop));return}
+  if(view.cond){app.innerHTML=condView()+(view.sheet?sheet(modById(CONDITIONS.find(c=>c.id===view.cond).module)):"");return}
+  if(view.profile){app.innerHTML=profile()+(view.sheet?sheet(modById("pharm")):"");return}
   if(view.module){app.innerHTML=moduleView();return}
   app.innerHTML=({home,practice,library,words}[tabKey]||home)();
   if(tabKey==="words")document.getElementById("wsearch").addEventListener("input",e=>{document.getElementById("wlist").innerHTML=wordList(e.target.value.toLowerCase())});
 }
-const go=(patch)=>{clearInterval(timerId);form=null;confirmDel=null;view={...view,deck:null,game:null,test:null,notes:false,cases:false,install:false,sheet:null,casepop:null,...patch};render();scrollTo(0,0)};
+const go=(patch)=>{clearInterval(timerId);form=null;confirmDel=null;view={...view,deck:null,game:null,test:null,notes:false,cases:false,install:false,sheet:null,casepop:null,cond:null,tray:false,bans:null,psec:null,...patch};render();scrollTo(0,0)};
 function goBack(){
   if(view.deck||view.game||view.test){clearInterval(timerId);view.deck=null;view.game=null;view.test=null;form=null;render();scrollTo(0,0);return}
   if(view.notes||view.cases||view.install){view.notes=false;view.cases=false;view.install=false;render();scrollTo(0,0);return}
-  if(view.casepop){view.sheet={kind:"drug",id:view.casepop};view.casepop=null;render();return}
+  if(view.casepop){const t=topicById(view.casepop);view.sheet={kind:t&&t.kind==="cond"?"cond":"drug",id:view.casepop};view.casepop=null;render();return}
+  if(view.cond){const mod=CONDITIONS.find(c=>c.id===view.cond).module;go({cond:null,organ:null,module:mod,goal:view.goal||"learn",tab:"home"});return}
+  if(view.tray){view.tray=false;render();scrollTo(0,0);return}
   if(view.profile){go({profile:null,organ:null,module:"pharm",goal:view.goal||"learn",tab:"home"});return}
   if(view.module&&view.goal){form=null;view.goal=null;view.sheet=null;render();scrollTo(0,0);return}
   if(view.module){go({module:null,goal:null,tab:"home"});return}
@@ -1393,17 +1637,25 @@ document.addEventListener("click",e=>{
   const $=s=>e.target.closest(s); let el;
   if(el=$("[data-tab]"))return go({tab:el.dataset.tab,module:null,profile:null});
   if($("[data-back]"))return goBack();
-  if(el=$("[data-organ]")){view.organ=el.dataset.organ;const d=DRUGS.find(x=>x.id===view.profile);document.getElementById("organ").innerHTML=organPanel(d,view.organ);document.querySelectorAll(".spot").forEach(s=>{const on=s.dataset.organ===view.organ;s.classList.toggle("on",on);s.querySelectorAll("circle")[1].setAttribute("r",on?9:7)});return}
+  if($("[data-reload]")){location.reload();return}
+  if(el=$("[data-psec]")){view.psec=el.dataset.psec;view.sheet=null;render();const t=document.querySelector(".ptabs");if(t)t.querySelector('[aria-current="true"]')?.scrollIntoView({inline:"center",block:"nearest"});scrollTo(0,0);return}
+  if(el=$("[data-organ]")){view.organ=el.dataset.organ;const d=topicById(view.cond||view.profile);document.getElementById("organ").innerHTML=organPanel(d,view.organ);document.querySelectorAll(".spot").forEach(s=>{const on=s.dataset.organ===view.organ;s.classList.toggle("on",on);s.querySelectorAll("circle")[1].setAttribute("r",on?9:7)});return}
   if($("[data-closesheet]")){view.sheet=null;confirmDel=null;const y=scrollY;render();scrollTo(0,y);return}
   if(el=$("[data-goal]")){view.goal=el.dataset.goal;form=null;render();scrollTo(0,0);return}
-  if(el=$("[data-sheet]")){view.sheet={kind:el.dataset.sheet,id:el.dataset.id||null};const y=scrollY;render();scrollTo(0,y);return}
+  if(el=$("[data-bans]")){const b=BRIDGE.find(x=>x.id===view.sheet.id);view.bans=+el.dataset.bans;const ok=view.bans===b.a;recordAns(b,ok);if(ok)addXP(3);const y=scrollY;render();scrollTo(0,y);return}
+  if(el=$("[data-cond]")){const c=CONDITIONS.find(x=>x.id===el.dataset.cond);P.mod=c.module;save();return go({cond:c.id,organ:null,profile:null,module:c.module,goal:view.goal||"learn",tab:"home"})}
+  if(el=$("[data-review]")){view.sheet=null;startReview(view.module||curMod().id,el.dataset.review);return}
+  if($("[data-tray]")){view.tray=true;view.sheet=null;render();scrollTo(0,0);return}
+  if($("[data-traydone]")){view.tray=false;render();scrollTo(0,0);return}
+  if(el=$("[data-approve]")){const q=USER.qs.find(x=>x.id===el.dataset.approve);if(q){DB.put("qs",{...q,checked:true}).then(loadUser).then(()=>{const y=scrollY;render();scrollTo(0,y);toast("Added to your tests");addXP(2)})}return}
+  if(el=$("[data-sheet]")){view.bans=null;view.sheet={kind:el.dataset.sheet,id:el.dataset.id||null};const y=scrollY;render();scrollTo(0,y);return}
   if(el=$("[data-casepop]")){view.sheet=null;view.casepop=el.dataset.casepop;render();scrollTo(0,0);return}
   if(el=$("[data-module]")){P.mod=el.dataset.module;save();libFilter=P.mod;return go({tab:"home",module:el.dataset.module,goal:null,profile:null})}
   if(el=$("[data-profile]")){P.mod="pharm";save();return go({profile:el.dataset.profile,organ:null,module:"pharm",goal:view.goal||"learn",tab:"home"})}
   if(el=$("[data-open]")){view.sheet=null;view.deck=el.dataset.open;view.slide=0;render();scrollTo(0,0);return}
   if(el=$("[data-step]")){const dk=document.getElementById("deck");dk.scrollTo({left:(view.slide+ +el.dataset.step)*(dk.clientWidth+12),behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});return}
   if(el=$("[data-why]")){el.querySelector(".ans").hidden=false;el.querySelector(".tap").hidden=true;return}
-  if(el=$("[data-dq]")){const q=QUIZ[+el.dataset.dq],pick=+el.dataset.o,blk=el.closest(".qblock");blk.querySelectorAll(".opt").forEach((b,i)=>{b.disabled=true;if(i===q.a)b.classList.add("right");else if(i===pick)b.classList.add("wrong")});const ex=blk.querySelector(".explain");ex.hidden=false;ex.innerHTML=`<b>${pick===q.a?"Correct.":"Not quite."}</b> ${linkTerms(esc(q.e))}`;if(pick===q.a)addXP(5);return}
+  if(el=$("[data-dq]")){const q=QUIZ[+el.dataset.dq],pick=+el.dataset.o;recordAns({id:"bq"+el.dataset.dq},pick===q.a);const blk=el.closest(".qblock");blk.querySelectorAll(".opt").forEach((b,i)=>{b.disabled=true;if(i===q.a)b.classList.add("right");else if(i===pick)b.classList.add("wrong")});const ex=blk.querySelector(".explain");ex.hidden=false;ex.innerHTML=`<b>${pick===q.a?"Correct.":"Not quite."}</b> ${linkTerms(esc(q.e))}`;if(pick===q.a)addXP(5);return}
   if(el=$("[data-finish]")){P.done[el.dataset.finish]=true;addXP(20);view.deck=null;render();scrollTo(0,0);return}
   if($("[data-notes]")){view.notes=true;render();scrollTo(0,0);return}
   if($("[data-cases]")){go({cases:true});return}
@@ -1417,7 +1669,7 @@ document.addEventListener("click",e=>{
   if(el=$("[data-tans]")){view.test.ans[view.test.i]=+el.dataset.tans;render();return}
   if($("[data-tnext]")){saveTA();const T=view.test;if(T.i<T.items.length-1){T.i++}else{T.done=true;clearInterval(timerId);T.end=Date.now()}render();scrollTo(0,0);return}
   if($("[data-tprev]")){saveTA();view.test.i--;render();return}
-  if(el=$("[data-self]")){view.test.self[+el.dataset.self]=+el.dataset.v;const y=scrollY;render();scrollTo(0,y);return}
+  if(el=$("[data-self]")){const T=view.test,i=+el.dataset.self,q=T.items[i].q;T.self[i]=+el.dataset.v;if(!T.rec[i]){T.rec[i]=1;recordAns(q,T.self[i]>=(q.m||1)/2)}const y=scrollY;render();scrollTo(0,y);return}
   if($("[data-claim]")){const T=view.test;let got=0,total=0;T.items.forEach((it,i)=>{if(it.q.type==="mcq"){total++;if(T.ans[i]===it.q.a)got++}else{total+=it.q.m||1;got+=T.self[i]||0}});T.xp=true;addXP(Math.max(5,Math.round(got/total*100/5)));render();return}
   if(el=$("[data-game]")){view.sheet=null;startGame(el.dataset.game);scrollTo(0,0);return}
   if(el=$("[data-tf]")){if(!G||G.over)return;const s=G.list[G.i%G.list.length];const ok=(el.dataset.tf==="1")===s[1];if(ok)G.score++;G.i++;render();const c=document.getElementById("tfcard");if(c)c.classList.add(ok?"flash-ok":"flash-no");if(!ok)toast(`It was ${s[1]?"TRUE":"FALSE"}`);return}
@@ -1443,6 +1695,12 @@ render();
 Promise.all([loadUser(),loadPack()]).then(render);
 
 </script>
-<script>if("serviceWorker" in navigator){addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}))}</script>
+<script>
+if("serviceWorker" in navigator){addEventListener("load",()=>{
+  const hadWorker=!!navigator.serviceWorker.controller;
+  navigator.serviceWorker.register("sw.js").then(r=>{setInterval(()=>r.update().catch(()=>{}),60*60*1000)}).catch(()=>{});
+  navigator.serviceWorker.addEventListener("controllerchange",()=>{if(hadWorker&&window.showUpdate)window.showUpdate()});
+})}
+</script>
 </body>
 </html>

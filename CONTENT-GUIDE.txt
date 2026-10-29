@@ -17,3 +17,11 @@ Everything in content.json ships with the app, works offline, and students canno
    ("a" counts from 0: 0 = A, 1 = B, 2 = C, 3 = D. Every id must be unique.)
 
 After editing: upload the new content.json to GitHub, and change VERSION in sw.js (e.g. "scrubup-v4") so phones download it.
+
+4. CONNECT QUESTIONS (link two modules so students recall across them)
+   Add "links" to any question. It then also appears in the linked module's tests and "Connect your modules" list:
+   {"id": "c1", "module": "anat", "topic": "", "type": "mcq", "q": "Which mineral do muscles need to contract?", "o": ["Calcium","Iron","Iodine","Fluoride"], "a": 0, "e": "Calcium lets muscle fibres slide.", "links": [{"m": "nutr", "label": "Calcium"}], "src": "ScrubUp connect"}
+
+5. CONTENT VERSION
+   When you change medical content, update the version and date at the top of the app (CONTENT_INFO), and change VERSION in sw.js.
+   Students see "Notes v… · date · Awaiting nurse-educator review" until reviewed is set to true with the reviewer's name.
