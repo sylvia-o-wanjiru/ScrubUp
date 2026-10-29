@@ -1,0 +1,16 @@
+{
+  "_readme": "Sylvia's content pack. Anything added here ships with the app and works offline. Students cannot delete it. Upload a new content.json and change VERSION in sw.js to update phones.",
+  "modules": [],
+  "resources": [
+    {
+      "id": "pack-example-1",
+      "module": "pharm",
+      "topic": "",
+      "kind": "note",
+      "title": "How to use ScrubUp for Pharmacology",
+      "text": "1. Read the drug profile.\n2. Swipe the bite-size cards.\n3. Do a past-paper test.\n4. Revise the drugs it tells you to.",
+      "added": 1793318400000
+    }
+  ],
+  "questions": []
+}

@@ -1,0 +1,1177 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1b2a4a">
+<meta name="description" content="ScrubUp: nursing revision notes, past-paper tests and ward cases for students in Kenya. Works offline.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>ScrubUp</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: phone-first study app. Bottom tab bar (Home, Learn, Play, Words). A drug is learned as a swipeable deck of bite-size cards; colour of each card = type of fact, same on every drug. */
+:root{
+  --paper:#f5f7fb; --sheet:#ffffff; --ink:#1b2a4a; --ink-soft:#5a6782; --rule:#e0e6f0; --accent:#d81b60;
+  --moa:#6a3fc7; --moa-bg:#efe8fd; --ind:#1f8a4c; --ind-bg:#e3f5ea; --con:#c62828; --con-bg:#fdeaea;
+  --se:#c06600; --se-bg:#fff0db; --int:#1565c0; --int-bg:#e5effc; --nur:#00796b; --nur-bg:#ddf3ef;
+  --trick:#8a5a00; --trick-bg:#fff6c2; --gold:#f4b400;
+  --font-display:"Bricolage Grotesque","Poppins",system-ui,sans-serif;
+  --font-body:"Poppins",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#10162a; --sheet:#1a2340; --ink:#e8edf8; --ink-soft:#a7b2ca; --rule:#2b3658; --accent:#f06292;
+  --moa:#b9a0ff; --moa-bg:#2a2352; --ind:#6fd69a; --ind-bg:#15372a; --con:#ff8a80; --con-bg:#3e1d25;
+  --se:#ffb54d; --se-bg:#3b2b14; --int:#82b4ff; --int-bg:#182d52; --nur:#5fd3c2; --nur-bg:#123934;
+  --trick:#ffe082; --trick-bg:#3a3314; --gold:#ffd54f; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#10162a; --sheet:#1a2340; --ink:#e8edf8; --ink-soft:#a7b2ca; --rule:#2b3658; --accent:#f06292;
+  --moa:#b9a0ff; --moa-bg:#2a2352; --ind:#6fd69a; --ind-bg:#15372a; --con:#ff8a80; --con-bg:#3e1d25;
+  --se:#ffb54d; --se-bg:#3b2b14; --int:#82b4ff; --int-bg:#182d52; --nur:#5fd3c2; --nur-bg:#123934;
+  --trick:#ffe082; --trick-bg:#3a3314; --gold:#ffd54f; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.55}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+h1,h2,h3{font-family:var(--font-display);text-wrap:balance;margin:0}
+.wrap{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px calc(96px + env(safe-area-inset-bottom,0px))}
+.muted{color:var(--ink-soft)}
+.small{font-size:.8rem}
+
+/* bottom bar */
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--sheet);border-top:1px solid var(--rule);display:flex;justify-content:center;padding-bottom:env(safe-area-inset-bottom,0px);padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
+.tabbar-in{display:grid;grid-template-columns:repeat(4,1fr);width:100%;max-width:720px}
+.tabbtn{border:0;background:none;padding:8px 4px 10px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:.72rem;color:var(--ink-soft)}
+.tabbtn svg{width:24px;height:24px}
+.tabbtn[aria-current="page"]{color:var(--accent);font-weight:600}
+
+/* home */
+.hello{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}
+.hello h1{font-size:1.7rem;font-weight:800}
+.brand{display:flex;gap:3px}.brand i{width:9px;height:9px;border-radius:50%}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.stat{background:var(--sheet);border:1px solid var(--rule);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:2px}
+.stat b{font-family:var(--font-display);font-size:1.6rem;line-height:1;font-variant-numeric:tabular-nums}
+.stat span{font-size:.75rem;color:var(--ink-soft)}
+.stat svg{width:22px;height:22px}
+.goal{margin-top:12px;background:var(--sheet);border:1px solid var(--rule);border-radius:16px;padding:14px}
+.goal-top{display:flex;justify-content:space-between;font-size:.85rem;font-weight:500}
+.bar{height:10px;border-radius:5px;background:var(--rule);overflow:hidden;margin-top:8px}
+.bar span{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--accent));border-radius:5px;transition:width .4s}
+.big-cta{margin-top:14px;display:flex;align-items:center;gap:14px;width:100%;text-align:left;border:0;border-radius:20px;padding:16px;background:var(--ink);color:var(--sheet)}
+.big-cta svg{width:72px;height:56px;flex:none;background:var(--sheet);border-radius:12px;padding:4px}
+.big-cta b{font-family:var(--font-display);font-size:1.25rem;display:block}
+.big-cta span{font-size:.82rem;opacity:.85}
+.sec-title{margin:22px 0 10px;font-size:1.15rem;font-weight:800}
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.tile{border:0;text-align:left;border-radius:18px;padding:14px;background:var(--bg);color:var(--ink);display:flex;flex-direction:column;gap:6px;min-height:118px;position:relative}
+.tile b{font-family:var(--font-display);font-size:1.08rem;line-height:1.2;color:var(--c)}
+.tile span{font-size:.78rem;color:var(--ink-soft)}
+.tile .done{position:absolute;top:10px;right:10px;width:24px;height:24px;border-radius:50%;background:var(--ind);color:var(--sheet);display:grid;place-items:center;font-size:.8rem;font-weight:700}
+.tile svg.mini{width:64px;height:40px}
+.c-moa{--c:var(--moa);--bg:var(--moa-bg)} .c-ind{--c:var(--ind);--bg:var(--ind-bg)} .c-con{--c:var(--con);--bg:var(--con-bg)}
+.c-se{--c:var(--se);--bg:var(--se-bg)} .c-int{--c:var(--int);--bg:var(--int-bg)} .c-nur{--c:var(--nur);--bg:var(--nur-bg)} .c-trick{--c:var(--trick);--bg:var(--trick-bg)}
+.linkcard{margin-top:10px;display:flex;justify-content:space-between;align-items:center;width:100%;border:1px solid var(--rule);background:var(--sheet);border-radius:16px;padding:14px;text-align:left}
+.group-h{margin:18px 0 8px;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);font-weight:600}
+
+/* deck */
+.deck-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.x{border:1px solid var(--rule);background:var(--sheet);width:38px;height:38px;border-radius:50%;font-size:1.1rem;flex:none}
+.segs{display:flex;gap:4px;flex:1}
+.segs i{flex:1;height:5px;border-radius:3px;background:var(--rule)}
+.segs i.on{background:var(--accent)}
+.deck{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;scrollbar-width:none;padding-bottom:4px}
+.deck::-webkit-scrollbar{display:none}
+.slide{flex:0 0 100%;scroll-snap-align:center;background:var(--bg);border-radius:24px;padding:22px 20px;min-height:min(560px,68vh);display:flex;flex-direction:column;gap:12px;min-width:0}
+.slide .kicker{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--c)}
+.slide h2{font-size:1.65rem;font-weight:800;color:var(--c);line-height:1.15}
+.slide h2.drugname{font-size:2.3rem;color:var(--accent)}
+.slide p{margin:0}
+.slide .lead{font-size:1.08rem;font-weight:500}
+.slide svg.pic{width:100%;max-width:340px;height:auto;align-self:center}
+.slide ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.slide li::marker{color:var(--c)}
+.slide details{margin-top:auto;background:var(--sheet);border-radius:14px;padding:10px 14px}
+.slide summary{font-weight:600;color:var(--c);cursor:pointer}
+.slide details ul,.slide details ol{margin-top:8px}
+.slide ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.pills{display:flex;gap:6px;flex-wrap:wrap}
+.pill{font-size:.75rem;padding:3px 10px;border-radius:999px;background:var(--sheet);color:var(--ink-soft)}
+.pill.strong{background:var(--ink);color:var(--sheet)}
+.danger{background:var(--sheet);border-radius:14px;padding:10px 14px;border:2px solid var(--con)}
+.danger b{color:var(--con);font-size:.8rem;text-transform:uppercase;letter-spacing:.06em}
+.trio{display:flex;flex-direction:column;gap:10px}
+.trio>div{background:var(--sheet);border-radius:14px;padding:10px 14px}
+.trio b{font-family:var(--font-display);color:var(--c)}
+.trio ul{margin-top:4px}
+.whyq{border:0;width:100%;text-align:left;background:var(--sheet);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+.whyq b{font-family:var(--font-display);font-size:1.02rem}
+.whyq .ans{color:var(--ink)}
+.whyq .tap{font-size:.75rem;color:var(--c);font-weight:600}
+.trickbox{font-family:var(--font-display);font-size:1.45rem;font-weight:800;line-height:1.25;color:var(--ink);background:var(--sheet);border:3px dashed var(--c);border-radius:18px;padding:18px}
+.kenya{font-size:.88rem;background:var(--sheet);border-radius:14px;padding:10px 14px}
+.deck-nav{display:flex;justify-content:space-between;gap:10px;margin-top:12px}
+.btn{border:1px solid var(--rule);background:var(--sheet);border-radius:14px;padding:11px 18px;font-weight:600}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn:disabled{opacity:.4;cursor:default}
+.hint{text-align:center;font-size:.75rem;color:var(--ink-soft);margin-top:6px}
+
+/* questions */
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{text-align:left;border:2px solid var(--rule);background:var(--sheet);border-radius:14px;padding:11px 14px}
+.opt.right{border-color:var(--ind);background:var(--ind-bg)}
+.opt.wrong{border-color:var(--con);background:var(--con-bg)}
+.opt:disabled{cursor:default}
+.explain{border-radius:14px;padding:10px 14px;background:var(--sheet);font-size:.9rem}
+.qtext{font-family:var(--font-display);font-size:1.25rem;font-weight:600;line-height:1.3}
+.xp-pop{font-family:var(--font-display);font-weight:800;color:var(--gold);font-size:1.4rem}
+
+/* games */
+.game{background:var(--sheet);border:1px solid var(--rule);border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:14px}
+.gametop{display:flex;justify-content:space-between;align-items:center;font-variant-numeric:tabular-nums;font-weight:600}
+.timer{font-family:var(--font-display);font-size:1.6rem;color:var(--accent)}
+.statement{font-family:var(--font-display);font-size:1.4rem;font-weight:600;line-height:1.3;min-height:5.2em;display:flex;align-items:center}
+.tf{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tf button{border:0;border-radius:18px;padding:18px;font-family:var(--font-display);font-size:1.3rem;font-weight:800;color:#fff}
+.tf .t{background:var(--ind)} .tf .f{background:var(--con)}
+.flash-ok{animation:ok .35s} .flash-no{animation:no .35s}
+@keyframes ok{50%{box-shadow:0 0 0 6px var(--ind)}} @keyframes no{50%{box-shadow:0 0 0 6px var(--con)}}
+.match{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.match .col{display:flex;flex-direction:column;gap:8px}
+.mbtn{border:2px solid var(--rule);background:var(--paper);border-radius:14px;padding:12px 10px;min-height:64px;font-size:.88rem;font-weight:500}
+.mbtn.sel{border-color:var(--accent)}
+.mbtn.ok{border-color:var(--ind);background:var(--ind-bg);opacity:.55;cursor:default}
+.mbtn.bad{border-color:var(--con);background:var(--con-bg)}
+.gtile{display:flex;gap:14px;align-items:center;text-align:left;width:100%;border:0;border-radius:20px;padding:16px;background:var(--bg);color:var(--ink)}
+.gtile b{font-family:var(--font-display);font-size:1.2rem;color:var(--c);display:block}
+.gtile span{font-size:.82rem;color:var(--ink-soft)}
+.gtile .num{font-family:var(--font-display);font-weight:800;font-size:1.8rem;color:var(--c);width:56px;flex:none;text-align:center}
+.gstack{display:flex;flex-direction:column;gap:10px}
+
+/* words + notes */
+.search{width:100%;padding:11px 14px;border-radius:14px;border:1px solid var(--rule);background:var(--sheet);color:var(--ink);font:inherit}
+.words{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.word{background:var(--sheet);border:1px solid var(--rule);border-radius:14px;padding:10px 14px}
+.word b{color:var(--accent);display:block}
+.word em{display:block;font-size:.8rem;color:var(--ink-soft)}
+.term{border:0;background:none;padding:0;border-bottom:2px dotted currentColor;font:inherit;color:inherit;position:relative}
+.tip{position:absolute;left:0;top:calc(100% + 6px);z-index:30;width:max-content;max-width:min(250px,70vw);background:var(--ink);color:var(--sheet);font-size:.8rem;line-height:1.45;padding:8px 10px;border-radius:10px;text-align:left;font-weight:400}
+.nrow{background:var(--sheet);border:1px solid var(--rule);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+.badge{align-self:flex-start;font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;border-radius:6px;padding:2px 8px}
+.b-ok{background:var(--ind-bg);color:var(--ind)} .b-fix{background:var(--con-bg);color:var(--con)} .b-add{background:var(--int-bg);color:var(--int)}
+.said{font-style:italic;color:var(--ink-soft);margin:0}
+.toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--sheet);padding:10px 18px;border-radius:999px;font-weight:600;z-index:40;font-size:.9rem}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.deck{scroll-behavior:auto}}
+@media (min-width:600px){.tiles{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* ---- clinical layer ---- */
+:root{--sil:#dfe7f2;--sil-line:#c9d4e4;--organ:#9fb0c8;--paperline:#e9eef6}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--sil:#26314f;--sil-line:#34416a;--organ:#5d6d92;--paperline:#232d4b}}
+:root[data-theme="dark"]{--sil:#26314f;--sil-line:#34416a;--organ:#5d6d92;--paperline:#232d4b}
+.wrap{max-width:820px}
+.tabbar-in{grid-template-columns:repeat(5,1fr);max-width:820px}
+.ph{font-size:1.7rem;font-weight:800}
+.sub{margin:4px 0 14px}
+.eyebrow{font-size:.7rem;letter-spacing:.09em;text-transform:uppercase;font-weight:600;color:var(--ink-soft);margin:0;display:flex;align-items:center;gap:6px}
+.xmark{width:14px;height:14px;flex:none}
+.stack{display:flex;flex-direction:column;gap:10px}
+.wide{width:100%;margin-top:12px}
+.row-btns{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.small-btn{padding:6px 12px;font-size:.8rem;border-radius:10px;text-decoration:none;color:var(--ink);display:inline-block}
+.topbar{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.crumb{font-weight:600;flex:1;min-width:0}
+.clock{font-family:var(--font-display);font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums}
+
+.ward{position:relative;border-radius:22px;background:var(--ink);color:var(--sheet);overflow:hidden;margin-bottom:12px}
+.ward .ecg{position:absolute;inset:auto 0 0 0;width:100%;height:60px;opacity:.5}
+.ward .ecg path{fill:none;stroke:var(--nur-bg);stroke-width:2;stroke-dasharray:100;stroke-dashoffset:100;animation:ecg 3.2s linear infinite}
+@keyframes ecg{to{stroke-dashoffset:-100}}
+.ward-in{position:relative;padding:18px 18px 46px}
+.ward h1{font-size:1.6rem;font-weight:800;margin-top:6px}
+.ward p{margin:4px 0 0;opacity:.8;font-size:.82rem}
+.brandrow{display:flex;align-items:center;gap:8px;font-weight:600;font-size:.85rem}
+.brandrow .xmark{width:20px;height:20px}
+.lvl{font-size:1rem!important;line-height:1.2!important}
+.big-cta .eyebrow{color:inherit;opacity:.7}
+.hscroll{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}
+.modchip{flex:none;display:flex;align-items:center;gap:8px;border:1px solid var(--rule);background:var(--sheet);border-radius:14px;padding:8px 12px;font-size:.82rem;max-width:220px;text-align:left}
+.modchip.more{font-weight:600;color:var(--accent)}
+.mcode{display:inline-grid;place-items:center;min-width:30px;height:30px;padding:0 6px;border-radius:8px;background:var(--mc,var(--ink));color:#fff;font-family:var(--font-display);font-weight:800;font-size:.8rem}
+.mcode.big{min-width:44px;height:44px;font-size:1rem;border-radius:12px}
+.modgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.modtile{display:flex;flex-direction:column;align-items:flex-start;gap:8px;text-align:left;border:1px solid var(--rule);background:var(--sheet);border-radius:18px;padding:14px;border-top:5px solid var(--mc)}
+.modtile b{font-family:var(--font-display);font-size:1.05rem;line-height:1.2}
+.mmeta{font-size:.75rem;color:var(--ink-soft);display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.mmeta em{font-style:normal;font-weight:600;padding:1px 8px;border-radius:999px;background:var(--rule);color:var(--ink)}
+.mmeta em.ready{background:var(--ind-bg);color:var(--ind)}
+.modhead{display:flex;gap:14px;align-items:center;background:var(--sheet);border:1px solid var(--rule);border-left:6px solid var(--mc);border-radius:18px;padding:14px}
+.modhead h1{font-size:1.4rem;font-weight:800}
+.modhead p{margin:2px 0 0}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.empty{display:flex;gap:12px;align-items:flex-start;background:var(--sheet);border:1px dashed var(--organ);border-radius:16px;padding:14px;margin-top:14px}
+.empty .xmark{width:28px;height:28px}
+.empty p{margin:4px 0 0}
+
+/* drug profile: hospital drug chart */
+.chart{background:var(--sheet);border:1px solid var(--rule);border-radius:20px;padding:18px;background-image:repeating-linear-gradient(to bottom,transparent 0 27px,var(--paperline) 27px 28px);border-left:6px solid var(--accent)}
+.chart-top{display:flex;gap:14px;align-items:center}
+.rx{font-family:var(--font-display);font-size:2.6rem;font-weight:800;color:var(--accent);line-height:1;width:58px;height:58px;display:grid;place-items:center;border:3px solid var(--accent);border-radius:14px;flex:none;background:var(--sheet)}
+.chart h1{font-size:2rem;font-weight:800;line-height:1.1}
+.kardex{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin:14px 0 0;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--sheet)}
+.kardex div{padding:8px 12px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);min-width:0}
+.kardex .full{grid-column:1/-1;border-right:0;border-bottom:0}
+.kardex dt{font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);font-weight:600}
+.kardex dd{margin:0;font-weight:500;font-size:.9rem}
+.keys{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.key{display:inline-flex;align-items:center;gap:6px;background:var(--sheet);border:1.5px solid var(--accent);color:var(--ink);border-radius:999px;padding:4px 12px;font-size:.8rem;font-weight:600}
+.panel{background:var(--sheet);border:1px solid var(--rule);border-radius:20px;padding:16px 18px;margin-top:12px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.panel.tint{background:var(--bg);border-color:transparent}
+.panel h2{font-size:1.2rem;font-weight:800;color:var(--c,var(--ink))}
+.panel-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+.panel ul,.panel ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:5px}
+.panel li::marker{color:var(--c,var(--accent))}
+.panel details{background:var(--sheet);border-radius:12px;padding:8px 12px}
+.panel.tint details{background:var(--sheet)}
+.panel summary{font-weight:600;color:var(--c,var(--accent));cursor:pointer}
+.panel details ul,.panel details ol{margin-top:6px}
+.panel svg.pic{width:100%;max-width:360px;align-self:center}
+.panel .lead{font-size:1.05rem;font-weight:500;margin:0}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.two .panel{margin-top:12px}
+.bodygrid{display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);gap:16px;align-items:start}
+.bodywrap{display:flex;flex-direction:column;gap:8px;align-items:center}
+svg.body{width:100%;max-width:220px;height:auto}
+.spot{cursor:pointer;outline:none}
+.spot .ring{transform-box:fill-box;transform-origin:center;animation:pulse 2s ease-out infinite}
+.spot.on .ring{stroke-width:3}
+.spot:focus-visible circle:last-child{stroke:var(--accent);stroke-width:3}
+@keyframes pulse{0%{transform:scale(.8);opacity:1}100%{transform:scale(1.9);opacity:0}}
+.legend{display:flex;gap:10px;flex-wrap:wrap;font-size:.72rem;color:var(--ink-soft);justify-content:center}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:4px;vertical-align:-1px}
+.organ{background:var(--paper);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:10px;min-height:180px}
+.organ-h{font-size:1.25rem;font-weight:800}
+.onote{display:flex;flex-direction:column;gap:4px}
+.onote p{margin:0}
+.otag{align-self:flex-start;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--sheet);background:var(--t);border-radius:6px;padding:2px 8px}
+.journey{list-style:none;padding:0!important;display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px!important;position:relative}
+.journey>li{position:relative;padding:14px 12px 12px;border-radius:14px;background:var(--paper);border-top:4px solid var(--jc)}
+.journey h3{font-size:1rem;margin:2px 0 6px}
+.journey ul{padding-left:18px}
+.journey .jdot{position:absolute;top:-10px;left:12px;width:16px;height:16px;border-radius:50%;background:var(--jc);border:3px solid var(--sheet)}
+.case{border-left:6px solid var(--con)}
+.case .lead{font-size:1rem}
+.trickline{font-family:var(--font-display);font-size:1.3rem;font-weight:800;margin:0;line-height:1.3}
+.danger{background:var(--sheet);border-radius:12px;padding:10px 14px;border:2px solid var(--con)}
+.danger b{color:var(--con);font-size:.75rem;text-transform:uppercase;letter-spacing:.06em}
+
+/* forms + resources */
+.card-form{background:var(--sheet);border:2px solid var(--accent);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:10px;margin:12px 0}
+.card-form h3{font-size:1.1rem}
+.card-form label{display:flex;flex-direction:column;gap:4px;font-size:.82rem;font-weight:500}
+.card-form input:not([type=radio]),.card-form select,.card-form textarea,.answer{font:inherit;font-size:.95rem;padding:9px 12px;border-radius:10px;border:1px solid var(--rule);background:var(--paper);color:var(--ink);width:100%}
+.seg{display:flex;gap:4px;background:var(--paper);border-radius:12px;padding:4px;flex-wrap:wrap}
+.seg button{flex:1;border:0;background:none;border-radius:9px;padding:8px;font-size:.8rem;font-weight:600;color:var(--ink-soft);min-width:90px}
+.seg button[aria-pressed="true"]{background:var(--sheet);color:var(--accent);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.optset{border:0;padding:0;margin:0;display:flex;flex-direction:column;gap:6px}
+.optset legend{font-size:.82rem;font-weight:500;margin-bottom:4px}
+.optrow{flex-direction:row!important;align-items:center;gap:8px!important}
+.optrow span{font-weight:700;width:14px}
+.form-err{color:var(--con);font-weight:600;font-size:.85rem;margin:0}
+.reslist{display:flex;flex-direction:column;gap:8px}
+.res{background:var(--sheet);border:1px solid var(--rule);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.panel .res{background:var(--paper)}
+.res-top{display:flex;gap:10px;align-items:flex-start}
+.rkind{font-size:.62rem;font-weight:800;letter-spacing:.06em;background:var(--ink);color:var(--sheet);border-radius:6px;padding:3px 6px;flex:none;margin-top:2px}
+.small-x{width:30px;height:30px;font-size:.95rem;flex:none}
+.danger-btn{border-color:var(--con);color:var(--con)}
+.thumb{max-height:220px;border-radius:10px;object-fit:contain;align-self:flex-start}
+.notetext{margin:0;white-space:pre-wrap}
+.brk{word-break:break-all}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0}
+.chip{border:1px solid var(--rule);background:var(--sheet);border-radius:999px;padding:5px 12px;font-size:.8rem}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--sheet);border-color:var(--ink)}
+.soon{margin-top:18px;border:1px dashed var(--organ);border-radius:16px;padding:14px}
+.soon p{margin:4px 0 0}
+
+/* exam paper */
+.paper{background:var(--sheet);border:1px solid var(--rule);border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:14px;background-image:repeating-linear-gradient(to bottom,transparent 0 31px,var(--paperline) 31px 32px)}
+.paper-h{display:flex;justify-content:space-between;gap:8px;font-size:.78rem;font-weight:600;color:var(--ink-soft);flex-wrap:wrap}
+.bar.thin{height:5px;margin:0}
+.opt.sel{border-color:var(--accent);background:var(--sheet);box-shadow:inset 0 0 0 1px var(--accent)}
+.ol{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--paper);font-weight:700;font-size:.78rem;margin-right:10px}
+.result{background:var(--ink);color:var(--sheet);border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.result h1{font-size:1.7rem;font-weight:800}
+.result p{margin:0}
+.result .eyebrow{color:inherit;opacity:.75}
+.revise{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.revise .pill{border:0;background:var(--sheet);color:var(--ink);cursor:pointer}
+.mark{background:var(--sheet);border:1px solid var(--rule);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:6px}
+.mark p{margin:0}
+.mark.ok{border-left:5px solid var(--ind)} .mark.no{border-left:5px solid var(--con)}
+.cmp{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.cmp>div{background:var(--paper);border-radius:12px;padding:10px}
+.cmp ul{margin:4px 0 0;padding-left:18px;font-size:.88rem}
+.marks{display:flex;gap:6px;flex-wrap:wrap}
+.mk{width:40px;height:40px;border-radius:50%;border:2px solid var(--rule);background:var(--sheet);font-weight:700}
+.mk.on{background:var(--accent);border-color:var(--accent);color:#fff}
+
+/* animated mechanisms */
+@media (prefers-reduced-motion:no-preference){
+ .an-needle{transform-box:view-box;transform-origin:140px 62px;animation:needle 3s ease-in-out infinite}
+ @keyframes needle{0%,15%{transform:rotate(95deg)}55%,100%{transform:rotate(0)}}
+ .an-puff{animation:puff 2.4s ease-in-out infinite}.an-puff.d1{animation-delay:.3s}.an-puff.d2{animation-delay:.6s}
+ @keyframes puff{0%,100%{opacity:1}60%{opacity:.15}}
+ .an-x{animation:xin 2.4s ease-in-out infinite}@keyframes xin{0%,30%{opacity:0}50%,100%{opacity:1}}
+ .an-enter{animation:enter 3s ease-in-out infinite}@keyframes enter{0%{transform:translateX(0);opacity:1}60%{transform:translateX(60px);opacity:0}61%,100%{transform:translateX(0);opacity:0}100%{opacity:1}}
+ .an-pulse{transform-box:fill-box;transform-origin:center;animation:boom 3s ease-in-out infinite}@keyframes boom{0%,50%{transform:scale(.4);opacity:0}70%{transform:scale(1.15);opacity:1}100%{transform:scale(1);opacity:1}}
+ .an-dash{animation:dash 1s linear infinite}@keyframes dash{to{stroke-dashoffset:-14}}
+ .an-blink{animation:blink 1.6s ease-in-out infinite}@keyframes blink{50%{opacity:.2}}
+ .an-leak{animation:leak 2.6s ease-out infinite}@keyframes leak{0%{transform:translate(-12px,0);opacity:0}30%{opacity:1}100%{transform:translate(10px,0);opacity:0}}
+ .an-draw{stroke-dasharray:100;animation:draw 4s ease-out infinite}@keyframes draw{0%{stroke-dashoffset:100}70%,100%{stroke-dashoffset:0}}
+}
+@media (max-width:640px){
+ .two,.journey,.cmp{grid-template-columns:minmax(0,1fr)}
+ .journey>li{margin-top:6px}
+ .bodygrid{grid-template-columns:minmax(0,1fr)}
+ svg.body{max-width:200px}
+ .kardex{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .chart h1{font-size:1.65rem}
+ .tabbtn{font-size:.66rem}
+}
+
+.aibadge{display:inline-block;margin-top:4px;font-size:.68rem;font-weight:700;letter-spacing:.03em;color:var(--moa);background:var(--moa-bg);border-radius:6px;padding:2px 8px}
+.aibtn{border-color:var(--moa);color:var(--moa);font-weight:600}
+.aistatus{font-size:.8rem;font-weight:600;color:var(--moa);animation:blink 1.4s ease-in-out infinite}
+.res.ai{border-left:4px solid var(--moa)}
+
+.brandrow .steth{width:22px;height:22px;color:var(--nur-bg)}
+.brandrow .tag{font-weight:400;opacity:.7;font-size:.75rem}
+</style>
+</head>
+<body>
+<main class="wrap" id="app"></main>
+<nav class="tabbar" aria-label="Main"><div class="tabbar-in">
+  <button class="tabbtn" data-tab="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>Home</button>
+  <button class="tabbtn" data-tab="modules"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M17.5 14v7M14 17.5h7"/></svg>Modules</button>
+  <button class="tabbtn" data-tab="practice"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6v3H9z"/><path d="M15 4h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3"/><path d="M9 12l2 2 4-4"/></svg>Practice</button>
+  <button class="tabbtn" data-tab="library"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h4v16H4zM10 4h4v16h-4z"/><path d="M16 5l4 1-3 14-4-1z"/></svg>Library</button>
+  <button class="tabbtn" data-tab="words"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zm0 0a2 2 0 0 0 2 2h13"/><path d="M9 8h6"/></svg>Words</button>
+</div></nav>
+<script>
+/* ===================== PICTURES (how each drug works) ===================== */
+const T = (x,y,s,txt,extra="") => `<text x="${x}" y="${y}" font-size="${s}" fill="var(--ink)" font-family="Poppins,sans-serif" ${extra}>${txt}</text>`;
+const PICS = {
+ thermostat:`<svg class="pic" viewBox="0 0 220 130" role="img" aria-label="A brain thermostat dial turned down from hot to cool">
+  <rect x="22" y="14" width="18" height="78" rx="9" fill="var(--sheet)" stroke="var(--ink)" stroke-width="2"/>
+  <circle cx="31" cy="100" r="15" fill="var(--con)" stroke="var(--ink)" stroke-width="2"/>
+  <rect x="27" y="58" width="8" height="38" fill="var(--con)"/>
+  <path d="M48 40 l0 34" stroke="var(--int)" stroke-width="3" marker-end="url(#ah)"/>
+  <defs><marker id="ah" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--int)"/></marker></defs>
+  <circle cx="140" cy="62" r="44" fill="var(--sheet)" stroke="var(--ink)" stroke-width="2"/>
+  <path d="M108 80 A36 36 0 0 1 172 80" fill="none" stroke="var(--rule)" stroke-width="8"/>
+  <path d="M108 80 A36 36 0 0 1 118 40" fill="none" stroke="var(--int)" stroke-width="8"/>
+  <path class="an-needle" d="M140 62 L116 48" stroke="var(--ink)" stroke-width="4" stroke-linecap="round"/><circle cx="140" cy="62" r="5" fill="var(--ink)"/>
+  ${T(103,96,10,"cool")} ${T(160,96,10,"hot")} ${T(98,124,11,"Brain thermostat turned down")}
+ </svg>`,
+ factory:`<svg class="pic" viewBox="0 0 220 130" role="img" aria-label="A COX factory switched off so no pain, fever or swelling chemicals come out">
+  <path d="M20 110 V60 l30 -18 v18 l30 -18 v18 l30 -18 V110 z" fill="var(--sheet)" stroke="var(--ink)" stroke-width="2"/>
+  <rect x="94" y="26" width="12" height="30" fill="var(--sheet)" stroke="var(--ink)" stroke-width="2"/>
+  ${T(42,94,13,"COX","font-weight='700'")}
+  <circle class="an-puff" cx="130" cy="30" r="9" fill="var(--se-bg)" stroke="var(--se)" stroke-width="2"/><circle class="an-puff d1" cx="152" cy="22" r="11" fill="var(--se-bg)" stroke="var(--se)" stroke-width="2"/><circle class="an-puff d2" cx="176" cy="30" r="9" fill="var(--se-bg)" stroke="var(--se)" stroke-width="2"/>
+  <path class="an-x" d="M118 14 L190 44 M190 14 L118 44" stroke="var(--con)" stroke-width="4" stroke-linecap="round"/>
+  ${T(122,64,10,"pain · fever · swelling")} ${T(150,78,10,"switched OFF","fill='var(--con)' font-weight='600'")}
+  <rect x="138" y="88" width="56" height="24" rx="12" fill="var(--rule)"/><circle cx="150" cy="100" r="9" fill="var(--con)"/>${T(164,104,10,"OFF")}
+ </svg>`,
+ trojan:`<svg class="pic" viewBox="0 0 220 130" role="img" aria-label="Flucytosine enters the fungal cell and turns into 5-FU which breaks DNA and RNA">
+  <ellipse cx="128" cy="66" rx="82" ry="54" fill="var(--sheet)" stroke="var(--moa)" stroke-width="3" stroke-dasharray="210 14"/>
+  ${T(140,22,9,"fungal cell")}
+  <g class="an-enter"><rect x="14" y="54" width="26" height="22" rx="4" fill="var(--moa)"/>${T(17,69,9,"5-FC","fill='#fff' font-weight='700'")}</g>
+  <path d="M42 65 h20" stroke="var(--moa)" stroke-width="3" marker-end="url(#am)"/>
+  <defs><marker id="am" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--moa)"/></marker></defs>
+  <path class="an-pulse" d="M88 50 l8 -12 l6 10 l10 -8 l0 14 l12 2 l-10 8 l8 10 l-14 -2 l-4 12 l-6 -12 l-12 4 l4 -12 l-10 -6 z" fill="var(--con)"/>
+  ${T(94,68,9,"5-FU","fill='#fff' font-weight='700'")}
+  <path d="M150 42 q8 8 0 16 q-8 8 0 16 q8 8 0 16" fill="none" stroke="var(--int)" stroke-width="3"/>
+  <path d="M166 42 q-8 8 0 16 M166 74 q-8 8 0 16" fill="none" stroke="var(--int)" stroke-width="3"/>
+  <path class="an-dash" d="M140 66 l34 0" stroke="var(--con)" stroke-width="3" stroke-dasharray="4 3"/>
+  ${T(136,108,9,"DNA & RNA broken")}
+ </svg>`,
+ bricks:`<svg class="pic" viewBox="0 0 220 130" role="img" aria-label="A fungal wall with missing ergosterol bricks so it leaks">
+  ${[0,1,2,3].map(r=>[0,1,2,3,4,5].map(c=>{const miss=(r===1&&c===3)||(r===2&&c===1)||(r===3&&c===4)||(r===0&&c===2);const x=14+c*32+(r%2?16:0);return miss?`<rect x="${x}" y="${14+r*22}" width="28" height="18" rx="3" fill="none" stroke="var(--con)" stroke-width="2" stroke-dasharray="3 3" class="an-blink"/>`:`<rect x="${x}" y="${14+r*22}" width="28" height="18" rx="3" fill="var(--se)" opacity=".85"/>`}).join("")).join("")}
+  ${T(14,118,11,"No ergosterol bricks = leaky wall")}
+ </svg>`,
+ holes:`<svg class="pic" viewBox="0 0 220 130" role="img" aria-label="Amphotericin punches holes in the fungal membrane and the contents leak out">
+  <ellipse cx="100" cy="64" rx="70" ry="46" fill="var(--moa-bg)" stroke="var(--moa)" stroke-width="5"/>
+  <circle cx="168" cy="54" r="6" fill="var(--sheet)" stroke="var(--ink)"/><circle cx="160" cy="88" r="6" fill="var(--sheet)" stroke="var(--ink)"/><circle cx="60" cy="24" r="6" fill="var(--sheet)" stroke="var(--ink)"/>
+  <g class="an-leak"><circle cx="186" cy="48" r="4" fill="var(--se)"/><circle cx="200" cy="58" r="3" fill="var(--se)"/><circle cx="178" cy="98" r="4" fill="var(--se)"/><circle cx="194" cy="106" r="3" fill="var(--se)"/><circle cx="50" cy="8" r="3" fill="var(--se)"/></g>
+  ${T(62,68,11,"fungus","font-weight='600'")} ${T(118,124,10,"K⁺ and contents leak out")}
+ </svg>`,
+ burst:`<svg class="pic" viewBox="0 0 220 130" role="img" aria-label="A bacterium whose wall cannot be repaired bursts open">
+  <rect x="24" y="40" width="110" height="50" rx="25" fill="var(--ind-bg)" stroke="var(--ind)" stroke-width="5"/>
+  <path class="an-blink" d="M120 44 l-10 14 l8 6 l-12 14" stroke="var(--con)" stroke-width="3" fill="none"/>
+  <path d="M146 44 l14 -10 M150 66 h18 M146 88 l14 10" stroke="var(--con)" stroke-width="3" stroke-linecap="round"/>
+  <g class="an-leak"><circle cx="178" cy="34" r="4" fill="var(--ind)"/><circle cx="186" cy="66" r="5" fill="var(--ind)"/><circle cx="176" cy="102" r="4" fill="var(--ind)"/></g>
+  ${T(46,70,11,"bacterium","font-weight='600'")} ${T(24,118,11,"No wall repair, so it bursts")}
+ </svg>`,
+ nooxygen:`<svg class="pic" viewBox="0 0 220 130" role="img" aria-label="In places with no oxygen the germ activates metronidazole, which breaks its DNA">
+  <circle cx="40" cy="40" r="22" fill="var(--sheet)" stroke="var(--con)" stroke-width="3"/>${T(28,45,13,"O₂","font-weight='700'")}
+  <path d="M24 56 L56 24" stroke="var(--con)" stroke-width="3"/>
+  <rect x="80" y="30" width="110" height="56" rx="28" fill="var(--int-bg)" stroke="var(--int)" stroke-width="4"/>
+  <path d="M100 58 q8 -10 16 0 t16 0" fill="none" stroke="var(--int)" stroke-width="3"/>
+  <path d="M146 58 q8 -10 16 0" fill="none" stroke="var(--int)" stroke-width="3"/>
+  <path class="an-blink" d="M136 44 l4 8 l-6 4 l6 8" stroke="var(--con)" stroke-width="3" fill="none"/>
+  ${T(18,82,10,"no oxygen")} ${T(84,112,10,"Germ arms the drug, DNA breaks")}
+ </svg>`,
+ race:`<svg class="pic" viewBox="0 0 220 130" role="img" aria-label="Graph of malaria parasites over 3 days: a steep fall from artemether then a slow clean-up by lumefantrine">
+  <path d="M30 14 V100 H206" fill="none" stroke="var(--ink-soft)" stroke-width="2"/>
+  <path class="an-draw" d="M32 20 C44 70, 56 82, 78 86 S150 96, 204 99" fill="none" stroke="var(--con)" stroke-width="4" pathLength="100"/>
+  <path d="M34 22 C46 70, 58 80, 78 84" fill="none" stroke="var(--gold)" stroke-width="9" opacity=".45"/>
+  <path d="M80 86 C120 92, 160 97, 204 99" fill="none" stroke="var(--int)" stroke-width="9" opacity=".3"/>
+  ${T(54,40,10,"artemether: fast kill","font-weight='600'")} ${T(104,80,10,"lumefantrine: clears the rest","font-weight='600'")}
+  ${T(6,18,9,"parasites")} ${T(30,116,9,"Day 0")} ${T(110,116,9,"Day 1–2")} ${T(178,116,9,"Day 3")}
+ </svg>`
+};
+
+/* ===================== CONTENT ===================== */
+const DRUGS = [
+{ id:"paracetamol", group:"Pain & fever", tone:"c-se", pic:"thermostat", name:"Paracetamol", say:"pa-ra-SEE-ta-mol", cls:"Analgesic & antipyretic", brands:["Panadol","Calpol"],
+  one:"Takes away mild to moderate pain and brings down fever. Gentle on the stomach. Too much destroys the liver.",
+  big:"It turns down the brain's thermostat and quiets pain signals. It works in the brain, so it does very little for swelling.",
+  moa:["Blocks the making of prostaglandins (pain and fever messengers), mainly in the brain and spinal cord.","Resets the temperature centre in the brain (hypothalamus), so fever comes down.","Has almost no anti-inflammatory effect in the body."],
+  ind:["Mild to moderate pain: headache, toothache, period pain","Fever, including in children","Added to stronger painkillers for better relief"],
+  con:["Allergy (hypersensitivity) to paracetamol","Severe liver disease","Take care: heavy alcohol use, malnutrition or low body weight"],
+  se:{common:["Rare at normal doses","Skin rash (uncommon)"],danger:["Overdose: liver damage (hepatotoxicity). Vomiting, right upper belly pain, yellow eyes after 1–3 days"]},
+  inter:["Alcohol: more liver damage","Other products with paracetamol (cold and flu syrups, Panadol Extra): accidental double dose","Warfarin: regular high doses can thin the blood more (raised INR)","Carbamazepine, phenytoin, rifampicin, isoniazid: liver damage more likely"],
+  nurse:{assess:["Pain score or temperature before, and 30–60 minutes after","Everything else taken in the last 24 hours","Liver risk: alcohol, low weight, liver disease"],give:["Adult usual maximum 4 g in 24 hours (8 × 500 mg); lower if liver risk","At least 4 hours between doses","Children: dose by weight"],teach:["No alcohol with it","Read labels of cough and cold medicines","An overdose needs hospital at once even if the person feels fine. Antidote: N-acetylcysteine (NAC)"]},
+  why:[["Why can a paracetamol overdose look fine on day 1?","The liver is damaged silently. Vomiting, pain and yellow eyes only show after 1–3 days, when the damage is severe. So every overdose goes to hospital at once."],["Why doesn't paracetamol bring down swelling?","It works mostly in the brain and spinal cord, not at the injury. Ibuprofen works at the injury, so it reduces swelling."]],
+  trick:"Two P's and an L: Pain, Pyrexia, protect the Liver. Max 4 g = 8 tablets.",
+  kenya:"Sold everywhere over the counter, and hidden in many cough and cold syrups. Always ask what else the patient took at home."},
+
+{ id:"ibuprofen", group:"Pain & fever", tone:"c-se", pic:"factory", name:"Ibuprofen", say:"eye-byoo-PROE-fen", cls:"NSAID", brands:["Brufen","Nurofen"],
+  one:"Painkiller that also reduces swelling and fever. Can hurt the stomach, kidneys and heart if misused.",
+  big:"It switches off the COX 'factory' that makes pain, fever and swelling chemicals. The same factory protects the stomach and kidneys, so they lose protection too.",
+  moa:["Blocks the COX-1 and COX-2 enzymes all over the body.","Less prostaglandin is made, so there is less pain, fever and swelling (inflammation).","Blocking COX-1 removes the stomach's protective mucus and reduces blood flow to the kidneys. That causes the side effects."],
+  ind:["Pain with swelling: sprains, arthritis, dental pain","Period pain (dysmenorrhoea)","Fever","Pain after surgery, when the doctor allows"],
+  con:["Allergy to ibuprofen, aspirin or any NSAID, including asthma that gets worse with aspirin","Active stomach ulcer or gut bleeding","Severe kidney, liver or heart failure","Pregnancy, especially after 20 weeks","Take care: elderly, high blood pressure, dehydration"],
+  se:{common:["Indigestion (dyspepsia), heartburn, nausea","Stomach pain, diarrhoea","Headache, dizziness"],danger:["Ulcer bleeding: black tarry stool, vomiting blood","Kidney injury: passing less urine","Wheezing in sensitive asthmatics","Raised blood pressure, swelling"]},
+  inter:["Warfarin, aspirin, other NSAIDs: more bleeding","Steroids (prednisolone): more ulcers","Enalapril and furosemide: kidney injury, and BP tablets work less well","Lithium, methotrexate: toxic levels","Fluoxetine and other SSRIs: more bleeding"],
+  nurse:{assess:["Ulcers, asthma, kidney or heart disease, pregnancy","Pain, swelling, temperature","Blood pressure and urine output with long use"],give:["With or after food or milk","Lowest dose, shortest time"],teach:["Report black stool, vomiting blood or stomach pain","Don't combine with diclofenac, aspirin or other NSAIDs","Drink enough fluids"]},
+  why:[["Why give ibuprofen with food?","COX-1 makes prostaglandins that protect the stomach lining. Ibuprofen blocks them, so acid attacks the stomach. Food reduces irritation, but keep the course short."],["Why can it harm the kidneys?","Prostaglandins keep the kidney blood vessels open. Block them in a dehydrated or elderly patient and the kidneys get too little blood."]],
+  trick:"NSAIDs hurt 4 organs: Stomach, Lungs, Kidneys, Heart. Ask about all four before you give.",
+  kenya:"Over the counter. Nurofen is plain ibuprofen. Some other brands mix ibuprofen with paracetamol, so read the label."},
+
+{ id:"flucytosine", group:"Antifungals", tone:"c-moa", pic:"trojan", name:"Flucytosine", say:"floo-SY-toe-seen", cls:"Antifungal", brands:["Ancobon","5-FC"],
+  one:"Strong antifungal for serious, deep fungal infections. Always given with a partner drug, never alone.",
+  big:"A Trojan horse. The fungus lets it in, then turns it into 5-FU, a poison that wrecks the fungus's DNA and RNA from inside.",
+  moa:["The fungus takes flucytosine into its cell.","A fungal enzyme (cytosine deaminase) converts it into 5-fluorouracil (5-FU).","5-FU disrupts DNA and RNA synthesis, so the fungus cannot grow.","Human cells have little of this enzyme, but some 5-FU still forms in the body. That is why the bone marrow can be harmed."],
+  ind:["Cryptococcal meningitis (fungal infection of the brain lining, common in advanced HIV), with amphotericin B and/or fluconazole","Serious Candida infections in the blood, heart or urinary tract","Always combined: alone, the fungus quickly becomes resistant"],
+  con:["Allergy (hypersensitivity) to flucytosine","Pregnancy and breastfeeding: avoid unless benefits outweigh risk","Kidney impairment: not banned, but the dose MUST be reduced","Take care: bone marrow suppression, blood disorders, liver disease"],
+  se:{common:["Nausea, vomiting, loss of appetite (anorexia)","Diarrhoea, belly pain","Rash"],danger:["Bone marrow suppression: anaemia, infections, bleeding (thrombocytopenia)","Liver toxicity: yellow eyes","Confusion, hallucinations"]},
+  inter:["Amphotericin B: kidneys clear less flucytosine, so it builds up. They still work well together; monitor closely","Zidovudine (AZT), cancer drugs, radiotherapy: more bone marrow suppression","Cytarabine: may stop flucytosine working"],
+  nurse:{assess:["Allergies","Kidney function (creatinine, U&E) before and during: it decides the dose","Full Blood Count (FBC) at least twice a week","Liver function tests (LFTs)","Fluid intake and output chart"],give:["A few capsules at a time over about 15 minutes, to reduce nausea","Always with its partner antifungal","Blood levels checked if the lab can"],teach:["Report bleeding, bruising, fever or sore throat","Report yellow eyes or confusion"]},
+  why:[["Why is flucytosine never given alone?","Fungi quickly change their entry door or enzyme and the drug stops working. The partner drug kills the ones that would resist."],["Why check the FBC so often?","Some 5-FU forms in the body. 5-FU attacks fast-dividing cells like the bone marrow. Low counts mean anaemia, infection and bleeding."],["Why do the kidneys decide the dose?","Flucytosine leaves through the kidneys. Weak kidneys, and the drug builds up to toxic levels."]],
+  trick:"FluCYTOsine attacks CYTO (cells): it becomes 5-FU, a cancer drug. Think chemo: check blood, check kidneys, never alone.",
+  kenya:"Part of the WHO-recommended treatment for HIV-related cryptococcal meningitis with amphotericin B and fluconazole. Follow the current Kenya HIV guidelines for doses."},
+
+{ id:"fluconazole", group:"Antifungals", tone:"c-moa", pic:"bricks", name:"Fluconazole", say:"floo-KON-a-zole", cls:"Azole antifungal", brands:["Diflucan"],
+  one:"Common tablet antifungal for thrush and cryptococcal infection. Raises the levels of many other drugs.",
+  big:"It stops the fungus making ergosterol, the bricks of its cell membrane. With missing bricks, the wall leaks and the fungus stops growing.",
+  moa:["Blocks a fungal enzyme (14-alpha demethylase, part of the CYP450 family).","The fungus cannot make ergosterol.","The cell membrane becomes weak and leaky, so the fungus stops growing."],
+  ind:["Oral and oesophageal thrush (candidiasis)","Vaginal thrush","Cryptococcal meningitis: follow-on and long-term treatment","Preventing fungal infection in advanced HIV"],
+  con:["Allergy to fluconazole or other azoles","With certain drugs that affect heart rhythm (e.g. erythromycin)","Pregnancy: avoid high doses or long courses","Take care: liver or kidney disease, heart rhythm problems"],
+  se:{common:["Nausea, belly pain, diarrhoea","Headache","Rash"],danger:["Liver damage","Irregular heartbeat (QT prolongation)","Blistering skin rash (rare): stop and report"]},
+  inter:["Warfarin: more bleeding","Glibenclamide and other diabetes tablets: low blood sugar","Phenytoin: toxic levels","Rifampicin: less fluconazole, so it works less","Other heart-rhythm drugs: arrhythmia"],
+  nurse:{assess:["Other medicines: warfarin, diabetes tablets, phenytoin, rifampicin","LFTs on longer courses","Pregnancy"],give:["With or without food","IV at the prescribed rate"],teach:["Stop and report any blistering rash","Report yellow eyes or dark urine","On diabetes tablets? Watch for low blood sugar"]},
+  why:[["Why does fluconazole make warfarin dangerous?","The liver clears warfarin with CYP450 enzymes. Fluconazole blocks them, so warfarin piles up and the blood gets too thin."]],
+  trick:"AZOLEs block the wall AND block the liver's drug-clearing enzymes. Always ask: what else is this patient taking?",
+  kenya:"Used daily in HIV clinics and maternity units for thrush."},
+
+{ id:"amphotericin", group:"Antifungals", tone:"c-moa", pic:"holes", name:"Amphotericin B", say:"am-foe-TER-i-sin bee", cls:"Polyene antifungal", brands:["Fungizone","AmBisome"],
+  one:"The heavy-duty IV antifungal for life-threatening infections. Very effective, hard on the kidneys.",
+  big:"It punches holes in the fungus's membrane. Potassium and the cell's insides leak out and the fungus dies.",
+  moa:["Binds to ergosterol in the fungal cell membrane.","Forms pores (holes) in the membrane.","Contents leak out and the fungus dies.","It binds a little to cholesterol in human cells too, especially in the kidneys. That causes the toxicity."],
+  ind:["Life-threatening fungal infections: cryptococcal meningitis, invasive candidiasis, histoplasmosis","Kala-azar (visceral leishmaniasis) in some patients","Neutropenic fever not responding to antibiotics (liposomal form)"],
+  con:["Allergy to amphotericin B","Take care: kidney impairment, other kidney-damaging drugs, low potassium"],
+  se:{common:["Infusion reaction: fever, chills, shaking (\"shake and bake\")","Nausea, vomiting","Sore, swollen vein (phlebitis)"],danger:["Kidney damage (nephrotoxicity)","Low potassium (hypokalaemia) and magnesium","Anaemia","Irregular heartbeat"]},
+  inter:["Gentamicin, tenofovir, ciclosporin: more kidney damage","Flucytosine: builds up to toxic levels","Steroids, furosemide: potassium falls further","Digoxin: toxic when potassium is low"],
+  nurse:{assess:["Vital signs before and often during the infusion","U&E, potassium and magnesium regularly","Fluid intake and output","Drip site for phlebitis"],give:["Dilute and flush only with 5% dextrose, never normal saline","Saline pre-hydration as prescribed (before or separate line)","Premedicate as prescribed (paracetamol, antihistamine, hydrocortisone)","Infuse slowly at the prescribed rate"],teach:["Call the nurse at once for chills, shaking or breathlessness","Cramps or weakness can mean low potassium"]},
+  why:[["Why does it damage the kidneys?","It binds a little to human cholesterol too, especially in kidney tubules, and narrows kidney blood vessels. Saline before the dose helps protect them."],["Why do patients lose potassium?","Damaged kidney tubules let potassium leak into the urine. Low potassium can cause dangerous heart rhythms."]],
+  trick:"'Ampho-terrible': Shake and bake, Kidneys and potassium fall, Sugar water only (dextrose).",
+  kenya:"Liposomal amphotericin B is now given as one high dose for HIV-related cryptococcal meningitis, with flucytosine and fluconazole."},
+
+{ id:"amoxicillin", group:"Antibiotics", tone:"c-ind", pic:"burst", name:"Amoxicillin", say:"a-mox-i-SIL-in", cls:"Penicillin antibiotic", brands:["Amoxil","Amoxicillin DT"],
+  one:"One of the most used antibiotics. Safe for most, but dangerous for anyone allergic to penicillin.",
+  big:"It stops bacteria repairing their outer wall. The weak wall gives way and the bacterium bursts.",
+  moa:["Binds to penicillin-binding proteins in the bacteria.","Stops the bacteria building their cell wall.","The wall bursts and the bacteria die (bactericidal)."],
+  ind:["Pneumonia, especially in children","Ear (otitis media), throat, sinus and chest infections","Urinary tract infections (UTI)","Dental infections","H. pylori ulcers, combined with other drugs"],
+  con:["Penicillin allergy: ask every time","Take care: cephalosporin allergy, glandular fever (causes rash), kidney impairment"],
+  se:{common:["Diarrhoea, nausea","Rash","Thrush (mouth or vagina)"],danger:["Anaphylaxis: face and throat swelling, difficulty breathing","Severe watery diarrhoea (C. difficile)"]},
+  inter:["Warfarin: may raise INR","Methotrexate: toxic levels","Allopurinol: rash more likely"],
+  nurse:{assess:["Penicillin allergy before the FIRST dose; record it","Temperature, breathing rate, cough","Diarrhoea during treatment"],give:["With or without food","Watch 30 minutes after the first dose, especially IV","Adrenaline and anaphylaxis kit close"],teach:["Finish the whole course","Report rash, swelling or breathing trouble at once","Report severe or bloody diarrhoea"]},
+  why:[["Why finish the whole course?","Feeling better means most bacteria are dead, not all. Stopping early leaves the toughest ones to regrow and builds resistance."]],
+  trick:"Ask before you Amox: Any Allergy to penicillin?",
+  kenya:"Dispersible amoxicillin is first-line for child pneumonia under IMCI."},
+
+{ id:"metronidazole", group:"Antibiotics", tone:"c-ind", pic:"nooxygen", name:"Metronidazole", say:"met-roe-NI-da-zole", cls:"Antibiotic & antiprotozoal", brands:["Flagyl"],
+  one:"Kills germs that live without oxygen and some parasites. No alcohol with it.",
+  big:"A bomb that only goes off where there is no oxygen. Germs living there arm it themselves, and it breaks their DNA.",
+  moa:["Enters bacteria and parasites.","Germs that live without oxygen (anaerobes) change it into a toxic form.","The toxic form breaks their DNA and they die."],
+  ind:["Anaerobic infections: belly and pelvic infections, after surgery, dental abscess","Bacterial vaginosis and trichomoniasis","Amoebic dysentery and giardiasis","PID, with other antibiotics","C. difficile and H. pylori"],
+  con:["Allergy to metronidazole","Alcohol during treatment and 48 hours after","Take care: liver disease, epilepsy, first trimester (avoid high doses)"],
+  se:{common:["Metallic taste","Nausea, poor appetite","Dark urine (harmless)","Headache, dizziness"],danger:["Numbness or tingling in hands and feet (peripheral neuropathy)","Fits (rare)"]},
+  inter:["Alcohol: flushing, vomiting, fast heartbeat (disulfiram-like reaction)","Warfarin: more bleeding","Lithium: toxic levels","Phenytoin: higher levels"],
+  nurse:{assess:["Alcohol use","Numbness or tingling on long courses","Liver disease, epilepsy"],give:["With or after food","IV: infuse slowly, usually 20–60 minutes"],teach:["No alcohol during and for 48 hours after the last dose","Metallic taste and dark urine are expected","Partners need treatment for trichomoniasis"]},
+  why:[["Why is it so good for abscesses and gut infections?","Those places have little oxygen. The germs there arm the drug themselves, so it works exactly where they live."],["Why no alcohol?","Metronidazole is thought to block alcohol breakdown, so a toxic product builds up: flushing, vomiting, fast heartbeat."]],
+  trick:"METRO = METallic taste + no bar (no alcohol). Kills germs that hate oxygen.",
+  kenya:"Common in gynaecology, surgical wards and outpatient clinics."},
+
+{ id:"al", group:"Antimalarials", tone:"c-int", pic:"race", name:"Artemether-lumefantrine", say:"ar-TEM-e-ther loo-me-FAN-treen", cls:"ACT antimalarial", brands:["Coartem","AL"],
+  one:"First-line tablets for uncomplicated malaria in Kenya. Two drugs: one kills fast, one cleans up.",
+  big:"A sprinter and a long-distance runner. Artemether kills most parasites in hours; lumefantrine stays in the blood for days to clear the rest.",
+  moa:["Artemether reacts with iron (haem) in the parasite and releases free radicals that destroy it fast.","Lumefantrine stops the parasite making its haem harmless, so the haem poisons it. Slow, but lasts longer.","Two drugs together make resistance harder."],
+  ind:["Uncomplicated falciparum malaria, confirmed by RDT or microscopy","Finishing treatment after IV artesunate for severe malaria"],
+  con:["Allergy to artemether or lumefantrine","Severe malaria: give IV or IM artesunate instead","Heart rhythm problems (QT prolongation) or family history of sudden death","First trimester: WHO now allows AL; follow current Kenya malaria guidelines"],
+  se:{common:["Headache, dizziness","Poor appetite, nausea, vomiting, belly pain","Weakness, joint and muscle pain"],danger:["Irregular heartbeat (QT prolongation)","Allergic reaction"]},
+  inter:["Quinine, mefloquine, erythromycin, fluconazole: arrhythmia","Rifampicin, carbamazepine, efavirenz: less AL, treatment may fail","Hormonal contraceptives: may work less well; advise an extra method"],
+  nurse:{assess:["Confirm malaria with RDT or microscopy","Weight, for the dose band","Danger signs of severe malaria: confusion, fits, can't drink"],give:["6 doses over 3 days: hour 0, 8, 24, 36, 48, 60","With fatty food or milk","Vomited within 1 hour? Give the dose again"],teach:["Finish all 6 doses","Take each dose with milk or food","Come back if fever continues after 3 days"]},
+  why:[["Why two drugs, not one?","Artemether is fast but gone in hours. Lumefantrine stays for days and catches survivors. Together they make resistance harder."],["Why with fatty food?","Lumefantrine dissolves in fat. On an empty stomach very little is absorbed and treatment can fail."]],
+  trick:"AL likes FAT: Fatty food, All 6 doses, Twice a day for 3 days.",
+  kenya:"First-line for uncomplicated malaria in Kenya. Most cases are around Lake Victoria, western Kenya and the coast."}
+];
+
+const QUIZ = [
+ {d:"flucytosine",q:"Inside the fungal cell, flucytosine is changed into…",o:["5-fluorouracil (5-FU)","Fluconazole","Ergosterol","Amphotericin B"],a:0,e:"A fungal enzyme turns it into 5-FU, which disrupts DNA and RNA. Fluconazole is a different drug."},
+ {d:"flucytosine",q:"Why is flucytosine never given alone?",o:["It tastes bad","The fungus quickly becomes resistant","It only works by injection","It is too expensive"],a:1,e:"Alone, fungi learn to resist it fast. It is always paired with amphotericin B or fluconazole."},
+ {d:"flucytosine",q:"Which test do you check at least twice a week on flucytosine?",o:["Blood sugar","Full Blood Count (FBC)","Pregnancy test","Chest X-ray"],a:1,e:"It can suppress the bone marrow."},
+ {d:"paracetamol",q:"Usual maximum paracetamol for an adult in 24 hours?",o:["1 g","4 g","8 g","10 g"],a:1,e:"4 g = 8 tablets of 500 mg. Lower if liver risk."},
+ {d:"paracetamol",q:"Antidote for paracetamol overdose?",o:["Naloxone","Vitamin K","N-acetylcysteine (NAC)","Atropine"],a:2,e:"NAC protects the liver."},
+ {d:"ibuprofen",q:"A patient on ibuprofen passes black, tarry stool. This suggests…",o:["A normal side effect","Bleeding in the stomach or gut","Liver failure","Iron in the diet"],a:1,e:"NSAIDs strip the stomach's protection. Report at once."},
+ {d:"ibuprofen",q:"Which patient should NOT get ibuprofen?",o:["Sprained ankle","Period pain","Asthma that worsens with aspirin","Child with fever, drinking well"],a:2,e:"Aspirin-sensitive asthma can flare badly with any NSAID."},
+ {d:"amphotericin",q:"Amphotericin B is diluted in…",o:["Normal saline","5% dextrose","Ringer's lactate","Nothing"],a:1,e:"Saline makes it form particles. Dextrose only."},
+ {d:"amphotericin",q:"Which blood result often falls on amphotericin B?",o:["Potassium","Glucose","Cholesterol","Calcium only"],a:0,e:"Damaged kidney tubules lose potassium and magnesium."},
+ {d:"fluconazole",q:"Warfarin patient starts fluconazole. Main risk?",o:["Clots","Bleeding","Hair loss","High sugar"],a:1,e:"Fluconazole blocks the enzymes that clear warfarin."},
+ {d:"fluconazole",q:"Fluconazole works by…",o:["Stopping ergosterol being made","Punching holes in the membrane","Turning into 5-FU","Breaking a bacterial wall"],a:0,e:"Azoles block ergosterol. Amphotericin punches holes."},
+ {d:"amoxicillin",q:"Before the first dose of amoxicillin you must ask about…",o:["Last meal","Penicillin allergy","Blood group","Shoe size"],a:1,e:"Amoxicillin is a penicillin."},
+ {d:"metronidazole",q:"How long after the last metronidazole dose must alcohol be avoided?",o:["Not needed","2 hours","48 hours","2 weeks"],a:2,e:"Avoid during treatment and for 48 hours after."},
+ {d:"metronidazole",q:"Dark urine on metronidazole means you should…",o:["Stop the drug","Reassure: it is harmless","Call for dialysis","Give 5 L of fluids"],a:1,e:"Expected and harmless. Tingling or numbness is the one to report."},
+ {d:"al",q:"AL should be taken with…",o:["An empty stomach","Fatty food or milk","Grapefruit juice","Alcohol"],a:1,e:"Lumefantrine needs fat to be absorbed."},
+ {d:"al",q:"How many doses make a full AL course?",o:["3","4","6","10"],a:2,e:"6 doses over 3 days."},
+ {d:"al",q:"Patient vomits 30 minutes after AL. You…",o:["Do nothing","Give the dose again","Switch to paracetamol","Wait until tomorrow"],a:1,e:"Vomited within 1 hour: repeat the dose."}
+];
+
+const TF = [
+ ["Paracetamol reduces swelling as well as ibuprofen does.",false],["The antidote for paracetamol overdose is N-acetylcysteine.",true],
+ ["Paracetamol liver damage shows up immediately after an overdose.",false],["Ibuprofen is best given on an empty stomach.",false],
+ ["Aspirin-sensitive asthma is a reason not to give ibuprofen.",true],["NSAIDs can reduce blood flow to the kidneys.",true],
+ ["Flucytosine is usually given on its own.",false],["Flucytosine can cause bone marrow suppression.",true],
+ ["Fluconazole and flucytosine are the same drug.",false],["Weak kidneys mean the flucytosine dose must be reduced.",true],
+ ["Fluconazole can increase the effect of warfarin.",true],["Rifampicin can lower fluconazole levels.",true],
+ ["Amphotericin B is diluted in normal saline.",false],["Amphotericin B can cause low potassium.",true],
+ ["Chills during an amphotericin drip are a known infusion reaction.",true],["Amoxicillin is safe in penicillin allergy.",false],
+ ["Amoxicillin works by punching holes in the fungal membrane.",false],["Metronidazole can cause a metallic taste.",true],
+ ["Alcohol is fine 2 hours after the last metronidazole dose.",false],["Metronidazole works best against germs that live without oxygen.",true],
+ ["Artemether-lumefantrine is a 3-dose course.",false],["AL should be taken with fatty food or milk.",true],
+ ["Severe malaria is treated first with oral AL.",false],["Artemether kills parasites faster than lumefantrine.",true]
+];
+
+const MATCH_SETS = [
+ {name:"Memory hooks", pairs:{paracetamol:"Protect the liver",ibuprofen:"Give with food",flucytosine:"Becomes 5-FU",fluconazole:"Blocks ergosterol bricks",amphotericin:"Dextrose only",amoxicillin:"Ask about penicillin allergy",metronidazole:"No alcohol",al:"6 doses with fat"}},
+ {name:"Drug families", pairs:{paracetamol:"Analgesic & antipyretic",ibuprofen:"NSAID",flucytosine:"Antifungal, never alone",fluconazole:"Azole antifungal",amphotericin:"Polyene antifungal",amoxicillin:"Penicillin",metronidazole:"Nitroimidazole",al:"ACT antimalarial"}}
+];
+
+const WORDS = [
+ ["Analgesic","A painkiller.","maumivu = pain"],["Antipyretic","Brings down fever.","homa = fever"],["Pyrexia","Fever.","homa"],
+ ["Mode of action","How the drug works in the body (MoA)."],["Indication","A reason to give the drug."],["Contraindication","A reason NOT to give the drug."],
+ ["Hypersensitivity","Allergy to the drug.","mzio = allergy"],["Anaphylaxis","Severe allergic reaction: swelling, breathing trouble, low blood pressure. Emergency."],
+ ["Hepatotoxicity","Liver damage from a drug.","ini = liver"],["Liver toxicity","Liver damage from a drug.","ini = liver"],["Nephrotoxicity","Kidney damage from a drug.","figo = kidneys"],
+ ["Bone marrow suppression","The bone marrow makes fewer blood cells: anaemia, infections, bleeding."],["Anaemia","Too few red blood cells. Tired, pale, breathless.","upungufu wa damu"],
+ ["Thrombocytopenia","Low platelets. Bleeds and bruises easily."],["Anorexia","Here: loss of appetite."],["Prostaglandins","Body chemicals that cause pain, fever and swelling, and protect the stomach and kidneys."],
+ ["Inflammation","Swelling, redness, heat and pain at an injury or infection."],["Ergosterol","The fungus's version of cholesterol; keeps its membrane strong."],
+ ["NSAID","Non-Steroidal Anti-Inflammatory Drug, e.g. ibuprofen, diclofenac, aspirin."],["QT prolongation","An ECG change that can lead to a dangerous irregular heartbeat."],
+ ["Hypokalaemia","Low potassium in the blood: weakness, cramps, irregular heartbeat."],["Peripheral neuropathy","Nerve damage in hands and feet: numbness, tingling."],
+ ["Disulfiram-like reaction","Reaction to alcohol with some drugs: flushing, vomiting, fast heartbeat."],["Candidiasis","Thrush: a Candida fungal infection."],
+ ["Cryptococcal meningitis","Fungal infection of the brain lining, common in advanced HIV."],["Anaerobes","Germs that live without oxygen."],["Anaerobic","Living without oxygen."],
+ ["Phlebitis","Sore, swollen vein at the drip site."],["Dyspepsia","Indigestion."],["Dysmenorrhoea","Painful periods."],["Bactericidal","Kills bacteria."],
+ ["INR","International Normalised Ratio: shows how thin the blood is on warfarin."],["FBC","Full Blood Count: red cells, white cells, platelets."],
+ ["LFTs","Liver Function Tests."],["U&E","Urea and Electrolytes: kidney function and salts like potassium."],["RDT","Rapid Diagnostic Test: finger-prick malaria test."],
+ ["IMCI","Integrated Management of Childhood Illness: guide for treating sick children."],["Neutropenic","Very low neutrophils (white cells), so infections spread easily."],
+ ["ACT","Artemisinin-based Combination Therapy: two malaria drugs together."],["Haem","The iron part of haemoglobin. Malaria parasites feed on it."]
+];
+
+const NOTES = [
+ {s:"ok",said:"Used in combination with other antifungals for serious fungal infection; alone, increased risk of resistance.",fix:"Correct. This is the key point."},
+ {s:"fix",said:"MoA: Fluconazole is converted into fluorouracil…",fix:"It is <b>flucytosine</b> that is converted. Fluconazole is a different antifungal that blocks ergosterol."},
+ {s:"add",said:"Indications: candidiasis (oropharyngeal), plus an empty tick",fix:"Fill the empty tick with <b>cryptococcal meningitis</b>, its main use. Simple mouth thrush is treated with fluconazole or nystatin."},
+ {s:"fix",said:"Contraindication: renal insufficiency, bone marrow suppression",fix:"Kidney impairment is a <b>caution</b>: reduce the dose. Bone marrow suppression is also a caution."},
+ {s:"ok",said:"Pregnancy and lactation: not unless benefits outweigh risk",fix:"Correct."},
+ {s:"ok",said:"Side effects list",fix:"All correct. Add rash. Diarrhoea is common; constipation is not typical."},
+ {s:"fix",said:"Interaction: drugs that reduce renal effect (potassium) → toxicity",fix:"The drug is <b>amphotericin B</b>: it harms the kidneys, so flucytosine builds up."},
+ {s:"fix",said:"With bone marrow suppressing meds / radiation → hypersensitivity",fix:"The result is <b>more bone marrow suppression</b>, not hypersensitivity."},
+ {s:"add",said:"Nursing: allergies, liver function, FBC, symptoms",fix:"Add <b>kidney function</b> checks, FBC twice a week, and give capsules slowly to reduce nausea."},
+ {s:"fix",said:"Top of page: Nurofen as a paracetamol combination",fix:"Nurofen is plain ibuprofen. Some other brands combine the two."}
+];
+
+
+
+/* ===================== CLINICAL EXTRAS (profile page) ===================== */
+const ORGANS = {
+ brain:{n:"Brain & spinal cord",x:100,y:30}, mouth:{n:"Mouth & throat",x:100,y:47}, lungs:{n:"Lungs & airway",x:82,y:116},
+ heart:{n:"Heart",x:110,y:132}, liver:{n:"Liver",x:84,y:164}, stomach:{n:"Stomach",x:116,y:166}, kidneys:{n:"Kidneys",x:100,y:190},
+ gut:{n:"Intestines (gut)",x:100,y:214}, pelvis:{n:"Bladder & reproductive organs",x:100,y:240}, marrow:{n:"Bone marrow",x:80,y:292},
+ joints:{n:"Joints & injured tissue",x:123,y:326}, skin:{n:"Skin",x:47,y:118}, vein:{n:"Vein at the drip site",x:166,y:204},
+ blood:{n:"Blood",x:36,y:204}, nerves:{n:"Nerves of hands & feet",x:126,y:388}
+};
+const TYPE = {acts:["Works here","var(--ind)"], harm:["Can harm","var(--con)"], check:["Nurse checks","var(--int)"]};
+
+const EXTRA = {
+ paracetamol:{route:["Oral","IV","Rectal"], keys:["Max 4 g in 24 h","At least 4 h apart","Antidote: NAC"],
+  organs:{brain:[["acts","Resets the temperature centre (hypothalamus) and quiets pain signals."]],liver:[["harm","Overdose destroys liver cells. Signs show 1–3 days late."],["check","LFTs on long use; ask about alcohol."]]},
+  case:{s:"Kamau, 24, had flu. For 3 days he took Panadol plus a cold syrup every 4 hours. Today: nausea and pain under the right ribs.",a:"Suspect paracetamol overdose from two products (the syrup also contains paracetamol). Report urgently, check LFTs and paracetamol level as ordered, and expect N-acetylcysteine (NAC). Teach him to read labels."}},
+ ibuprofen:{route:["Oral","Gel"], keys:["Give with food","Lowest dose, shortest time","Ask: stomach, lungs, kidneys, heart"],
+  organs:{joints:[["acts","Blocks COX at the injury, so pain and swelling settle."]],brain:[["acts","Lowers fever."]],stomach:[["harm","Removes the protective lining: ulcers and bleeding."],["check","Ask about black stool or vomiting blood."]],kidneys:[["harm","Less blood flow to the kidneys, worse if dehydrated."],["check","Urine output, U&E on long use."]],heart:[["harm","Raises blood pressure, causes fluid retention."]],lungs:[["harm","Wheeze in aspirin-sensitive asthma."]]},
+  case:{s:"Mama Njeri, 68, on enalapril for blood pressure, has taken Brufen 3 times a day for a week for knee pain. Today her stool is black.",a:"Black stool suggests stomach bleeding. Withhold the next dose and report at once, check pulse and BP, and expect an Hb check. Ibuprofen with enalapril also strains her kidneys: check urine output."}},
+ flucytosine:{route:["Oral"], keys:["Never alone","FBC twice a week","Dose set by kidney function"],
+  organs:{brain:[["acts","Reaches the brain and spinal fluid, so it treats cryptococcal meningitis."],["harm","Confusion, hallucinations."]],blood:[["acts","Clears Candida from the blood (with a partner drug)."]],marrow:[["harm","Some 5-FU forms in the body and slows blood cell production."],["check","FBC at least twice a week."]],kidneys:[["check","They remove the drug. Weak kidneys = lower dose."]],liver:[["harm","Liver toxicity."],["check","LFTs."]],gut:[["harm","Nausea, vomiting, diarrhoea."]]},
+  case:{s:"Otieno, 32, advanced HIV, is on amphotericin B and flucytosine for cryptococcal meningitis. Day 6: his gums bleed, platelets are low and creatinine is rising.",a:"Amphotericin is harming his kidneys, so flucytosine is building up and suppressing his bone marrow. Report today: the doctor will adjust the dose. Start bleeding precautions and keep a strict fluid chart."}},
+ fluconazole:{route:["Oral","IV"], keys:["Ask what else they take","LFTs on long courses","Stop if blistering rash"],
+  organs:{mouth:[["acts","Clears oral and oesophageal thrush."]],pelvis:[["acts","Treats vaginal thrush."]],brain:[["acts","Keeps cryptococcal meningitis from coming back (follow-on treatment)."]],liver:[["harm","Liver injury, and it blocks the enzymes that clear other drugs."],["check","LFTs; review drug list."]],heart:[["harm","QT prolongation, irregular heartbeat."]],skin:[["harm","Rash; rarely severe blistering."]]},
+  case:{s:"Wanjiru takes warfarin for a heart valve. She starts fluconazole for oral thrush. Three days later she has nosebleeds.",a:"Fluconazole blocks the liver enzymes that clear warfarin, so her blood is too thin. Report, check INR as ordered, watch for other bleeding."}},
+ amphotericin:{route:["IV only"], keys:["5% dextrose only","Slow infusion","U&E, K⁺, Mg²⁺ often"],
+  organs:{brain:[["acts","Kills fungi in cryptococcal meningitis."]],blood:[["acts","Kills fungi spread through blood and organs."]],kidneys:[["harm","Main toxicity: kidney damage and potassium loss."],["check","U&E, potassium, magnesium; fluid chart; saline pre-hydration."]],heart:[["harm","Low potassium can cause arrhythmia."]],vein:[["harm","Phlebitis at the drip site."],["check","Inspect the site every shift."]],marrow:[["harm","Anaemia with longer courses."]]},
+  case:{s:"An hour into his amphotericin infusion, Mr Mutua starts shivering. Temperature 38.9 °C, pulse 112.",a:"This is an infusion reaction (shake and bake). Slow or pause the drip per protocol, check vital signs, inform the doctor, and give the prescribed premedication before the next dose."}},
+ amoxicillin:{route:["Oral","IV"], keys:["Ask allergy first","Watch 30 min after first dose","Finish the course"],
+  organs:{lungs:[["acts","Kills bacteria causing pneumonia and chest infections."]],mouth:[["acts","Throat, ear and dental infections."]],pelvis:[["acts","Urinary tract infections."]],gut:[["harm","Diarrhoea; severe watery diarrhoea can be C. difficile."]],skin:[["harm","Rash, hives; anaphylaxis in penicillin allergy."],["check","Allergy history before the first dose."]]},
+  case:{s:"Amina, 4, has fast breathing and is prescribed amoxicillin DT. Her mother says she 'got a rash after an injection' last year.",a:"Possible penicillin allergy. Do not give yet. Clarify what the injection was, inform the prescriber, and document. An alternative antibiotic may be needed."}},
+ metronidazole:{route:["Oral","IV","Vaginal gel"], keys:["No alcohol + 48 h","Give with food","Report tingling"],
+  organs:{gut:[["acts","Amoebiasis, giardiasis, C. difficile, abdominal infections."]],pelvis:[["acts","Bacterial vaginosis, trichomoniasis, PID."]],mouth:[["acts","Dental abscess."],["harm","Metallic taste."]],liver:[["harm","Thought to block alcohol breakdown: flushing, vomiting with alcohol."]],nerves:[["harm","Numbness and tingling on long courses."]],kidneys:[["check","Dark urine is expected and harmless."]]},
+  case:{s:"Achieng goes home on 7 days of metronidazole. She mentions a wedding this weekend.",a:"Teach: no alcohol during treatment and for 48 hours after the last dose, because of the flushing, vomiting and fast heartbeat reaction. Tell her the metallic taste and dark urine are expected."}},
+ al:{route:["Oral"], keys:["6 doses in 3 days","0-8-24-36-48-60 h","With fatty food or milk"],
+  organs:{blood:[["acts","Kills malaria parasites inside red blood cells."]],stomach:[["check","Lumefantrine is absorbed only with fat: give with milk or food."],["harm","Nausea, vomiting, poor appetite."]],heart:[["harm","QT prolongation with other QT drugs."]],brain:[["harm","Headache, dizziness."]]},
+  case:{s:"Baraka, 9, has a positive malaria RDT. He is alert and drinking. His mother says he never eats in the morning.",a:"Uncomplicated malaria: AL by weight, 6 doses over 3 days. Give each dose with milk or a fatty snack. If he vomits within 1 hour, repeat the dose. Teach the danger signs of severe malaria."}}
+};
+DRUGS.forEach(d=>Object.assign(d,EXTRA[d.id]));
+
+function bodyMap(d, sel){
+  const spots = Object.keys(d.organs);
+  const colorOf = k => { const t=d.organs[k].map(x=>x[0]); return t.includes("harm")?TYPE.harm[1]:t.includes("acts")?TYPE.acts[1]:TYPE.check[1]; };
+  return `<svg class="body" viewBox="0 0 200 404" role="img" aria-label="Body map for ${d.name}">
+   <g fill="var(--sil)" stroke="var(--sil-line)" stroke-width="1.5">
+    <circle cx="100" cy="32" r="22"/><rect x="91" y="52" width="18" height="14" rx="4"/>
+    <path d="M62 72 Q100 60 138 72 L148 150 Q142 200 140 252 L60 252 Q58 200 52 150 Z"/>
+   </g>
+   <g stroke="var(--sil)" stroke-width="18" stroke-linecap="round" fill="none"><path d="M64 78 L42 150 L34 226"/><path d="M136 78 L158 150 L166 226"/></g>
+   <g stroke="var(--sil)" stroke-width="24" stroke-linecap="round" fill="none"><path d="M82 250 L78 330 L76 390"/><path d="M118 250 L122 330 L124 390"/></g>
+   <g fill="none" stroke="var(--organ)" stroke-width="1.5">
+    <ellipse cx="100" cy="28" rx="15" ry="11"/>
+    <ellipse cx="83" cy="118" rx="13" ry="24"/><ellipse cx="117" cy="118" rx="13" ry="24"/>
+    <path d="M104 126 q6 -8 12 0 q4 8 -6 16 q-10 -8 -6 -16z"/>
+    <path d="M70 160 q16 -10 32 0 q-6 12 -30 10z"/><ellipse cx="117" cy="166" rx="12" ry="9"/>
+    <ellipse cx="86" cy="190" rx="5" ry="8"/><ellipse cx="114" cy="190" rx="5" ry="8"/>
+    <path d="M80 206 q20 -8 40 0 q4 10 -4 18 q-16 8 -32 0 q-8 -8 -4 -18z"/>
+    <ellipse cx="100" cy="240" rx="9" ry="7"/>
+    <path d="M80 262 L78 322" stroke-width="3" stroke-dasharray="2 3"/>
+   </g>
+   ${spots.map(k=>{const o=ORGANS[k];return `<g class="spot${k===sel?' on':''}" data-organ="${k}" tabindex="0" role="button" aria-label="${o.n}">
+     <circle class="ring" cx="${o.x}" cy="${o.y}" r="10" fill="none" stroke="${colorOf(k)}" stroke-width="2"/>
+     <circle cx="${o.x}" cy="${o.y}" r="${k===sel?9:7}" fill="${colorOf(k)}" stroke="var(--sheet)" stroke-width="2"/></g>`}).join("")}
+  </svg>`;
+}
+function organPanel(d, k){
+  const o=ORGANS[k];
+  return `<p class="kicker" style="color:var(--ink-soft)">Body part</p><h3 class="organ-h">${o.n}</h3>
+   ${d.organs[k].map(([t,txt])=>`<div class="onote"><span class="otag" style="--t:${TYPE[t][1]}">${TYPE[t][0]}</span><p>${linkTerms(esc(txt))}</p></div>`).join("")}`;
+}
+
+
+/* ===================== MODULES + QUESTION BANK ===================== */
+const BUILTIN_MODULES = [
+ {id:"pharm", name:"Pharmacology", code:"Rx", color:"var(--accent)"},
+ {id:"anat", name:"Anatomy & Physiology", code:"AP", color:"var(--con)"},
+ {id:"micro", name:"Microbiology & Parasitology", code:"MP", color:"var(--ind)"},
+ {id:"fund", name:"Fundamentals of Nursing", code:"FN", color:"var(--nur)"},
+ {id:"medsurg", name:"Medical-Surgical Nursing", code:"MS", color:"var(--int)"},
+ {id:"chn", name:"Community Health Nursing", code:"CH", color:"var(--ind)"},
+ {id:"rh", name:"Reproductive Health & Midwifery", code:"RH", color:"var(--accent)"},
+ {id:"paed", name:"Paediatric Nursing", code:"PN", color:"var(--se)"},
+ {id:"mh", name:"Mental Health & Psychiatric Nursing", code:"MH", color:"var(--moa)"},
+ {id:"nutr", name:"Nutrition & Dietetics", code:"ND", color:"var(--se)"},
+ {id:"phc", name:"Primary Health Care", code:"PH", color:"var(--nur)"},
+ {id:"lead", name:"Leadership & Management", code:"LM", color:"var(--int)"},
+ {id:"res", name:"Research & Statistics", code:"RS", color:"var(--moa)"}
+];
+const SAQ = [
+ {d:"flucytosine",q:"Explain the mode of action of flucytosine.",m:3,a:["Taken up into the fungal cell","Converted by cytosine deaminase into 5-fluorouracil (5-FU)","5-FU disrupts fungal DNA and RNA synthesis, so the fungus cannot grow"]},
+ {d:"flucytosine",q:"Explain why flucytosine is always combined with another antifungal.",m:2,a:["Used alone, fungi quickly become resistant","A partner (amphotericin B or fluconazole) kills resistant fungi and the two work better together"]},
+ {d:"amphotericin",q:"State four nursing responsibilities when giving amphotericin B.",m:4,a:["Dilute and flush only with 5% dextrose","Give saline pre-hydration and premedication as prescribed","Infuse slowly and monitor vital signs during the infusion","Monitor U&E, potassium, magnesium and fluid balance; check the drip site"]},
+ {d:"ibuprofen",q:"List four side effects of ibuprofen.",m:4,a:["Indigestion, nausea, stomach pain","Stomach ulcer and bleeding","Kidney injury / reduced urine output","Raised blood pressure, fluid retention, or wheeze in aspirin-sensitive asthma"]},
+ {d:"ibuprofen",q:"Explain why ibuprofen should be taken with food.",m:2,a:["It blocks COX-1 prostaglandins that protect the stomach lining","Food reduces direct irritation and the risk of ulcers"]},
+ {d:"metronidazole",q:"Outline the health education you would give a patient discharged on metronidazole.",m:4,a:["No alcohol during treatment and for 48 hours after the last dose","Take with or after food","Metallic taste and dark urine are expected","Report numbness or tingling; finish the course (and partner treatment for trichomoniasis)"]},
+ {d:"paracetamol",q:"State the maximum adult daily dose of paracetamol and two signs of overdose.",m:3,a:["4 g in 24 hours (lower in liver risk)","Nausea and vomiting","Right upper abdominal pain / jaundice after 1–3 days"]},
+ {d:"al",q:"Describe how you would give artemether-lumefantrine to a child with uncomplicated malaria.",m:5,a:["Confirm malaria with RDT or microscopy","Dose by body weight","6 doses over 3 days at 0, 8, 24, 36, 48, 60 hours","Give with milk or fatty food","Repeat a dose vomited within 1 hour; teach danger signs and to finish the course"]},
+ {d:"fluconazole",q:"State four drug interactions of fluconazole.",m:4,a:["Warfarin: bleeding","Sulfonylureas (glibenclamide): low blood sugar","Phenytoin: toxicity","Rifampicin lowers fluconazole; QT-prolonging drugs: arrhythmia"]},
+ {d:"amoxicillin",q:"List three signs of anaphylaxis and the first drug given.",m:4,a:["Swelling of face, lips or throat","Difficulty breathing / wheeze","Low blood pressure, fast pulse, rash/hives","First drug: IM adrenaline (as per protocol)"]}
+];
+function builtinQuestions(){
+  const mc = QUIZ.map((q,i)=>({id:"bq"+i,module:"pharm",topic:q.d,type:"mcq",q:q.q,o:q.o,a:q.a,e:q.e,src:"ScrubUp"}));
+  const sa = SAQ.map((q,i)=>({id:"bs"+i,module:"pharm",topic:q.d,type:"short",q:q.q,m:q.m,model:q.a.join("\n"),src:"ScrubUp"}));
+  const cs = DRUGS.map(d=>({id:"bc_"+d.id,module:"pharm",topic:d.id,type:"case",q:d.case.s+"\n\nWhat do you suspect, and what would you do?",m:4,model:d.case.a,src:"ScrubUp ward case"}));
+  return [...mc,...sa,...cs];
+}
+let PACK = {modules:[],resources:[],questions:[]};      // your own content pack (content.json), loaded if present
+let USER = {res:[],qs:[],mods:[]};
+const allModules = ()=>[...BUILTIN_MODULES,...PACK.modules,...USER.mods.map(m=>({...m,mine:true}))];
+const modById = id=>allModules().find(m=>m.id===id) || {id, name:"Unknown module", code:"?", color:"var(--ink-soft)"};
+const allQs = ()=>[...builtinQuestions(),...PACK.questions,...USER.qs];
+const qsFor = m=>allQs().filter(q=>q.module===m);
+const resFor = (m,topic)=>[...PACK.resources.map(r=>({...r,pack:true})),...USER.res].filter(r=>(!m||r.module===m)&&(!topic||r.topic===topic));
+
+/* ===================== STATE + DEVICE STORAGE (works offline) ===================== */
+const store = {get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}, set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const todayStr=(o=0)=>{const d=new Date();d.setDate(d.getDate()+o);return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")};
+let P = store.get("rn2_progress",{xp:0,streak:0,last:null,today:{day:null,xp:0},done:{},best:{tf:0}});
+const save=()=>store.set("rn2_progress",P);
+function addXP(n){const t=todayStr(); if(P.last!==t){P.streak=(P.last===todayStr(-1))?P.streak+1:1;P.last=t} if(P.today.day!==t)P.today={day:t,xp:0}; P.xp+=n;P.today.xp+=n;save();toast(`+${n} XP`)}
+const LEVELS=[[0,"Student"],[100,"Intern"],[300,"Nursing Officer"],[600,"Senior Nursing Officer"],[1000,"Chief Nursing Officer"]];
+function level(){let l=LEVELS[0],next=null;LEVELS.forEach((x,i)=>{if(P.xp>=x[0]){l=x;next=LEVELS[i+1]||null}});return {name:l[1],next}}
+const streakNow=()=>(P.last===todayStr()||P.last===todayStr(-1))?P.streak:0;
+const DAILY_GOAL=50;
+
+const DB={db:null,
+  open(){return new Promise((res,rej)=>{try{const r=indexedDB.open("rangi",2);r.onupgradeneeded=()=>{const d=r.result;["res","qs","mods"].forEach(s=>{if(!d.objectStoreNames.contains(s))d.createObjectStore(s,{keyPath:"id"})})};r.onsuccess=()=>{DB.db=r.result;res()};r.onerror=()=>rej(r.error)}catch(e){rej(e)}})},
+  async all(s){if(!DB.db)await DB.open();return new Promise((res,rej)=>{const q=DB.db.transaction(s).objectStore(s).getAll();q.onsuccess=()=>res(q.result.sort((a,b)=>b.added-a.added));q.onerror=()=>rej(q.error)})},
+  async put(s,x){if(!DB.db)await DB.open();return new Promise((res,rej)=>{const t=DB.db.transaction(s,"readwrite");t.objectStore(s).put(x);t.oncomplete=res;t.onerror=()=>rej(t.error)})},
+  async del(s,id){if(!DB.db)await DB.open();return new Promise((res,rej)=>{const t=DB.db.transaction(s,"readwrite");t.objectStore(s).delete(id);t.oncomplete=res;t.onerror=()=>rej(t.error)})}
+};
+let STORE_OK=true;
+async function loadUser(){try{USER={res:await DB.all("res"),qs:await DB.all("qs"),mods:await DB.all("mods")};STORE_OK=true}catch(e){STORE_OK=false}}
+async function loadPack(){try{const r=await fetch("content.json",{cache:"no-cache"});if(r.ok){const j=await r.json();PACK={modules:j.modules||[],resources:j.resources||[],questions:j.questions||[]}}}catch(e){}}
+const newId=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+
+let view={tab:"home",module:null,profile:null,organ:null,deck:null,slide:0,game:null,test:null};
+let form=null, confirmDel=null;
+const app=document.getElementById("app");
+const esc=s=>String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const termMap={};WORDS.forEach(([w,m,sw])=>termMap[w.toLowerCase()]={w,m,sw});
+const termRe=new RegExp("\\b("+Object.keys(termMap).sort((a,b)=>b.length-a.length).map(t=>t.replace(/[.*+?^${}()|[\]\\&]/g,"\\$&")).join("|")+")(?![\\w])","gi");
+const linkTerms=html=>html.split(/(<[^>]+>)/).map(p=>p.startsWith("<")?p:p.replace(termRe,m=>{const t=termMap[m.toLowerCase()];return t?`<button type="button" class="term" data-term="${esc(t.w)}">${m}</button>`:m})).join("");
+const L=arr=>"<ul>"+arr.map(i=>`<li>${linkTerms(esc(i))}</li>`).join("")+"</ul>";
+const more=(arr,n,label="Go deeper")=>arr.length>n?`${L(arr.slice(0,n))}<details><summary>${label} (${arr.length-n} more)</summary>${L(arr.slice(n))}</details>`:L(arr);
+function toast(msg){const t=document.createElement("div");t.className="toast";t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),1500)}
+const cross=(c="var(--nur)")=>`<svg class="xmark" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2h6v7h7v6h-7v7H9v-7H2V9h7z" fill="${c}"/></svg>`;
+const ecg=`<svg class="ecg" viewBox="0 0 300 40" preserveAspectRatio="none" aria-hidden="true"><path pathLength="100" d="M0 22 H70 l8 -4 l6 4 H110 l6 -18 l8 34 l6 -22 l4 6 H180 l8 -4 l6 4 H300"/></svg>`;
+const back=(label)=>`<div class="topbar"><button class="x" data-back aria-label="Back">←</button><span class="crumb">${label}</span></div>`;
+
+/* ===================== HOME ===================== */
+function home(){
+  const lv=level(), tx=P.today.day===todayStr()?P.today.xp:0, last=DRUGS.find(d=>d.id===P.lastDrug)||DRUGS.find(d=>!P.done[d.id])||DRUGS[0];
+  return `<section class="ward">${ecg}<div class="ward-in"><div class="brandrow"><svg class="steth" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3H4v6a5 5 0 0 0 10 0V3h-1"/><path d="M9 14v2a5 5 0 0 0 10 0v-3"/><circle cx="19" cy="11" r="2"/></svg><span>ScrubUp</span><span class="tag">nursing revision · ward ready</span></div><h1>Habari! Ready for the ward?</h1><p>${navigator.onLine===false?"You're offline. Everything still works.":"Works offline once opened."}</p></div></section>
+  <div class="stats">
+    <div class="stat"><b>${streakNow()}</b><span>day streak</span></div>
+    <div class="stat"><b>${P.xp}</b><span>XP</span></div>
+    <div class="stat"><b class="lvl">${lv.name}</b><span>${lv.next?`${lv.next[0]-P.xp} XP to ${lv.next[1]}`:"Top level"}</span></div>
+  </div>
+  <div class="goal"><div class="goal-top"><span>Today's goal</span><span>${Math.min(tx,DAILY_GOAL)} / ${DAILY_GOAL} XP</span></div><div class="bar"><span style="width:${Math.min(100,tx/DAILY_GOAL*100)}%"></span></div></div>
+  <button class="big-cta" data-profile="${last.id}">${PICS[last.pic].replace('class="pic"','')}<div><span class="eyebrow">Continue · Pharmacology</span><b>${last.name}</b><span>${esc(last.one)}</span></div></button>
+  <h2 class="sec-title">Practice like the exam</h2>
+  <div class="gstack">
+    <button class="gtile c-con" data-pickTest><span class="num">${cross("var(--con)")}</span><div><b>Past paper test</b><span>Section A MCQs, B short answers, C case study</span></div></button>
+    <button class="gtile c-nur" data-cases><span class="num">${cross("var(--nur)")}</span><div><b>Ward cases</b><span>Real-life patients. What would you do?</span></div></button>
+    <button class="gtile c-int" data-game="tf"><span class="num">60s</span><div><b>True or false?</b><span>Best: ${P.best.tf||0}</span></div></button>
+  </div>
+  <h2 class="sec-title">My modules</h2>
+  <div class="hscroll">${allModules().slice(0,6).map(modChip).join("")}<button class="modchip more" data-tab="modules">All modules →</button></div>`;
+}
+const modChip=m=>`<button class="modchip" data-module="${m.id}" style="--mc:${m.color}"><span class="mcode">${esc(m.code)}</span><span>${esc(m.name)}</span></button>`;
+
+/* ===================== MODULES ===================== */
+function modules(){
+  return `<h1 class="ph">Modules</h1><p class="muted small sub">Pharmacology has ScrubUp notes ready. For the others, add your own resources and past-paper questions now. More ScrubUp notes are coming.</p>
+  <div class="modgrid">${allModules().map(m=>{const nq=qsFor(m.id).length, nr=resFor(m.id).length, ready=m.id==="pharm"||PACK.modules.some(x=>x.id===m.id);
+    return `<button class="modtile" data-module="${m.id}" style="--mc:${m.color}"><span class="mcode big">${esc(m.code)}</span><b>${esc(m.name)}</b><span class="mmeta">${ready?'<em class="ready">ScrubUp notes</em>':''}${m.mine?'<em>My module</em>':''}${nr} resources · ${nq} questions</span></button>`}).join("")}</div>
+  ${form&&form.type==="mod"?modForm():`<button class="btn primary wide" data-addmod>+ Add a module</button>`}`;
+}
+function modForm(){return `<form class="card-form" id="modform"><h3>New module</h3><label>Module name<input id="m-name" required placeholder="e.g. Pathology"></label><label>Short code (2 letters)<input id="m-code" maxlength="3" placeholder="PA"></label><p class="form-err" id="f-err" hidden></p><div class="row-btns"><button class="btn primary">Save module</button><button type="button" class="btn" data-cancel>Cancel</button></div></form>`}
+
+function moduleView(){
+  const m=modById(view.module), qs=qsFor(m.id), res=resFor(m.id);
+  const counts={mcq:qs.filter(q=>q.type==="mcq").length,short:qs.filter(q=>q.type==="short").length,case:qs.filter(q=>q.type==="case").length};
+  return `${back("Modules")}
+  <section class="modhead" style="--mc:${m.color}"><span class="mcode big">${esc(m.code)}</span><div><h1>${esc(m.name)}</h1><p class="muted small">${qs.length} questions (${counts.mcq} MCQ · ${counts.short} short answer · ${counts.case} cases) · ${res.length} resources</p></div></section>
+  <div class="actions">
+    <button class="btn primary" data-test="${m.id}" ${qs.length?"":"disabled"}>Take a past-paper test</button>
+    <button class="btn" data-addq="${m.id}">+ Add a question</button>
+    <button class="btn" data-addres="${m.id}">+ Add a resource</button>
+  </div>
+  ${form?formFor(m.id):""}
+  ${m.id==="pharm"?`<h2 class="sec-title">ScrubUp notes · drugs</h2>${[...new Set(DRUGS.map(d=>d.group))].map(g=>`<p class="group-h">${g}</p><div class="tiles">${DRUGS.filter(d=>d.group===g).map(d=>`<button class="tile ${d.tone}" data-profile="${d.id}">${P.done[d.id]?'<span class="done" aria-label="studied">✓</span>':''}${PICS[d.pic].replace('class="pic"','class="mini"')}<b>${d.name}</b><span>${esc(d.cls)}</span></button>`).join("")}</div>`).join("")}
+   <button class="linkcard" data-notes><span><b>Notes check</b><br><span class="muted small">Beatrice's flucytosine notes, corrected line by line</span></span><span aria-hidden="true">→</span></button>`
+   :`<div class="empty">${cross("var(--rule)")}<div><b>ScrubUp notes for ${esc(m.name)} are coming.</b><p class="muted small">Until then, build your own revision kit: add lecture PDFs, photos of class notes and links, then add past-paper questions to test yourself.</p></div></div>`}
+  <h2 class="sec-title">Resources</h2>${resList(res)}
+  <h2 class="sec-title">Question bank</h2>${qList(qs.filter(q=>q.src!=="ScrubUp"&&q.src!=="ScrubUp ward case"), m.id)}`;
+}
+
+/* ===================== DRUG PROFILE (summary page) ===================== */
+function profile(){
+  const d=DRUGS.find(x=>x.id===view.profile); P.lastDrug=d.id; save();
+  const sel=view.organ&&d.organs[view.organ]?view.organ:Object.keys(d.organs)[0];
+  const res=resFor("pharm",d.id), qn=qsFor("pharm").filter(q=>q.topic===d.id).length;
+  return `${back("Pharmacology")}
+  <section class="chart">
+    <div class="chart-top"><span class="rx">℞</span><div style="min-width:0"><p class="eyebrow">Drug profile · ${esc(d.group)}</p><h1>${d.name}</h1><p class="muted small">Say it: ${d.say}</p></div></div>
+    <dl class="kardex">
+      <div><dt>Class</dt><dd>${linkTerms(esc(d.cls))}</dd></div>
+      <div><dt>Route</dt><dd>${d.route.join(" · ")}</dd></div>
+      <div><dt>Brands</dt><dd>${esc(d.brands.join(", "))}</dd></div>
+      <div class="full"><dt>In one line</dt><dd>${linkTerms(esc(d.one))}</dd></div>
+    </dl>
+    <div class="keys">${d.keys.map(k=>`<span class="key">${cross("var(--accent)")}${esc(k)}</span>`).join("")}</div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-h"><h2>Where it acts in the body</h2><p class="muted small">Tap a dot.</p></div>
+    <div class="bodygrid">
+      <div class="bodywrap">${bodyMap(d,sel)}<div class="legend">${Object.entries(TYPE).map(([k,[l,c]])=>`<span><i style="background:${c}"></i>${l}</span>`).join("")}</div></div>
+      <div class="organ" id="organ">${organPanel(d,sel)}</div>
+    </div>
+  </section>
+
+  <section class="panel c-moa tint">
+    <div class="panel-h"><h2>How it works</h2><span class="muted small">Mode of action</span></div>
+    ${PICS[d.pic]}
+    <p class="lead">${linkTerms(esc(d.big))}</p>
+    <details><summary>Step by step</summary><ol>${d.moa.map(s=>`<li>${linkTerms(esc(s))}</li>`).join("")}</ol></details>
+  </section>
+
+  <div class="two">
+    <section class="panel c-ind tint"><h2>Why we give it</h2>${more(d.ind,3)}</section>
+    <section class="panel c-con tint"><h2>When NOT to give it</h2>${more(d.con,3,"Also take care")}</section>
+  </div>
+
+  <section class="panel">
+    <div class="panel-h"><h2>The nurse's journey</h2><span class="muted small">Nursing responsibilities</span></div>
+    <ol class="journey">
+      ${[["Before","Assess",d.nurse.assess,"var(--int)"],["During","Give",d.nurse.give,"var(--nur)"],["After","Teach & monitor",d.nurse.teach,"var(--ind)"]].map(([w,t,a,c])=>`<li style="--jc:${c}"><span class="jdot"></span><p class="eyebrow" style="color:${c}">${w}</p><h3>${t}</h3>${more(a,2,"More")}</li>`).join("")}
+    </ol>
+  </section>
+
+  <div class="two">
+    <section class="panel c-se tint"><h2>Side effects</h2>${L(d.se.common)}<div class="danger"><b>Red flags: report</b>${L(d.se.danger)}</div></section>
+    <section class="panel c-int tint"><h2>Mixing problems</h2>${more(d.inter,3)}</section>
+  </div>
+
+  <section class="panel case">
+    <p class="eyebrow">${cross("var(--con)")} Ward case</p>
+    <p class="lead">${esc(d.case.s)}</p>
+    <details><summary>What would you do?</summary><p>${linkTerms(esc(d.case.a))}</p></details>
+  </section>
+
+  <section class="panel c-trick tint"><p class="eyebrow" style="color:var(--trick)">Memory trick</p><p class="trickline">${esc(d.trick)}</p><p class="small"><b>In Kenya:</b> ${linkTerms(esc(d.kenya))}</p></section>
+
+  <div class="actions">
+    <button class="btn primary" data-open="${d.id}">Study in bite-size cards</button>
+    <button class="btn" data-test="pharm" data-topic="${d.id}">Test me on ${d.name} (${qn})</button>
+  </div>
+  <section class="panel"><div class="panel-h"><h2>My resources for ${d.name}</h2><button class="btn small-btn" data-addres="pharm" data-topic="${d.id}">+ Add</button></div>${form&&form.type==="res"?resFormHTML("pharm",d.id):""}${resList(res)}</section>`;
+}
+
+/* ===================== DECK (bite-size cards) ===================== */
+function slides(d){
+  const qs=QUIZ.filter(q=>q.d===d.id).slice(0,2);
+  return [
+   {c:d.tone,h:`<p class="kicker">Meet the drug</p><h2 class="drugname">${d.name}</h2><p class="muted">Say it: ${d.say}</p><div class="pills"><span class="pill strong">${esc(d.cls)}</span>${d.brands.map(b=>`<span class="pill">${esc(b)}</span>`).join("")}</div><p class="lead">${linkTerms(esc(d.one))}</p>`},
+   {c:"c-moa",h:`<p class="kicker">How it works · Mode of action</p>${PICS[d.pic]}<p class="lead">${linkTerms(esc(d.big))}</p><details><summary>Go deeper: step by step</summary><ol>${d.moa.map(s=>`<li>${linkTerms(esc(s))}</li>`).join("")}</ol></details>`},
+   {c:"c-ind",h:`<p class="kicker">Indications</p><h2>Why we give it</h2>${more(d.ind,2)}`},
+   {c:"c-con",h:`<p class="kicker">Contraindications</p><h2>When NOT to give it</h2>${more(d.con,2,"Also take care")}`},
+   {c:"c-se",h:`<p class="kicker">Side effects</p><h2>What to watch for</h2>${more(d.se.common,2)}<div class="danger"><b>Red flags: report</b>${L(d.se.danger)}</div>`},
+   {c:"c-int",h:`<p class="kicker">Drug interactions</p><h2>Mixing problems</h2>${more(d.inter,2)}`},
+   {c:"c-nur",h:`<p class="kicker">Nursing responsibilities</p><h2>My job as the nurse</h2><div class="trio">${[["Assess",d.nurse.assess],["Give",d.nurse.give],["Teach",d.nurse.teach]].map(([t,a])=>`<div><b>${t}</b>${more(a,2,"More")}</div>`).join("")}</div>`},
+   {c:"c-int",h:`<p class="kicker">Ask why</p><h2>Understand it, don't cram it</h2>${d.why.map(([q,a],i)=>`<div class="whyq" role="button" tabindex="0" data-why="${i}"><b>${esc(q)}</b><span class="tap">Tap to see the answer</span><span class="ans" hidden>${linkTerms(esc(a))}</span></div>`).join("")}`},
+   {c:"c-trick",h:`<p class="kicker">Memory trick</p><div class="trickbox">${esc(d.trick)}</div><div class="kenya"><b>In Kenya:</b> ${linkTerms(esc(d.kenya))}</div>`},
+   {c:"c-ind",h:`<p class="kicker">Quick check</p><h2>Did it stick?</h2>${qs.map(q=>`<div class="qblock"><p class="qtext">${esc(q.q)}</p><div class="opts">${q.o.map((o,i)=>`<button class="opt" data-dq="${QUIZ.indexOf(q)}" data-o="${i}">${esc(o)}</button>`).join("")}</div><div class="explain" hidden></div></div>`).join("")}<button class="btn primary" data-finish="${d.id}">Finish · +20 XP</button>`}
+  ];
+}
+function deck(){
+  const d=DRUGS.find(x=>x.id===view.deck),S=slides(d);
+  return `<div class="deck-head"><button class="x" data-back aria-label="Close">×</button><div class="segs">${S.map((_,i)=>`<i class="${i<=view.slide?'on':''}"></i>`).join("")}</div></div>
+  <div class="deck" id="deck">${S.map(s=>`<section class="slide ${s.c}">${s.h}</section>`).join("")}</div>
+  <div class="deck-nav"><button class="btn" data-step="-1" ${view.slide===0?"disabled":""}>Back</button><button class="btn primary" data-step="1" ${view.slide===S.length-1?"disabled":""}>Next</button></div><p class="hint">Swipe left or right</p>`;
+}
+
+/* ===================== PRACTICE ===================== */
+function practice(){
+  return `<h1 class="ph">Practice</h1><p class="muted small sub">Exam-style tests, ward cases and quick games. Everything works offline.</p>
+  <h2 class="sec-title">Past paper test</h2>
+  <div class="gstack">${allModules().filter(m=>qsFor(m.id).length).map(m=>{const n=qsFor(m.id).length;return `<button class="gtile" style="--c:${m.color};--bg:var(--sheet)" data-test="${m.id}"><span class="mcode big" style="--mc:${m.color}">${esc(m.code)}</span><div><b>${esc(m.name)}</b><span>${n} questions in the bank</span></div></button>`}).join("")}
+  <p class="muted small">Other modules appear here once you add past-paper questions to them.</p></div>
+  <h2 class="sec-title">Ward cases</h2>
+  <button class="gtile c-nur" data-cases><span class="num">${DRUGS.length+USER.qs.filter(q=>q.type==="case").length}</span><div><b>Practical cases</b><span>Patients you'll meet on the ward. Think, then reveal.</span></div></button>
+  <h2 class="sec-title">Quick games · Pharmacology</h2>
+  <div class="gstack">
+   <button class="gtile c-con" data-game="tf"><span class="num">60s</span><div><b>True or false?</b><span>Best: ${P.best.tf||0}</span></div></button>
+   <button class="gtile c-int" data-game="match"><span class="num">4×</span><div><b>Match it</b><span>Drugs with hooks or families</span></div></button>
+  </div>`;
+}
+function casesView(){
+  const cs=allQs().filter(q=>q.type==="case");
+  return `${back("Practice")}<h1 class="ph">Ward cases</h1><p class="muted small sub">Read the patient. Decide what you'd do. Then compare.</p>
+  <div class="stack">${cs.map(c=>`<section class="panel case"><p class="eyebrow">${cross("var(--con)")} ${esc(modById(c.module).name)}${c.topic?` · ${esc((DRUGS.find(d=>d.id===c.topic)||{}).name||"")}`:""}</p><p class="lead">${esc(c.q.split("\n\n")[0])}</p><details><summary>What would you do?</summary><p>${linkTerms(esc(c.model))}</p></details></section>`).join("")}</div>`;
+}
+
+/* --- past-paper test engine --- */
+let timerId=null;
+function startTest(module,topic){
+  let qs=qsFor(module); if(topic) qs=qs.filter(q=>q.topic===topic);
+  const A=shuffle(qs.filter(q=>q.type==="mcq")).slice(0,topic?6:10), B=shuffle(qs.filter(q=>q.type==="short")).slice(0,topic?2:4), C=shuffle(qs.filter(q=>q.type==="case")).slice(0,1);
+  const items=[...A.map(q=>({q,sec:"A"})),...B.map(q=>({q,sec:"B"})),...C.map(q=>({q,sec:"C"}))];
+  if(!items.length){toast("No questions yet. Add some first.");return}
+  view.test={module,topic,items,i:0,ans:{},self:{},start:Date.now(),done:false};
+  clearInterval(timerId); timerId=setInterval(()=>{const el=document.getElementById("clock");if(el)el.textContent=clock()},1000);
+  render(); scrollTo(0,0);
+}
+const clock=()=>{const s=Math.floor((Date.now()-view.test.start)/1000);return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0")};
+const SEC={A:"Section A · Multiple choice",B:"Section B · Short answer",C:"Section C · Case study"};
+function testView(){
+  const T=view.test, m=modById(T.module);
+  if(T.done) return markView();
+  const it=T.items[T.i], q=it.q;
+  return `<div class="topbar"><button class="x" data-back aria-label="Quit test">×</button><span class="crumb">${esc(m.name)} · Past paper</span><span class="clock" id="clock">${clock()}</span></div>
+  <div class="paper">
+    <div class="paper-h"><span>${SEC[it.sec]}</span><span>Q${T.i+1} of ${T.items.length}${q.m?` · ${q.m} marks`:""}</span></div>
+    <div class="bar thin"><span style="width:${(T.i)/T.items.length*100}%"></span></div>
+    ${q.ai?'<span class="aibadge">AI draft question · check with your notes</span>':""}<p class="qtext">${esc(q.q).replace(/\n/g,"<br>")}</p>
+    ${q.type==="mcq"?`<div class="opts">${q.o.map((o,i)=>`<button class="opt ${T.ans[T.i]===i?'sel':''}" data-tans="${i}"><span class="ol">${"ABCD"[i]}</span>${esc(o)}</button>`).join("")}</div>`
+      :`<label class="small muted" for="ta">Write your answer as you would in the exam</label><textarea id="ta" rows="6" class="answer">${esc(T.ans[T.i]||"")}</textarea>`}
+    <div class="row-btns"><button class="btn" data-tprev ${T.i===0?"disabled":""}>Previous</button><button class="btn primary" data-tnext>${T.i===T.items.length-1?"Hand in paper":"Next"}</button></div>
+  </div>`;
+}
+function markView(){
+  const T=view.test; let got=0,total=0; const weak=new Set();
+  const rows=T.items.map((it,i)=>{const q=it.q;
+    if(q.type==="mcq"){total+=1;const ok=T.ans[i]===q.a;if(ok)got+=1;else if(q.topic)weak.add(q.topic);
+      return `<div class="mark ${ok?'ok':'no'}"><p class="eyebrow">Q${i+1} · Section A · ${ok?"1/1":"0/1"}</p><p><b>${esc(q.q)}</b></p><p class="small">Your answer: ${T.ans[i]==null?"none":esc(q.o[T.ans[i]])}${ok?"":` · Correct: <b>${esc(q.o[q.a])}</b>`}</p>${q.e?`<p class="small muted">${linkTerms(esc(q.e))}</p>`:""}</div>`}
+    total+=q.m||1; const s=T.self[i]; if(s!=null)got+=s; if(s!=null&&s<(q.m||1)/2&&q.topic)weak.add(q.topic);
+    return `<div class="mark"><p class="eyebrow">Q${i+1} · ${it.sec==="B"?"Section B":"Section C"} · ${q.m||1} marks</p><p><b>${esc(q.q).replace(/\n/g,"<br>")}</b></p>
+      <div class="cmp"><div><p class="eyebrow">Your answer</p><p class="small">${esc(T.ans[i]||"(blank)").replace(/\n/g,"<br>")}</p></div><div><p class="eyebrow">Marking scheme</p>${L(String(q.model).split("\n").filter(Boolean))}</div></div>
+      <p class="small">Give yourself marks honestly:</p><div class="marks">${Array.from({length:(q.m||1)+1},(_,k)=>`<button class="mk ${s===k?'on':''}" data-self="${i}" data-v="${k}">${k}</button>`).join("")}</div></div>`});
+  const unmarked=T.items.some((it,i)=>it.q.type!=="mcq"&&T.self[i]==null), pct=total?Math.round(got/total*100):0;
+  return `${back("Practice")}<section class="result"><p class="eyebrow">${esc(modById(T.module).name)} · time ${clock()}</p><h1>${got} / ${total} marks${unmarked?"":` · ${pct}%`}</h1><p>${unmarked?"Mark your written answers below to see your final score.":pct>=70?"Strong paper. Keep it up.":pct>=50?"A pass. Revise the topics below.":"Keep going. Revise the topics below and try again."}</p>
+   ${weak.size?`<div class="revise"><b>Revise:</b> ${[...weak].map(id=>`<button class="pill strong" data-profile="${id}">${esc((DRUGS.find(d=>d.id===id)||{name:id}).name)}</button>`).join(" ")}</div>`:""}
+   ${!unmarked&&!T.xp?`<button class="btn primary" data-claim>Collect +${Math.max(5,Math.round(pct/5))} XP</button>`:""}</section>
+   <div class="stack">${rows.join("")}</div><button class="btn primary wide" data-test="${T.module}" ${T.topic?`data-topic="${T.topic}"`:""}>New paper</button>`;
+}
+
+/* --- quick games (pharmacology) --- */
+let G=null;
+function startGame(kind){
+  clearInterval(timerId);
+  if(kind==="tf"){G={kind,list:shuffle(TF),i:0,score:0,time:60};timerId=setInterval(()=>{G.time--;const el=document.getElementById("timer");if(el)el.textContent=G.time;if(G.time<=0){clearInterval(timerId);endTF()}},1000)}
+  if(kind==="match"){const set=MATCH_SETS[Math.floor(Math.random()*MATCH_SETS.length)];const ids=shuffle(Object.keys(set.pairs)).slice(0,4);G={kind,set,ids,right:shuffle(ids),sel:null,ok:{},mistakes:0}}
+  view.game=kind; render();
+}
+function endTF(){G.over=true;if(G.score>(P.best.tf||0)){P.best.tf=G.score;save()}if(G.score>0)addXP(G.score*2);render()}
+function gameView(){
+  const head=`<div class="topbar"><button class="x" data-back aria-label="Close">×</button><span class="crumb">${G.kind==="tf"?"True or false?":"Match it · "+G.set.name}</span></div>`;
+  if(G.kind==="tf"){
+    if(G.over)return head+`<div class="game"><p class="qtext">Time! ${G.score} right.</p><p class="muted">Best: ${P.best.tf}. +${G.score*2} XP</p><button class="btn primary" data-game="tf">Play again</button></div>`;
+    const s=G.list[G.i%G.list.length];
+    return head+`<div class="game" id="tfcard"><div class="gametop"><span>Score ${G.score}</span><span class="timer" id="timer">${G.time}</span></div><p class="statement">${esc(s[0])}</p><div class="tf"><button class="t" data-tf="1">TRUE</button><button class="f" data-tf="0">FALSE</button></div></div>`;
+  }
+  const all=Object.keys(G.ok).length===G.ids.length;
+  return head+`<div class="game"><p class="muted small" style="margin:0">Tap a drug, then its partner.</p><div class="match"><div class="col">${G.ids.map(id=>`<button class="mbtn ${G.ok[id]?'ok':''} ${G.sel===id?'sel':''}" data-ml="${id}" ${G.ok[id]?'disabled':''}>${DRUGS.find(d=>d.id===id).name}</button>`).join("")}</div><div class="col">${G.right.map(id=>`<button class="mbtn ${G.ok[id]?'ok':''}" data-mr="${id}" ${G.ok[id]?'disabled':''}>${esc(G.set.pairs[id])}</button>`).join("")}</div></div>${all?`<p class="xp-pop">All matched! ${G.mistakes===0?"Perfect.":G.mistakes+" slip"+(G.mistakes>1?"s":"")+"."}</p><button class="btn primary" data-game="match">Next round</button>`:""}</div>`;
+}
+
+/* ===================== AI HELPER (needs data; results saved offline) ===================== */
+const AI_URL="/api/generate", AI_PER_DAY=5, AI_BUSY={};
+function aiUsedToday(){const u=store.get("rn_ai",{day:null,n:0});return u.day===todayStr()?u.n:0}
+function aiCount(){store.set("rn_ai",{day:todayStr(),n:aiUsedToday()+1})}
+const b64=blob=>new Promise((res,rej)=>{const fr=new FileReader();fr.onload=()=>res(String(fr.result).split(",")[1]);fr.onerror=()=>rej(fr.error);fr.readAsDataURL(blob)});
+async function shrinkImage(blob){
+  const url=URL.createObjectURL(blob);const img=new Image();await new Promise((r,j)=>{img.onload=r;img.onerror=j;img.src=url});
+  const sc=Math.min(1,1600/Math.max(img.width,img.height));const c=document.createElement("canvas");c.width=Math.round(img.width*sc);c.height=Math.round(img.height*sc);
+  c.getContext("2d").drawImage(img,0,0,c.width,c.height);URL.revokeObjectURL(url);
+  return await new Promise(r=>c.toBlob(r,"image/jpeg",0.82));
+}
+async function runAI(id){
+  const r=USER.res.find(x=>x.id===id); if(!r)return;
+  const redraw=()=>{const y=scrollY;render();scrollTo(0,y)};
+  if(navigator.onLine===false){toast("You're offline. Connect to data to use the AI helper.");return}
+  if(aiUsedToday()>=AI_PER_DAY){toast(`You've used today's ${AI_PER_DAY} AI requests. Try again tomorrow.`);return}
+  AI_BUSY[id]="Preparing…";redraw();
+  try{
+    const body={module:modById(r.module).name,topic:r.topic?((DRUGS.find(d=>d.id===r.topic)||{}).name||""):""};
+    if(r.kind==="note")body.text=r.text;
+    else if(r.type.startsWith("image/")){const small=await shrinkImage(r.blob);body.file={type:"image/jpeg",data:await b64(small)}}
+    else{if(r.size>2.9*1048576)throw new Error("This PDF is over 3 MB. Save just one chapter (a few pages) and add that instead.");body.file={type:"application/pdf",data:await b64(r.blob)}}
+    AI_BUSY[id]="Reading your notes… (about 30 seconds)";redraw();
+    let resp; try{resp=await fetch(AI_URL,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(body)})}catch(e){throw new Error("Couldn't reach the AI helper. Check your data, or open the installed ScrubUp app (the AI doesn't work in this preview).")}
+    let j={}; try{j=await resp.json()}catch(e){throw new Error("The AI helper only works in the installed ScrubUp app.")}
+    if(!resp.ok)throw new Error(j.error||"The AI helper had a problem.");
+    aiCount();
+    const now=Date.now();
+    await DB.put("res",{id:newId(),kind:"note",ai:true,title:"Revision points: "+r.title,module:r.module,topic:r.topic||"",text:j.summary.map(x=>"• "+x).join("\n"),added:now+1});
+    for(const q of j.questions)await DB.put("qs",{...q,id:newId(),module:r.module,topic:r.topic||"",ai:true,src:"AI draft from: "+r.title,added:now});
+    delete AI_BUSY[id];await loadUser();redraw();addXP(10);
+    toast(`Made ${j.questions.length} questions. Find them in Take a past-paper test.`);
+  }catch(e){delete AI_BUSY[id];redraw();toast(e.message||"Something went wrong.")}
+}
+
+/* ===================== LIBRARY + FORMS ===================== */
+let libFilter="all";
+function library(){
+  const mods=allModules().filter(m=>resFor(m.id).length);
+  return `<h1 class="ph">My library</h1><p class="muted small sub">Your lecture PDFs, photos of class notes and links, saved on this phone so you can revise without data.</p>
+  ${form&&form.type==="res"?resFormHTML(form.module||"pharm",form.topic):`<button class="btn primary wide" data-addres="${libFilter==="all"?"pharm":libFilter}">+ Add a resource</button>`}
+  <div class="chips"><button class="chip" aria-pressed="${libFilter==="all"}" data-lib="all">All</button>${mods.map(m=>`<button class="chip" aria-pressed="${libFilter===m.id}" data-lib="${m.id}">${esc(m.name)}</button>`).join("")}</div>
+  ${resList(resFor(libFilter==="all"?null:libFilter))}
+  <section class="soon"><p class="eyebrow">✦ AI helper</p><b>Turn your notes into revision points and past-paper style questions</b><p class="small muted">Add a photo of your notes, a PDF chapter or a typed note, then tap "Make revision questions with AI". It needs data while it works (about 30 seconds), then everything is saved on your phone for offline revision. ${AI_PER_DAY} per day. The AI can make mistakes, so check its answers against your notes and lecturer. Never upload anything with a patient's name or details.</p></section>`;
+}
+const urls={};
+const kb=n=>n>1048576?(n/1048576).toFixed(1)+" MB":Math.max(1,Math.round(n/1024))+" KB";
+function resList(list){
+  if(!STORE_OK)return `<p class="muted small">This browser blocks storage, so resources can't be saved here. Install the app on your phone to use this.</p>`;
+  if(!list.length)return `<p class="muted small">Nothing here yet. Photos of class notes, lecture PDFs, past papers and YouTube links all work.</p>`;
+  return `<div class="reslist">${list.map(r=>{
+    let body="",open="";
+    if(r.kind==="file"){if(!urls[r.id])urls[r.id]=URL.createObjectURL(r.blob);open=r.type&&r.type.startsWith("image/")?`<img class="thumb" src="${urls[r.id]}" alt="${esc(r.title)}">`:`<a class="btn small-btn" href="${urls[r.id]}" target="_blank" rel="noopener">Open ${r.type==="application/pdf"?"PDF":"file"}</a>`;body=`<span class="muted small">${esc(r.name)} · ${kb(r.size)} · saved offline</span>`}
+    if(r.kind==="link"){open=`<a class="btn small-btn" href="${esc(r.url)}" target="_blank" rel="noopener">Open link</a>`;body=`<span class="muted small brk">${esc(r.url)} · needs data</span>`}
+    if(r.kind==="note"){body=`<p class="notetext">${esc(r.text)}</p>`}
+    const where=modById(r.module).name+(r.topic?" · "+((DRUGS.find(d=>d.id===r.topic)||{}).name||""):"");
+    const canAI=!r.pack&&!r.ai&&(r.kind==="note"||(r.kind==="file"&&/^image\/|pdf$/.test(r.type||"")));
+    return `<div class="res${r.ai?" ai":""}"><div class="res-top"><span class="rkind">${r.ai?"AI":{file:"FILE",link:"LINK",note:"NOTE"}[r.kind]}</span><div style="min-width:0;flex:1"><b>${esc(r.title)}</b><div class="muted small">${esc(where)}${r.pack?" · from ScrubUp":""}</div>${r.ai?'<span class="aibadge">AI draft · check with your notes</span>':""}</div>
+      ${r.pack?"":confirmDel===r.id?`<button class="btn small-btn danger-btn" data-delyes="${r.id}" data-store="res">Delete</button><button class="btn small-btn" data-delno>Keep</button>`:`<button class="x small-x" data-del="${r.id}" aria-label="Delete">×</button>`}</div>
+      ${body}<div class="row-btns">${open}${canAI?(AI_BUSY[r.id]?`<span class="aistatus">${esc(AI_BUSY[r.id])}</span>`:`<button class="btn small-btn aibtn" data-ai="${r.id}">✦ Make revision questions with AI</button>`):""}<button class="btn small-btn" data-addq="${r.module}" data-src="${esc(r.title)}" data-topic="${r.topic||""}">+ Question from this</button></div></div>`}).join("")}</div>`;
+}
+function topicSelect(module,topic){return module==="pharm"?`<label>Drug (optional)<select id="f-topic"><option value="">Whole module</option>${DRUGS.map(d=>`<option value="${d.id}" ${d.id===topic?"selected":""}>${d.name}</option>`).join("")}</select></label>`:""}
+function moduleSelect(module){return `<label>Module<select id="f-module">${allModules().map(m=>`<option value="${m.id}" ${m.id===module?"selected":""}>${esc(m.name)}</option>`).join("")}</select></label>`}
+function resFormHTML(module,topic){
+  const k=form.kind||"file";
+  return `<form class="card-form" id="resform"><h3>Add a resource</h3>
+   <div class="seg" role="group" aria-label="Type">${[["file","Photo or PDF"],["link","Drive / web link"],["note","My note"]].map(([x,l])=>`<button type="button" data-kind="${x}" aria-pressed="${k===x}">${l}</button>`).join("")}</div>
+   <label>Title<input id="f-title" required placeholder="${k==="file"?"e.g. Lecture 4: antifungals":k==="link"?"e.g. YouTube: how antifungals work":"e.g. What the lecturer stressed"}"></label>
+   ${moduleSelect(module)}${topicSelect(module,topic)}
+   ${k==="file"?`<label>Choose a file<input id="f-file" type="file" accept="image/*,application/pdf" required></label><p class="muted small">Snap your handwritten notes or pick a PDF. It's stored on this phone, so it opens without data. Max 25 MB.</p>`:""}
+   ${k==="link"?`<label>Link<input id="f-url" type="url" required placeholder="https://drive.google.com/…"></label><p class="muted small">In Google Drive: tap ⋮ → Share → Copy link. Links need data to open; download PDFs and add them as files to read offline.</p>`:""}
+   ${k==="note"?`<label>Note<textarea id="f-text" rows="4" required></textarea></label>`:""}
+   <p class="form-err" id="f-err" hidden></p><div class="row-btns"><button class="btn primary">Save</button><button type="button" class="btn" data-cancel>Cancel</button></div></form>`;
+}
+function qFormHTML(module){
+  const k=form.kind||"mcq";
+  return `<form class="card-form" id="qform"><h3>Add a past-paper question</h3>
+   <div class="seg" role="group" aria-label="Question type">${[["mcq","Multiple choice"],["short","Short answer"],["case","Case study"]].map(([x,l])=>`<button type="button" data-qkind="${x}" aria-pressed="${k===x}">${l}</button>`).join("")}</div>
+   ${moduleSelect(module)}${topicSelect(module,form.topic)}
+   <label>${k==="case"?"Patient scenario and question":"Question"}<textarea id="f-q" rows="3" required></textarea></label>
+   ${k==="mcq"?`<fieldset class="optset"><legend>Options: tick the correct one</legend>${[0,1,2,3].map(i=>`<label class="optrow"><input type="radio" name="f-a" value="${i}" ${i===0?"checked":""}><span>${"ABCD"[i]}</span><input id="f-o${i}" required placeholder="Option ${"ABCD"[i]}"></label>`).join("")}</fieldset><label>Why is it correct? (optional)<input id="f-e"></label>`
+     :`<label>Marks<input id="f-m" type="number" min="1" max="20" value="${k==="case"?6:4}"></label><label>Marking scheme: one point per line<textarea id="f-model" rows="4" required placeholder="Point 1&#10;Point 2"></textarea></label>`}
+   <label>Source<input id="f-src" value="${esc(form.src||"")}" placeholder="e.g. KMTC end-of-module exam 2024"></label>
+   <p class="form-err" id="f-err" hidden></p><div class="row-btns"><button class="btn primary">Save question</button><button type="button" class="btn" data-cancel>Cancel</button></div></form>`;
+}
+function formFor(module){ if(!form)return ""; if(form.type==="res")return resFormHTML(module,form.topic); if(form.type==="q")return qFormHTML(module); return ""; }
+function qList(list,module){
+  if(!list.length)return `<p class="muted small">No questions of your own yet. Copy questions from past papers, CATs or your lecturer's revision list, then test yourself.</p>`;
+  return `<div class="reslist">${list.map(q=>`<div class="res"><div class="res-top"><span class="rkind">${{mcq:"MCQ",short:"SAQ",case:"CASE"}[q.type]}</span><div style="min-width:0;flex:1"><b>${esc(q.q.slice(0,120))}${q.q.length>120?"…":""}</b><div class="muted small">${esc(q.src||"My question")}</div>${q.ai?'<span class="aibadge">AI draft · check with your notes</span>':""}</div>${q.pack?"":confirmDel===q.id?`<button class="btn small-btn danger-btn" data-delyes="${q.id}" data-store="qs">Delete</button><button class="btn small-btn" data-delno>Keep</button>`:`<button class="x small-x" data-del="${q.id}" aria-label="Delete">×</button>`}</div></div>`).join("")}</div>`;
+}
+async function onSubmit(e){
+  e.preventDefault(); const g=id=>document.getElementById(id), err=g("f-err"), fail=t=>{err.hidden=false;err.textContent=t};
+  try{
+    if(e.target.id==="modform"){const name=g("m-name").value.trim();const code=(g("m-code").value.trim()||name.slice(0,2)).toUpperCase();const m={id:"m_"+newId(),name,code,color:"var(--nur)",added:Date.now()};await DB.put("mods",m);form=null;await loadUser();view.module=m.id;render();toast("Module added");return}
+    const module=g("f-module").value, topic=g("f-topic")?g("f-topic").value:"";
+    if(e.target.id==="resform"){
+      const r={id:newId(),kind:form.kind||"file",title:g("f-title").value.trim(),module,topic,added:Date.now()};
+      if(r.kind==="file"){const f=g("f-file").files[0];if(!f)return fail("Choose a file first.");if(f.size>25*1048576)return fail("That file is over 25 MB. Save just the chapter you need.");Object.assign(r,{blob:f,name:f.name,type:f.type||"application/octet-stream",size:f.size})}
+      if(r.kind==="link")r.url=g("f-url").value.trim(); if(r.kind==="note")r.text=g("f-text").value.trim();
+      await DB.put("res",r); form=null; await loadUser(); addXP(5); render(); toast("Saved on this phone"); return;
+    }
+    if(e.target.id==="qform"){
+      const k=form.kind||"mcq"; const q={id:newId(),module,topic,type:k,q:g("f-q").value.trim(),src:g("f-src").value.trim()||"My question",added:Date.now()};
+      if(k==="mcq"){q.o=[0,1,2,3].map(i=>g("f-o"+i).value.trim());q.a=+document.querySelector('input[name="f-a"]:checked').value;q.e=g("f-e").value.trim()}
+      else{q.m=Math.max(1,+g("f-m").value||1);q.model=g("f-model").value.trim()}
+      await DB.put("qs",q); form=null; await loadUser(); addXP(5); render(); toast("Question saved"); return;
+    }
+  }catch(x){fail("Couldn't save on this phone. Free some storage and try again.")}
+}
+
+/* ===================== WORDS + NOTES ===================== */
+function words(){return `<h1 class="ph">Word bank</h1><p class="muted small sub">Hard words in plain English, with Kiswahili where it helps.</p><input class="search" id="wsearch" type="search" placeholder="Search a word…" aria-label="Search words"><div class="stack" id="wlist">${wordList("")}</div>`}
+const wordList=s=>WORDS.filter(w=>!["Liver toxicity","Anaerobic"].includes(w[0])&&(w[0]+" "+w[1]).toLowerCase().includes(s)).sort((a,b)=>a[0].localeCompare(b[0])).map(([w,m,sw])=>`<div class="word"><b>${esc(w)}</b>${esc(m)}${sw?`<em>Kiswahili: ${esc(sw)}</em>`:""}</div>`).join("")||'<p class="muted">No match yet.</p>';
+function notesView(){const lbl={ok:["Correct","b-ok"],fix:["Fix","b-fix"],add:["Add","b-add"]};
+  return `${back("Pharmacology")}<h1 class="ph">Notes check: Flucytosine</h1><div class="stack">${NOTES.map(n=>`<div class="nrow"><span class="badge ${lbl[n.s][1]}">${lbl[n.s][0]}</span><p class="said">"${esc(n.said)}"</p><p style="margin:0">${linkTerms(n.fix)}</p></div>`).join("")}</div><button class="btn primary wide" data-profile="flucytosine">Open the Flucytosine profile</button>`}
+
+/* ===================== RENDER + EVENTS ===================== */
+function render(){
+  const tabKey=view.tab;
+  document.querySelectorAll(".tabbtn").forEach(b=>b.setAttribute("aria-current",b.dataset.tab===tabKey?"page":"false"));
+  if(view.deck){app.innerHTML=deck();const dk=document.getElementById("deck");dk.scrollLeft=view.slide*(dk.clientWidth+12);dk.addEventListener("scroll",()=>{const i=Math.round(dk.scrollLeft/(dk.clientWidth+12));if(i!==view.slide){view.slide=i;document.querySelectorAll(".segs i").forEach((s,k)=>s.classList.toggle("on",k<=i));const [b,n]=document.querySelectorAll("[data-step]");b.disabled=i===0;n.disabled=i===dk.children.length-1}},{passive:true});return}
+  if(view.game){app.innerHTML=gameView();return}
+  if(view.test){app.innerHTML=testView();return}
+  if(view.notes){app.innerHTML=notesView();return}
+  if(view.cases){app.innerHTML=casesView();return}
+  if(view.profile){app.innerHTML=profile();return}
+  if(view.module){app.innerHTML=moduleView();return}
+  app.innerHTML=({home,modules,practice,library,words}[tabKey]||home)();
+  if(tabKey==="words")document.getElementById("wsearch").addEventListener("input",e=>{document.getElementById("wlist").innerHTML=wordList(e.target.value.toLowerCase())});
+}
+const go=(patch)=>{clearInterval(timerId);form=null;confirmDel=null;view={...view,deck:null,game:null,test:null,notes:false,cases:false,...patch};render();scrollTo(0,0)};
+function goBack(){
+  if(view.deck||view.game||view.test){clearInterval(timerId);view.deck=null;view.game=null;view.test=null;form=null;render();scrollTo(0,0);return}
+  if(view.notes||view.cases){view.notes=false;view.cases=false;render();return}
+  if(view.profile){go({profile:null,organ:null,module:"pharm"});return}
+  if(view.module){go({module:null,tab:"modules"});return}
+  go({});
+}
+function saveTA(){const ta=document.getElementById("ta");if(ta&&view.test)view.test.ans[view.test.i]=ta.value}
+
+document.addEventListener("submit",onSubmit);
+document.addEventListener("click",e=>{
+  const term=e.target.closest(".term");document.querySelectorAll(".tip").forEach(t=>t.remove());
+  if(term){e.preventDefault();const t=termMap[term.dataset.term.toLowerCase()];const tip=document.createElement("span");tip.className="tip";tip.innerHTML=`<b>${esc(t.w)}</b>: ${esc(t.m)}${t.sw?`<br><i>Kiswahili: ${esc(t.sw)}</i>`:""}`;term.appendChild(tip);return}
+  const $=s=>e.target.closest(s); let el;
+  if(el=$("[data-tab]"))return go({tab:el.dataset.tab,module:null,profile:null});
+  if($("[data-back]"))return goBack();
+  if(el=$("[data-organ]")){view.organ=el.dataset.organ;const d=DRUGS.find(x=>x.id===view.profile);document.getElementById("organ").innerHTML=organPanel(d,view.organ);document.querySelectorAll(".spot").forEach(s=>{const on=s.dataset.organ===view.organ;s.classList.toggle("on",on);s.querySelectorAll("circle")[1].setAttribute("r",on?9:7)});return}
+  if(el=$("[data-module]"))return go({module:el.dataset.module,profile:null});
+  if(el=$("[data-profile]"))return go({profile:el.dataset.profile,organ:null,module:"pharm",tab:view.tab==="home"?"home":"modules"});
+  if(el=$("[data-open]")){view.deck=el.dataset.open;view.slide=0;render();scrollTo(0,0);return}
+  if(el=$("[data-step]")){const dk=document.getElementById("deck");dk.scrollTo({left:(view.slide+ +el.dataset.step)*(dk.clientWidth+12),behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});return}
+  if(el=$("[data-why]")){el.querySelector(".ans").hidden=false;el.querySelector(".tap").hidden=true;return}
+  if(el=$("[data-dq]")){const q=QUIZ[+el.dataset.dq],pick=+el.dataset.o,blk=el.closest(".qblock");blk.querySelectorAll(".opt").forEach((b,i)=>{b.disabled=true;if(i===q.a)b.classList.add("right");else if(i===pick)b.classList.add("wrong")});const ex=blk.querySelector(".explain");ex.hidden=false;ex.innerHTML=`<b>${pick===q.a?"Correct.":"Not quite."}</b> ${linkTerms(esc(q.e))}`;if(pick===q.a)addXP(5);return}
+  if(el=$("[data-finish]")){P.done[el.dataset.finish]=true;addXP(20);view.deck=null;render();scrollTo(0,0);return}
+  if($("[data-notes]")){view.notes=true;render();scrollTo(0,0);return}
+  if($("[data-cases]")){go({cases:true});return}
+  if($("[data-pickTest]")||$("[data-picktest]"))return go({tab:"practice",module:null,profile:null});
+  if(el=$("[data-test]")){startTest(el.dataset.test,el.dataset.topic||null);return}
+  if(el=$("[data-tans]")){view.test.ans[view.test.i]=+el.dataset.tans;render();return}
+  if($("[data-tnext]")){saveTA();const T=view.test;if(T.i<T.items.length-1){T.i++}else{T.done=true;clearInterval(timerId);T.end=Date.now()}render();scrollTo(0,0);return}
+  if($("[data-tprev]")){saveTA();view.test.i--;render();return}
+  if(el=$("[data-self]")){view.test.self[+el.dataset.self]=+el.dataset.v;const y=scrollY;render();scrollTo(0,y);return}
+  if($("[data-claim]")){const T=view.test;let got=0,total=0;T.items.forEach((it,i)=>{if(it.q.type==="mcq"){total++;if(T.ans[i]===it.q.a)got++}else{total+=it.q.m||1;got+=T.self[i]||0}});T.xp=true;addXP(Math.max(5,Math.round(got/total*100/5)));render();return}
+  if(el=$("[data-game]")){startGame(el.dataset.game);scrollTo(0,0);return}
+  if(el=$("[data-tf]")){if(!G||G.over)return;const s=G.list[G.i%G.list.length];const ok=(el.dataset.tf==="1")===s[1];if(ok)G.score++;G.i++;render();const c=document.getElementById("tfcard");if(c)c.classList.add(ok?"flash-ok":"flash-no");if(!ok)toast(`It was ${s[1]?"TRUE":"FALSE"}`);return}
+  if(el=$("[data-ml]")){G.sel=el.dataset.ml;render();return}
+  if(el=$("[data-mr]")){if(!G.sel)return;if(el.dataset.mr===G.sel){G.ok[G.sel]=true;G.sel=null;if(Object.keys(G.ok).length===G.ids.length)addXP(G.mistakes===0?15:10);render()}else{G.mistakes++;el.classList.add("bad");setTimeout(()=>el.classList.remove("bad"),400)}return}
+  if($("[data-addmod]")){form={type:"mod"};render();return}
+  if(el=$("[data-addres]")){form={type:"res",kind:"file",module:el.dataset.addres,topic:el.dataset.topic||""};if(view.tab==="library"&&!view.module&&!view.profile){render()}else render();document.getElementById("resform")?.scrollIntoView({block:"center"});return}
+  if(el=$("[data-addq]")){const m=el.dataset.addq;form={type:"q",kind:"mcq",module:m,topic:el.dataset.topic||"",src:el.dataset.src||""};if(!view.module||view.module!==m){view={...view,module:m,profile:null,deck:null,game:null,test:null,notes:false,cases:false}}render();document.getElementById("qform")?.scrollIntoView({block:"center"});return}
+  if(el=$("[data-kind]")){form.kind=el.dataset.kind;render();document.getElementById("resform")?.scrollIntoView({block:"center"});return}
+  if(el=$("[data-qkind]")){form.kind=el.dataset.qkind;render();document.getElementById("qform")?.scrollIntoView({block:"center"});return}
+  if($("[data-cancel]")){form=null;render();return}
+  if(el=$("[data-ai]")){runAI(el.dataset.ai);return}
+  if(el=$("[data-lib]")){libFilter=el.dataset.lib;render();return}
+  if(el=$("[data-del]")){confirmDel=el.dataset.del;const y=scrollY;render();scrollTo(0,y);return}
+  if($("[data-delno]")){confirmDel=null;render();return}
+  if(el=$("[data-delyes]")){DB.del(el.dataset.store,el.dataset.delyes).then(loadUser).then(()=>{confirmDel=null;render();toast("Deleted")});return}
+});
+document.addEventListener("change",e=>{ if(e.target.id==="f-module"&&form){ form.module=e.target.value; const f=document.getElementById("f-topic"); if(e.target.value!=="pharm"&&f)f.closest("label").remove(); }});
+document.addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.matches("[data-why],[data-organ]"))e.target.dispatchEvent(new MouseEvent("click",{bubbles:true}))});
+addEventListener("online",()=>{if(view.tab==="home"&&!view.module&&!view.profile)render()});
+addEventListener("offline",()=>{if(view.tab==="home"&&!view.module&&!view.profile)render()});
+render();
+Promise.all([loadUser(),loadPack()]).then(render);
+
+</script>
+<script>if("serviceWorker" in navigator){addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}))}</script>
+</body>
+</html>

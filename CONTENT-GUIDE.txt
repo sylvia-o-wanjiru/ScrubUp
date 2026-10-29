@@ -1,0 +1,19 @@
+SCRUBUP - HOW TO ADD YOUR OWN CONTENT (content.json)
+
+Everything in content.json ships with the app, works offline, and students cannot delete it.
+
+1. MODULES  - add a new module students will see:
+   {"id": "patho", "name": "Pathology", "code": "PA", "color": "var(--moa)"}
+   (The 13 standard modules, e.g. "anat", "micro", "medsurg", "paed", are already built in. Use their id to add content to them.)
+
+2. RESOURCES - notes or links for a module (or one drug: put its id in "topic", e.g. "amoxicillin"):
+   {"id": "r1", "module": "anat", "topic": "", "kind": "note", "title": "The heart in 5 points", "text": "Line one\nLine two", "added": 0}
+   {"id": "r2", "module": "anat", "topic": "", "kind": "link", "title": "Video: blood flow", "url": "https://...", "added": 0}
+
+3. QUESTIONS - past-paper style:
+   Multiple choice: {"id": "q1", "module": "anat", "type": "mcq", "q": "Question?", "o": ["A","B","C","D"], "a": 2, "e": "Why C is right", "src": "2024 CAT"}
+   Short answer:    {"id": "q2", "module": "anat", "type": "short", "q": "List 4 ...", "m": 4, "model": "Point 1\nPoint 2\nPoint 3\nPoint 4", "src": "2023 exam"}
+   Case study:      {"id": "q3", "module": "medsurg", "type": "case", "q": "Patient story...\n\nWhat would you do?", "m": 6, "model": "Point 1\nPoint 2", "src": "ScrubUp case"}
+   ("a" counts from 0: 0 = A, 1 = B, 2 = C, 3 = D. Every id must be unique.)
+
+After editing: upload the new content.json to GitHub, and change VERSION in sw.js (e.g. "scrubup-v4") so phones download it.
