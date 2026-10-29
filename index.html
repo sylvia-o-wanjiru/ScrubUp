@@ -350,13 +350,135 @@ svg.body{width:100%;max-width:220px;height:auto}
 
 .brandrow .steth{width:22px;height:22px;color:var(--nur-bg)}
 .brandrow .tag{font-weight:400;opacity:.7;font-size:.75rem}
+
+.install{display:flex;gap:12px;align-items:center;margin-top:12px;background:var(--nur-bg);border-radius:18px;padding:14px}
+.install b{font-family:var(--font-display);font-size:1.05rem}
+.install p{margin:2px 0 8px;font-size:.82rem;color:var(--ink-soft)}
+.phoneic{width:52px;height:52px;flex:none}
+.why{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}
+.why div{background:var(--sheet);border:1px solid var(--rule);border-radius:14px;padding:10px;display:flex;flex-direction:column;gap:2px}
+.why b{font-size:.85rem}.why span{font-size:.72rem;color:var(--ink-soft)}
+.steps{list-style:none;padding:0;margin:14px 0 0;display:flex;flex-direction:column;gap:10px}
+.steps li{display:flex;gap:12px;background:var(--sheet);border:1px solid var(--rule);border-radius:16px;padding:12px 14px}
+.steps p{margin:2px 0 0;font-size:.9rem}
+.stepn{flex:none;width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-family:var(--font-display);font-weight:800}
+.kbd{display:inline-grid;place-items:center;min-width:24px;height:24px;padding:0 6px;border-radius:6px;border:1px solid var(--rule);background:var(--paper);font-weight:700;font-size:.85rem}
+@media (max-width:400px){.why{grid-template-columns:minmax(0,1fr)}}
+
+/* home: module first */
+.tabbar-in{grid-template-columns:repeat(4,1fr)}
+.ward.slim .ward-in{padding:14px 16px 30px}
+.ward.slim .ecg{height:40px}
+.minis{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;margin-top:10px;font-size:.78rem;opacity:.9}
+.minis b{font-family:var(--font-display);font-size:1rem}
+.goalmini{display:inline-block;width:70px;height:6px;border-radius:3px;background:rgba(255,255,255,.2);overflow:hidden}
+.goalmini i{display:block;height:100%;background:var(--gold)}
+.pick-h{font-size:1.15rem;font-weight:800;margin:6px 0 8px}
+.modpick{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 8px;scroll-snap-type:x proximity;scrollbar-width:thin}
+.pick{flex:none;scroll-snap-align:start;width:112px;min-height:96px;display:flex;flex-direction:column;align-items:flex-start;gap:8px;text-align:left;border:2px solid var(--rule);background:var(--sheet);border-radius:16px;padding:10px}
+.pick .pname{font-size:.76rem;font-weight:600;line-height:1.25}
+.pick.on{border-color:var(--mc);box-shadow:0 0 0 3px color-mix(in srgb,var(--mc) 25%,transparent)}
+.pick.add{border-style:dashed;color:var(--ink-soft)}
+.pick.add .mcode{background:var(--rule);color:var(--ink)}
+.modcard{background:var(--sheet);border:1px solid var(--rule);border-top:6px solid var(--mc);border-radius:20px;padding:16px;margin-top:8px;display:flex;flex-direction:column;gap:12px}
+.modcard-h{display:flex;gap:12px;align-items:center}
+.modcard h1{font-size:1.4rem;font-weight:800;line-height:1.15}
+.modcard p{margin:2px 0 0}
+.quick{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.qa{display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:left;border:0;border-radius:16px;padding:12px;background:var(--paper);min-width:0}
+.qa:first-child{grid-column:1/-1;background:var(--ink);color:var(--sheet);display:grid;grid-template-columns:auto 1fr;column-gap:12px;align-items:center}
+.qa:first-child .qi{grid-row:span 2;width:70px;height:52px;background:var(--sheet);border-radius:10px;padding:3px}
+.qa:first-child .qi svg{width:100%;height:100%}
+.qa:first-child span:last-child{color:inherit;opacity:.75}
+.qa b{font-family:var(--font-display);font-size:1rem;line-height:1.2}
+.qa span:last-child{font-size:.74rem;color:var(--ink-soft)}
+.qa .qi{font-family:var(--font-display);font-weight:800;font-size:1.3rem;color:var(--mc);line-height:1}
+.qa .qi .xmark{width:22px;height:22px}
+.qa.ghost{background:transparent;border:1.5px dashed var(--rule)}
+.qa:disabled{opacity:.5;cursor:default}
+.sec-row{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.linkbtn{border:0;background:none;color:var(--accent);font-weight:600;font-size:.85rem;padding:4px}
+
+/* guided flow: module -> what -> how */
+.stepper{list-style:none;display:flex;gap:6px;padding:0;margin:16px 0 4px;counter-reset:s}
+.stepper li{display:flex;align-items:center;gap:6px;font-size:.72rem;font-weight:600;color:var(--ink-soft);padding:4px 10px 4px 4px;border-radius:999px;background:var(--sheet);border:1px solid var(--rule)}
+.stepper li span{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:var(--rule);color:var(--ink);font-size:.7rem}
+.stepper li.now{color:var(--ink);border-color:var(--accent)}
+.stepper li.now span{background:var(--accent);color:#fff}
+.stepper li.done span{background:var(--ind);color:#fff}
+.ask{font-size:1.45rem;font-weight:800;margin:6px 0 12px;line-height:1.2}
+.modgrid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.mod2{display:flex;flex-direction:column;align-items:flex-start;gap:6px;text-align:left;border:1px solid var(--rule);background:var(--sheet);border-radius:18px;padding:14px;border-top:5px solid var(--mc);min-width:0}
+.mod2 b{font-family:var(--font-display);font-size:1rem;line-height:1.2}
+.mtxt{font-size:.74rem;color:var(--ink-soft)}
+.mbar{width:100%;height:5px;border-radius:3px;background:var(--rule);overflow:hidden}.mbar i{display:block;height:100%;background:var(--ind)}
+.mod2 .ready{font-style:normal;font-size:.68rem;font-weight:700;color:var(--ind);background:var(--ind-bg);border-radius:999px;padding:1px 8px}
+.mod2.add{border-style:dashed;border-top-style:dashed;border-top-color:var(--rule);background:transparent}
+.mod2.add .mcode{background:var(--rule);color:var(--ink)}
+.resume{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:0;border-radius:16px;padding:10px 14px;background:var(--ink);color:var(--sheet);margin-top:10px}
+.resume .qi{width:64px;height:46px;background:var(--sheet);border-radius:10px;padding:3px;flex:none}.resume .qi svg{width:100%;height:100%}
+.resume em{display:block;font-style:normal;font-size:.72rem;opacity:.75}.resume b{font-family:var(--font-display)}
+.resume>span:nth-child(2){flex:1;min-width:0}
+.whole{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:2px solid var(--accent);background:var(--sheet);border-radius:18px;padding:14px}
+.whole>span:nth-child(2){flex:1;min-width:0}.whole b{font-family:var(--font-display);font-size:1.1rem;display:block}.whole em{font-style:normal;font-size:.8rem;color:var(--ink-soft)}
+.group-h.sub2{margin-top:6px;font-size:.66rem}
+.notelist{display:flex;flex-direction:column;gap:8px}
+.noteitem{display:flex;gap:10px;align-items:center;width:100%;text-align:left;border:1px solid var(--rule);background:var(--sheet);border-radius:14px;padding:12px}
+.noteitem>span:nth-child(2){flex:1;min-width:0}.noteitem b{display:block}.noteitem em{font-style:normal;font-size:.75rem;color:var(--ink-soft)}
+.scrim{position:fixed;inset:0;background:rgba(10,15,30,.5);z-index:50}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:51;max-height:86vh;overflow-y:auto;background:var(--paper);border-radius:24px 24px 0 0;padding:10px max(16px,env(safe-area-inset-left,0px)) calc(18px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:8px;max-width:820px;margin:0 auto}
+@media (prefers-reduced-motion:no-preference){.sheet{animation:up .22s ease-out}@keyframes up{from{transform:translateY(40px);opacity:.6}}}
+.grab{width:44px;height:5px;border-radius:3px;background:var(--rule);align-self:center}
+.sheet h2{font-size:1.3rem;font-weight:800;line-height:1.2}
+.sheet>p{margin:0}
+.howlist{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.how{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:1px solid var(--rule);background:var(--sheet);border-radius:16px;padding:12px 14px;color:var(--ink);text-decoration:none}
+.how:disabled{opacity:.5;cursor:default}
+.how>span:nth-child(2){flex:1;min-width:0}.how b{display:block;font-family:var(--font-display);font-size:1rem}.how em{font-style:normal;font-size:.78rem;color:var(--ink-soft)}
+.howi{width:42px;height:42px;border-radius:12px;background:var(--ink);color:var(--sheet);display:grid;place-items:center;font-weight:800;font-family:var(--font-display);flex:none;font-size:1rem}
+.howtag{font-size:.66rem;font-weight:700;color:var(--accent);border:1px solid var(--accent);border-radius:999px;padding:2px 8px;flex:none}
+.how.busy{border-color:var(--moa)}.how.busy b{color:var(--moa);animation:blink 1.4s ease-in-out infinite}
+.sheetnote{white-space:pre-wrap;background:var(--sheet);border-radius:14px;padding:12px;max-height:200px;overflow:auto;font-size:.9rem}
+.thumb.big{max-height:260px;align-self:center}
+
+.goals{display:flex;flex-direction:column;gap:10px}
+.goal-c{display:flex;align-items:center;gap:14px;width:100%;text-align:left;border:1px solid var(--rule);border-left:6px solid var(--gc);background:var(--sheet);border-radius:18px;padding:14px}
+.goal-c>span:nth-child(2){flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.goal-c b{font-family:var(--font-display);font-size:1.12rem}
+.goal-c em{font-style:normal;font-size:.82rem;color:var(--ink-soft)}
+.goal-c small{font-size:.72rem;font-weight:600;color:var(--gc)}
+.gi{width:44px;height:44px;border-radius:14px;background:var(--gc,var(--ink));color:#fff;display:grid;place-items:center;font-weight:800;font-size:1.15rem;flex:none;font-family:var(--font-display)}
+.goal-tag{display:inline-flex;align-items:center;gap:8px;margin:4px 0 0;font-weight:700;font-size:.9rem}
+.goal-tag .gi{width:28px;height:28px;border-radius:9px;font-size:.85rem}
+.helper{margin-top:16px;background:var(--nur-bg);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:8px}
+.addgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.addc{display:flex;flex-direction:column;align-items:flex-start;gap:6px;text-align:left;border:1px solid var(--rule);background:var(--sheet);border-radius:18px;padding:14px;--gc:var(--nur)}
+.addc b{font-family:var(--font-display)}.addc em{font-style:normal;font-size:.76rem;color:var(--ink-soft)}
+.addc.wide2{grid-column:1/-1;--gc:var(--accent)}
+
+.ic{width:22px;height:22px;flex:none}
+.gi .ic,.howi .ic{width:22px;height:22px}
+.goals{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.goal-c{flex-direction:column;align-items:flex-start;gap:6px;border-left:1px solid var(--rule);border-top:5px solid var(--gc);padding:14px;min-height:150px}
+.goal-c .gi{width:48px;height:48px}
+.goal-c .gi .ic{width:26px;height:26px}
+.goal-c b{font-size:1.05rem;line-height:1.2}
+.goal-c em{font-size:.76rem}
+.goal-c small{margin-top:auto}
+.iconrow{display:flex;gap:8px;flex-wrap:wrap}
+.ib{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:66px;border:1px solid var(--rule);background:var(--sheet);border-radius:14px;padding:10px 8px;font-size:.72rem;font-weight:600;color:var(--ink)}
+.ib .ic{color:var(--nur)}
+.helper p .ic{width:14px;height:14px;vertical-align:-2px;color:var(--moa)}
+.addc .gi{background:var(--gc)}
+.danger-link{color:var(--con);display:inline-flex;align-items:center;gap:6px;align-self:flex-start}
+.danger-link .ic{width:16px;height:16px}
+.howtag{white-space:nowrap}
 </style>
 </head>
 <body>
 <main class="wrap" id="app"></main>
 <nav class="tabbar" aria-label="Main"><div class="tabbar-in">
   <button class="tabbtn" data-tab="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>Home</button>
-  <button class="tabbtn" data-tab="modules"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M17.5 14v7M14 17.5h7"/></svg>Modules</button>
   <button class="tabbtn" data-tab="practice"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6v3H9z"/><path d="M15 4h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3"/><path d="M9 12l2 2 4-4"/></svg>Practice</button>
   <button class="tabbtn" data-tab="library"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h4v16H4zM10 4h4v16h-4z"/><path d="M16 5l4 1-3 14-4-1z"/></svg>Library</button>
   <button class="tabbtn" data-tab="words"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zm0 0a2 2 0 0 0 2 2h13"/><path d="M9 8h6"/></svg>Words</button>
@@ -765,61 +887,196 @@ const cross=(c="var(--nur)")=>`<svg class="xmark" viewBox="0 0 24 24" aria-hidde
 const ecg=`<svg class="ecg" viewBox="0 0 300 40" preserveAspectRatio="none" aria-hidden="true"><path pathLength="100" d="M0 22 H70 l8 -4 l6 4 H110 l6 -18 l8 34 l6 -22 l4 6 H180 l8 -4 l6 4 H300"/></svg>`;
 const back=(label)=>`<div class="topbar"><button class="x" data-back aria-label="Back">←</button><span class="crumb">${label}</span></div>`;
 
-/* ===================== HOME ===================== */
-function home(){
-  const lv=level(), tx=P.today.day===todayStr()?P.today.xp:0, last=DRUGS.find(d=>d.id===P.lastDrug)||DRUGS.find(d=>!P.done[d.id])||DRUGS[0];
-  return `<section class="ward">${ecg}<div class="ward-in"><div class="brandrow"><svg class="steth" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3H4v6a5 5 0 0 0 10 0V3h-1"/><path d="M9 14v2a5 5 0 0 0 10 0v-3"/><circle cx="19" cy="11" r="2"/></svg><span>ScrubUp</span><span class="tag">nursing revision · ward ready</span></div><h1>Habari! Ready for the ward?</h1><p>${navigator.onLine===false?"You're offline. Everything still works.":"Works offline once opened."}</p></div></section>
-  <div class="stats">
-    <div class="stat"><b>${streakNow()}</b><span>day streak</span></div>
-    <div class="stat"><b>${P.xp}</b><span>XP</span></div>
-    <div class="stat"><b class="lvl">${lv.name}</b><span>${lv.next?`${lv.next[0]-P.xp} XP to ${lv.next[1]}`:"Top level"}</span></div>
-  </div>
-  <div class="goal"><div class="goal-top"><span>Today's goal</span><span>${Math.min(tx,DAILY_GOAL)} / ${DAILY_GOAL} XP</span></div><div class="bar"><span style="width:${Math.min(100,tx/DAILY_GOAL*100)}%"></span></div></div>
-  <button class="big-cta" data-profile="${last.id}">${PICS[last.pic].replace('class="pic"','')}<div><span class="eyebrow">Continue · Pharmacology</span><b>${last.name}</b><span>${esc(last.one)}</span></div></button>
-  <h2 class="sec-title">Practice like the exam</h2>
-  <div class="gstack">
-    <button class="gtile c-con" data-pickTest><span class="num">${cross("var(--con)")}</span><div><b>Past paper test</b><span>Section A MCQs, B short answers, C case study</span></div></button>
-    <button class="gtile c-nur" data-cases><span class="num">${cross("var(--nur)")}</span><div><b>Ward cases</b><span>Real-life patients. What would you do?</span></div></button>
-    <button class="gtile c-int" data-game="tf"><span class="num">60s</span><div><b>True or false?</b><span>Best: ${P.best.tf||0}</span></div></button>
-  </div>
-  <h2 class="sec-title">My modules</h2>
-  <div class="hscroll">${allModules().slice(0,6).map(modChip).join("")}<button class="modchip more" data-tab="modules">All modules →</button></div>`;
+/* ===================== INSTALL AS A PHONE APP ===================== */
+let installPrompt=null;
+const isInstalled=()=>matchMedia("(display-mode: standalone)").matches||navigator.standalone===true;
+const platform=()=>/iphone|ipad|ipod/i.test(navigator.userAgent)?"ios":/android/i.test(navigator.userAgent)?"android":"computer";
+addEventListener("beforeinstallprompt",e=>{e.preventDefault();installPrompt=e;if(!view.install&&view.tab==="home"&&!view.module&&!view.profile)render()});
+addEventListener("appinstalled",()=>{installPrompt=null;toast("ScrubUp is on your home screen");render()});
+const phoneIcon=`<svg class="phoneic" viewBox="0 0 48 48" aria-hidden="true"><rect x="12" y="3" width="24" height="42" rx="5" fill="var(--ink)"/><rect x="15" y="8" width="18" height="30" rx="2" fill="var(--nur-bg)"/><path d="M24 15v12m-5-5l5 5 5-5" stroke="var(--nur)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+function installCard(){
+  if(isInstalled())return "";
+  return `<section class="install">${phoneIcon}<div><b>Install ScrubUp</b><p>Works offline. Opens like an app.</p><div class="row-btns">${installPrompt?`<button class="btn primary small-btn" data-doinstall>Install now</button>`:""}<button class="btn small-btn" data-install>${installPrompt?"How it works":"Show me how"}</button></div></div></section>`;
 }
-const modChip=m=>`<button class="modchip" data-module="${m.id}" style="--mc:${m.color}"><span class="mcode">${esc(m.code)}</span><span>${esc(m.name)}</span></button>`;
+const kbd=t=>`<span class="kbd">${t}</span>`;
+const GUIDE={
+ android:{label:"Android phone",steps:[
+  ["Open in Chrome","Open the ScrubUp link in "+"<b>Chrome</b>"+". (Links opened inside WhatsApp open in a small browser: tap "+kbd("⋮")+" and choose <b>Open in Chrome</b>.)"],
+  ["Tap the menu","Tap "+kbd("⋮")+" at the top right of Chrome."],
+  ["Add to Home screen","Tap <b>Add to Home screen</b> (or <b>Install app</b>), then <b>Install</b> or <b>Add</b>."],
+  ["Open from your home screen","Find the navy ScrubUp icon with the stethoscope. Open it once with data so it saves everything. After that it works offline."]]},
+ ios:{label:"iPhone",steps:[
+  ["Open in Safari","Open the ScrubUp link in <b>Safari</b> (not Chrome or WhatsApp)."],
+  ["Tap Share","Tap the Share button "+kbd("⬆")+" at the bottom of the screen."],
+  ["Add to Home Screen","Scroll down, tap <b>Add to Home Screen</b>, then <b>Add</b>."],
+  ["Open from your home screen","Open the ScrubUp icon once with data. After that it works offline."]]},
+ computer:{label:"Laptop or computer",steps:[
+  ["Open in Chrome or Edge","Open the ScrubUp link in Chrome or Microsoft Edge."],
+  ["Click install","Click the install icon "+kbd("⊕")+" at the right end of the address bar, or "+kbd("⋮")+" → <b>Cast, save and share → Install page as app</b>."],
+  ["Confirm","Click <b>Install</b>. ScrubUp opens in its own window and appears in your Start menu."]]}
+};
+function installView(){
+  const p=view.installTab||platform(), g=GUIDE[p];
+  return `${back("Back")}
+  <section class="ward">${ecg}<div class="ward-in"><div class="brandrow"><svg class="steth" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3H4v6a5 5 0 0 0 10 0V3h-1"/><path d="M9 14v2a5 5 0 0 0 10 0v-3"/><circle cx="19" cy="11" r="2"/></svg><span>ScrubUp</span></div><h1>Install ScrubUp on your phone</h1><p>${isInstalled()?"Already installed on this device.":"Takes 1 minute. Free, and no app store needed."}</p></div></section>
+  ${installPrompt&&!isInstalled()?`<button class="btn primary wide" data-doinstall>Install now</button>`:""}
+  <div class="why"><div><b>Works offline</b><span>Revise on the matatu with no data</span></div><div><b>Own icon</b><span>Opens like any other app</span></div><div><b>Saves data</b><span>Only downloads updates</span></div></div>
+  <div class="seg" role="group" aria-label="Your device" style="margin-top:14px">${Object.entries(GUIDE).map(([k,v])=>`<button type="button" data-itab="${k}" aria-pressed="${k===p}">${v.label}</button>`).join("")}</div>
+  <ol class="steps">${g.steps.map(([t,d],i)=>`<li><span class="stepn">${i+1}</span><div><b>${t}</b><p>${d}</p></div></li>`).join("")}</ol>
+  <section class="panel"><h2>Updates</h2><p class="small" style="margin:0">When there's new content, ScrubUp downloads it quietly the next time you open it with data. Close and reopen the app to see it. Your notes, questions and progress stay on your phone.</p></section>
+  <section class="panel"><h2>Share with classmates</h2><p class="small muted" style="margin:0">Send them the link. They follow the same steps.</p><div class="row-btns"><button class="btn primary small-btn" data-share>Share ScrubUp</button><span class="muted small brk">${esc(location.origin.startsWith("http")?location.origin:"")}</span></div></section>`;
+}
 
-/* ===================== MODULES ===================== */
-function modules(){
-  return `<h1 class="ph">Modules</h1><p class="muted small sub">Pharmacology has ScrubUp notes ready. For the others, add your own resources and past-paper questions now. More ScrubUp notes are coming.</p>
-  <div class="modgrid">${allModules().map(m=>{const nq=qsFor(m.id).length, nr=resFor(m.id).length, ready=m.id==="pharm"||PACK.modules.some(x=>x.id===m.id);
-    return `<button class="modtile" data-module="${m.id}" style="--mc:${m.color}"><span class="mcode big">${esc(m.code)}</span><b>${esc(m.name)}</b><span class="mmeta">${ready?'<em class="ready">ScrubUp notes</em>':''}${m.mine?'<em>My module</em>':''}${nr} resources · ${nq} questions</span></button>`}).join("")}</div>
-  ${form&&form.type==="mod"?modForm():`<button class="btn primary wide" data-addmod>+ Add a module</button>`}`;
+/* ===================== STEP 1: HOME = choose a module ===================== */
+const IC={
+ book:'<path d="M4 19V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zm0 0a2 2 0 0 0 2 2h13"/>',
+ exam:'<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1M9 13l2 2 4-4"/>',
+ steth:'<path d="M5 3H4v6a5 5 0 0 0 10 0V3h-1"/><path d="M9 14v2a5 5 0 0 0 10 0v-3"/><circle cx="19" cy="11" r="2"/>',
+ upload:'<path d="M12 15V4M7 9l5-5 5 5M4 15v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4"/>',
+ camera:'<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',
+ file:'<path d="M6 3h8l4 4v14H6zM14 3v4h4M9 13h6M9 17h4"/>',
+ link:'<path d="M10 14a4 4 0 0 0 6 0l3-3a4 4 0 0 0-6-6l-1 1M14 10a4 4 0 0 0-6 0l-3 3a4 4 0 0 0 6 6l1-1"/>',
+ pen:'<path d="M4 20h4L19 9l-4-4L4 16zM13 7l4 4"/>',
+ q:'<circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .8-1 1.5V14M12 17.5v.1"/>',
+ cards:'<rect x="3" y="7" width="13" height="14" rx="2"/><path d="M8 3h11a2 2 0 0 1 2 2v12"/>',
+ timer:'<circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M10 2h4"/>',
+ match:'<path d="M4 7h4a2 2 0 1 1 4 0h4v4a2 2 0 1 1 0 4v4H4z"/>',
+ spark:'<path d="M12 3l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/>',
+ rx:'<path d="M6 21V4h6a4 4 0 0 1 0 8H6M10 12l8 9M18 12l-8 9"/>',
+ cross:'<path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/>',
+ open:'<path d="M14 4h6v6M20 4l-9 9M18 14v6H4V6h6"/>',
+ trash:'<path d="M4 7h16M9 7V4h6v3M6 7l1 14h10l1-14"/>'
+};
+const ic=n=>`<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[n]}</svg>`;
+
+const curMod=()=>{const m=allModules().find(x=>x.id===P.mod);return m||BUILTIN_MODULES[0]};
+const steth=`<svg class="steth" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3H4v6a5 5 0 0 0 10 0V3h-1"/><path d="M9 14v2a5 5 0 0 0 10 0v-3"/><circle cx="19" cy="11" r="2"/></svg>`;
+const stepper=n=>`<ol class="stepper" aria-label="Study steps">${["Module","Goal","Study"].map((t,i)=>`<li class="${i+1<n?'done':i+1===n?'now':''}"><span>${i+1}</span>${t}</li>`).join("")}</ol>`;
+function modProgress(m){
+  if(m.id==="pharm"){const d=DRUGS.filter(x=>P.done[x.id]).length;return {pct:d/DRUGS.length*100,txt:`${d}/${DRUGS.length} drugs done`}}
+  const r=resFor(m.id).length,q=qsFor(m.id).length;return {pct:0,txt:r||q?`${r} notes · ${q} Qs`:"Add your notes"};
+}
+function home(){
+  const lv=level(), tx=P.today.day===todayStr()?P.today.xp:0, last=P.lastDrug&&DRUGS.find(d=>d.id===P.lastDrug);
+  return `<section class="ward slim">${ecg}<div class="ward-in"><div class="brandrow">${steth}<span>ScrubUp</span><span class="tag">${navigator.onLine===false?"offline · everything still works":"nursing revision · ward ready"}</span></div>
+   <div class="minis"><span><b>${streakNow()}</b> day streak</span><span><b>${P.xp}</b> XP · ${lv.name}</span><span class="goalmini"><i style="width:${Math.min(100,tx/DAILY_GOAL*100)}%"></i></span><span>${Math.min(tx,DAILY_GOAL)}/${DAILY_GOAL} today</span></div></div></section>
+  ${last?`<button class="resume" data-profile="${last.id}"><span class="qi">${PICS[last.pic].replace('class="pic"','')}</span><span><em>Continue</em><b>Pharmacology · ${last.name}</b></span><span aria-hidden="true">→</span></button>`:""}
+  ${stepper(1)}
+  <h1 class="ask">Pick a module</h1>
+  <div class="modgrid2">${allModules().map(m=>{const p=modProgress(m);return `<button class="mod2" data-module="${m.id}" style="--mc:${m.color}"><span class="mcode big">${esc(m.code)}</span><b>${esc(m.name)}</b><span class="mtxt">${p.txt}</span>${m.id==="pharm"?`<span class="mbar"><i style="width:${p.pct}%"></i></span><em class="ready">Notes ready</em>`:""}</button>`}).join("")}
+   <button class="mod2 add" data-addmod><span class="mcode big">+</span><b>Add module</b></button></div>
+  ${form&&form.type==="mod"?modForm():""}
+  ${installCard()}`;
 }
 function modForm(){return `<form class="card-form" id="modform"><h3>New module</h3><label>Module name<input id="m-name" required placeholder="e.g. Pathology"></label><label>Short code (2 letters)<input id="m-code" maxlength="3" placeholder="PA"></label><p class="form-err" id="f-err" hidden></p><div class="row-btns"><button class="btn primary">Save module</button><button type="button" class="btn" data-cancel>Cancel</button></div></form>`}
 
+/* ===================== STEP 2: MODULE = what do you want to do? ===================== */
+const GOALS=[
+ {id:"learn",ic:"book",t:"Understand",s:"Simple notes, pictures, tricks",c:"var(--moa)"},
+ {id:"exam",ic:"exam",t:"Revise for exams",s:"Past papers & quizzes",c:"var(--accent)"},
+ {id:"cases",ic:"steth",t:"Ward cases",s:"What would you do?",c:"var(--con)"},
+ {id:"add",ic:"upload",t:"Add my notes",s:"Photos, PDFs, links",c:"var(--nur)"}
+];
+const modHead=(m,label)=>`${back(label)}<section class="modcard" style="--mc:${m.color}"><div class="modcard-h"><span class="mcode big">${esc(m.code)}</span><div style="min-width:0"><h1>${esc(m.name)}</h1><p class="muted small">${modProgress(m).txt} · ${qsFor(m.id).length} questions</p></div></div></section>`;
 function moduleView(){
-  const m=modById(view.module), qs=qsFor(m.id), res=resFor(m.id);
-  const counts={mcq:qs.filter(q=>q.type==="mcq").length,short:qs.filter(q=>q.type==="short").length,case:qs.filter(q=>q.type==="case").length};
-  return `${back("Modules")}
-  <section class="modhead" style="--mc:${m.color}"><span class="mcode big">${esc(m.code)}</span><div><h1>${esc(m.name)}</h1><p class="muted small">${qs.length} questions (${counts.mcq} MCQ · ${counts.short} short answer · ${counts.case} cases) · ${res.length} resources</p></div></section>
-  <div class="actions">
-    <button class="btn primary" data-test="${m.id}" ${qs.length?"":"disabled"}>Take a past-paper test</button>
-    <button class="btn" data-addq="${m.id}">+ Add a question</button>
-    <button class="btn" data-addres="${m.id}">+ Add a resource</button>
-  </div>
-  ${form?formFor(m.id):""}
-  ${m.id==="pharm"?`<h2 class="sec-title">ScrubUp notes · drugs</h2>${[...new Set(DRUGS.map(d=>d.group))].map(g=>`<p class="group-h">${g}</p><div class="tiles">${DRUGS.filter(d=>d.group===g).map(d=>`<button class="tile ${d.tone}" data-profile="${d.id}">${P.done[d.id]?'<span class="done" aria-label="studied">✓</span>':''}${PICS[d.pic].replace('class="pic"','class="mini"')}<b>${d.name}</b><span>${esc(d.cls)}</span></button>`).join("")}</div>`).join("")}
-   <button class="linkcard" data-notes><span><b>Notes check</b><br><span class="muted small">Beatrice's flucytosine notes, corrected line by line</span></span><span aria-hidden="true">→</span></button>`
-   :`<div class="empty">${cross("var(--rule)")}<div><b>ScrubUp notes for ${esc(m.name)} are coming.</b><p class="muted small">Until then, build your own revision kit: add lecture PDFs, photos of class notes and links, then add past-paper questions to test yourself.</p></div></div>`}
-  <h2 class="sec-title">Resources</h2>${resList(res)}
-  <h2 class="sec-title">Question bank</h2>${qList(qs.filter(q=>q.src!=="ScrubUp"&&q.src!=="ScrubUp ward case"), m.id)}`;
+  const m=modById(view.module);
+  if(view.goal) return goalView(m);
+  const qs=qsFor(m.id), res=resFor(m.id), cases=qs.filter(q=>q.type==="case").length;
+  const hint={learn:m.id==="pharm"?`${DRUGS.length} drugs`:res.length?`${res.length} notes`:"",exam:qs.length?`${qs.length} questions`:"",cases:cases?`${cases} cases`:"",add:res.length?`${res.length} saved`:""};
+  return `${modHead(m,"All modules")}${stepper(2)}
+  <h1 class="ask">What's your goal?</h1>
+  <div class="goals">${GOALS.map(g=>`<button class="goal-c" data-goal="${g.id}" style="--gc:${g.c}"><span class="gi">${ic(g.ic)}</span><b>${g.t}</b><em>${g.s}</em>${hint[g.id]?`<small>${hint[g.id]}</small>`:""}</button>`).join("")}</div>`;
 }
+/* ===================== STEP 3: choose how (tools for the goal) ===================== */
+const drugTiles=(attr)=>[...new Set(DRUGS.map(d=>d.group))].map(g=>`<p class="group-h sub2">${g}</p><div class="tiles">${DRUGS.filter(d=>d.group===g).map(d=>`<button class="tile ${d.tone}" ${attr(d)}>${P.done[d.id]?'<span class="done" aria-label="studied">✓</span>':''}${PICS[d.pic].replace('class="pic"','class="mini"')}<b>${d.name}</b><span>${esc(d.cls)}</span></button>`).join("")}</div>`).join("");
+const noteItems=(res)=>`<div class="notelist">${res.map(r=>`<button class="noteitem" data-sheet="res" data-id="${r.id}"><span class="rkind">${r.ai?"AI":{file:"FILE",link:"LINK",note:"NOTE"}[r.kind]}</span><span><b>${esc(r.title)}</b><em>${r.kind==="file"?(r.type||"").includes("pdf")?"PDF":"Photo":r.kind==="link"?"Link":"Note"}${r.pack?" · from ScrubUp":""}${r.ai?" · AI draft":""}</em></span><span aria-hidden="true">→</span></button>`).join("")}</div>`;
+const helper=(m,text)=>`<section class="helper"><b>${text}</b><div class="iconrow"><button class="ib" data-addres="${m.id}" data-k="file">${ic("camera")}<span>Photo</span></button><button class="ib" data-addres="${m.id}" data-k="file">${ic("file")}<span>PDF</span></button><button class="ib" data-addres="${m.id}" data-k="link">${ic("link")}<span>Link</span></button><button class="ib" data-addres="${m.id}" data-k="note">${ic("pen")}<span>Note</span></button></div><p class="small muted" style="margin:0">${ic("spark")} AI can turn it into revision points and questions.</p></section>`;
+function goalView(m){
+  const g=GOALS.find(x=>x.id===view.goal), qs=qsFor(m.id), res=resFor(m.id), isPh=m.id==="pharm";
+  let body="";
+  if(g.id==="learn"){
+    body=`<h1 class="ask">Pick a topic</h1>
+    ${isPh?`<p class="group-h">Drugs</p>${drugTiles(d=>`data-sheet="drug" data-id="${d.id}"`)}`:""}
+    ${res.length?`<p class="group-h">Your notes</p>${noteItems(res)}`:isPh?"":`<div class="empty">${cross("var(--organ)")}<div><b>ScrubUp notes coming soon.</b><p class="muted small">Add your class notes below to start.</p></div></div>`}
+    ${helper(m,isPh?"Still confused? Add your lecturer's notes":"Add your notes")}`;
+  }
+  if(g.id==="exam"){
+    const aiable=res.filter(r=>!r.ai&&!r.pack&&(r.kind==="note"||r.kind==="file"));
+    body=`<h1 class="ask">Pick how</h1><div class="howlist">
+     ${opt(`data-test="${m.id}" ${qs.length?"":"disabled"}`,ic("exam"),"Full past paper",qs.length?`MCQs, short answers, a case · timed`:"Add questions first",qs.length?qs.length+" Qs":"")}
+     ${isPh?opt('data-game="tf"',ic("timer"),"True or false","60 seconds","Fun")+opt('data-game="match"',ic("match"),"Match it","Drugs and their hooks","Fun"):""}
+     ${aiable.length?opt(`data-sheet="res" data-id="${aiable[0].id}"`,ic("spark"),"Questions from my notes",esc(aiable[0].title),"AI"):""}
+     ${opt(`data-addq="${m.id}"`,ic("q"),"Add a past-paper question","From a past paper or CAT")}
+    </div>
+    ${isPh?`<p class="group-h">One drug only</p><div class="chips">${DRUGS.map(d=>`<button class="chip" data-test="pharm" data-topic="${d.id}">${d.name}</button>`).join("")}</div>`:""}
+    ${qs.length?"":helper(m,"No questions yet. Add notes first")}`;
+  }
+  if(g.id==="cases"){
+    const cs=qs.filter(q=>q.type==="case");
+    body=`<h1 class="ask">Think like the nurse</h1><p class="muted small sub">Read. Decide. Then check.</p>
+    <div class="stack">${cs.map(c=>`<section class="panel case"><p class="eyebrow">${cross("var(--con)")} ${c.topic?esc((DRUGS.find(d=>d.id===c.topic)||{}).name||""):esc(c.src||"")}</p><p class="lead">${esc(c.q.split("\n\n")[0])}</p><details><summary>What would you do?</summary>${L(String(c.model).split("\n").filter(Boolean))}</details></section>`).join("")||`<p class="muted small">No cases yet.</p>`}</div>
+    <section class="helper"><b>Have a case from class?</b><div class="iconrow"><button class="ib" data-addq="${m.id}" data-qk="case">${ic("steth")}<span>Add case</span></button></div></section>`;
+  }
+  if(g.id==="add"){
+    body=`<h1 class="ask">Add what?</h1>
+    <div class="addgrid">
+      <button class="addc" data-addres="${m.id}" data-k="file"><span class="gi">${ic("camera")}</span><b>Photo</b><em>Notes or the board</em></button>
+      <button class="addc" data-addres="${m.id}" data-k="file"><span class="gi">${ic("file")}</span><b>PDF</b><em>A chapter or handout</em></button>
+      <button class="addc" data-addres="${m.id}" data-k="link"><span class="gi">${ic("link")}</span><b>Link</b><em>Drive or YouTube</em></button>
+      <button class="addc" data-addres="${m.id}" data-k="note"><span class="gi">${ic("pen")}</span><b>Note</b><em>Type it in</em></button>
+      <button class="addc wide2" data-addq="${m.id}"><span class="gi">${ic("q")}</span><b>Past-paper question</b><em>MCQ, short answer or case</em></button>
+    </div>
+    ${res.length?`<p class="group-h">Saved</p>${noteItems(res)}`:""}
+    ${qs.filter(q=>q.src!=="ScrubUp"&&q.src!=="ScrubUp ward case").length?`<p class="group-h">My questions</p>${qList(qs.filter(q=>q.src!=="ScrubUp"&&q.src!=="ScrubUp ward case"),m.id)}`:""}`;
+  }
+  return `${modHead(m,"Change goal")}${stepper(3)}<p class="goal-tag" style="--gc:${g.c}"><span class="gi">${ic(g.ic)}</span>${g.t}</p>
+   ${form&&(form.type==="res"||form.type==="q")?formFor(m.id):""}${body}${view.sheet?sheet(m):""}`;
+}
+
+/* ===================== STEP 3: HOW to study (bottom sheet) ===================== */
+const opt=(attrs,icon,title,sub,tag="")=>`<button class="how" ${attrs}><span class="howi">${icon}</span><span><b>${title}</b><em>${sub}</em></span>${tag?`<span class="howtag">${tag}</span>`:""}</button>`;
+function sheet(m){
+  const S=view.sheet; let title="", sub="", opts="";
+  const qs=qsFor(m.id);
+  if(S.kind==="whole"){
+    title=`Study ${esc(m.name)}`; sub="Whole module";
+    opts=opt(`data-test="${m.id}" ${qs.length?"":"disabled"}`,ic("exam"),"Past paper","Timed test")
+     +(m.id==="pharm"?opt('data-game="tf"',ic("timer"),"True or false","60 seconds","Fun")+opt('data-game="match"',ic("match"),"Match it","Drugs and hooks","Fun"):"");
+  }
+  if(S.kind==="drug"){
+    const d=DRUGS.find(x=>x.id===S.id), n=qs.filter(q=>q.topic===d.id).length;
+    title=d.name; sub=esc(d.cls);
+    opts=opt(`data-profile="${d.id}"`,ic("rx"),"Full summary","Body map, uses, nurse's duties","5 min")
+     +opt(`data-open="${d.id}"`,ic("cards"),"Bite-size cards","Swipe 10 short cards","10 min")
+     +opt(`data-test="pharm" data-topic="${d.id}"`,ic("exam"),"Test me",`${n} questions`)
+     +opt(`data-casepop="${d.id}"`,ic("steth"),"Ward case","What would you do?");
+  }
+  if(S.kind==="res"){
+    const r=resFor(m.id).find(x=>x.id===S.id); if(!r){view.sheet=null;return ""}
+    const canAI=!r.pack&&!r.ai&&(r.kind==="note"||(r.kind==="file"&&/^image\/|pdf$/.test(r.type||"")));
+    title=esc(r.title); sub=r.ai?"AI draft · check with your notes":"My notes";
+    if(r.kind==="file"){if(!urls[r.id])urls[r.id]=URL.createObjectURL(r.blob)}
+    opts=(r.kind==="note"?`<div class="sheetnote">${esc(r.text)}</div>`:r.kind==="file"&&r.type.startsWith("image/")?`<img class="thumb big" src="${urls[r.id]}" alt="${esc(r.title)}">`:"")
+     +(r.kind==="file"&&!r.type.startsWith("image/")?`<a class="how" href="${urls[r.id]}" target="_blank" rel="noopener"><span class="howi">${ic("file")}</span><span><b>Open PDF</b><em>Works offline</em></span></a>`:"")
+     +(r.kind==="link"?`<a class="how" href="${esc(r.url)}" target="_blank" rel="noopener"><span class="howi">${ic("open")}</span><span><b>Open link</b><em>Needs data</em></span></a>`:"")
+     +(canAI?(AI_BUSY[r.id]?`<div class="how busy"><span class="howi">${ic("spark")}</span><span><b>${esc(AI_BUSY[r.id])}</b><em>Keep this open</em></span></div>`:opt(`data-ai="${r.id}"`,ic("spark"),"Explain & quiz me (AI)","Key points + practice questions","AI")):"")
+     +opt(`data-test="${m.id}" ${qs.length?"":"disabled"}`,ic("exam"),"Test me",`${qs.length} questions`)
+     +opt(`data-addq="${m.id}" data-src="${esc(r.title)}"`,ic("q"),"Write a question","From these notes")
+     +(r.pack?"":`<button class="linkbtn danger-link" data-del="${r.id}">${ic("trash")} Delete</button>`)
+     +(confirmDel===r.id?`<div class="row-btns"><button class="btn small-btn danger-btn" data-delyes="${r.id}" data-store="res">Yes, delete</button><button class="btn small-btn" data-delno>Keep</button></div>`:"");
+  }
+  return `<div class="scrim" data-closesheet></div><section class="sheet" role="dialog" aria-modal="true" aria-label="${title}">
+   <div class="grab"></div>${stepper(3)}<h2>${title}</h2><p class="muted small">${sub}</p><div class="howlist">${opts}</div>
+   <button class="btn wide" data-closesheet>Back</button></section>`;
+}
+function casePop(d){return `${back(d.name)}<section class="panel case"><p class="eyebrow">${cross("var(--con)")} Ward case · ${d.name}</p><p class="lead">${esc(d.case.s)}</p><details><summary>What would you do? Tap to check</summary><p>${linkTerms(esc(d.case.a))}</p></details></section><button class="btn primary wide" data-profile="${d.id}">Read the ${d.name} profile</button>`}
 
 /* ===================== DRUG PROFILE (summary page) ===================== */
 function profile(){
   const d=DRUGS.find(x=>x.id===view.profile); P.lastDrug=d.id; save();
   const sel=view.organ&&d.organs[view.organ]?view.organ:Object.keys(d.organs)[0];
   const res=resFor("pharm",d.id), qn=qsFor("pharm").filter(q=>q.topic===d.id).length;
-  return `${back("Pharmacology")}
+  return `${back("Back")}
   <section class="chart">
     <div class="chart-top"><span class="rx">℞</span><div style="min-width:0"><p class="eyebrow">Drug profile · ${esc(d.group)}</p><h1>${d.name}</h1><p class="muted small">Say it: ${d.say}</p></div></div>
     <dl class="kardex">
@@ -903,9 +1160,9 @@ function deck(){
 
 /* ===================== PRACTICE ===================== */
 function practice(){
-  return `<h1 class="ph">Practice</h1><p class="muted small sub">Exam-style tests, ward cases and quick games. Everything works offline.</p>
+  return `<h1 class="ph">Practice</h1><p class="muted small sub">Tests, cases and games. Works offline.</p>
   <h2 class="sec-title">Past paper test</h2>
-  <div class="gstack">${allModules().filter(m=>qsFor(m.id).length).map(m=>{const n=qsFor(m.id).length;return `<button class="gtile" style="--c:${m.color};--bg:var(--sheet)" data-test="${m.id}"><span class="mcode big" style="--mc:${m.color}">${esc(m.code)}</span><div><b>${esc(m.name)}</b><span>${n} questions in the bank</span></div></button>`}).join("")}
+  <div class="gstack">${[curMod(),...allModules().filter(x=>x.id!==curMod().id)].filter(m=>qsFor(m.id).length).map(m=>{const n=qsFor(m.id).length;return `<button class="gtile" style="--c:${m.color};--bg:var(--sheet)" data-test="${m.id}"><span class="mcode big" style="--mc:${m.color}">${esc(m.code)}</span><div><b>${esc(m.name)}</b><span>${n} questions in the bank</span></div></button>`}).join("")}
   <p class="muted small">Other modules appear here once you add past-paper questions to them.</p></div>
   <h2 class="sec-title">Ward cases</h2>
   <button class="gtile c-nur" data-cases><span class="num">${DRUGS.length+USER.qs.filter(q=>q.type==="case").length}</span><div><b>Practical cases</b><span>Patients you'll meet on the ward. Think, then reveal.</span></div></button>
@@ -1006,7 +1263,7 @@ async function runAI(id){
     if(r.kind==="note")body.text=r.text;
     else if(r.type.startsWith("image/")){const small=await shrinkImage(r.blob);body.file={type:"image/jpeg",data:await b64(small)}}
     else{if(r.size>2.9*1048576)throw new Error("This PDF is over 3 MB. Save just one chapter (a few pages) and add that instead.");body.file={type:"application/pdf",data:await b64(r.blob)}}
-    AI_BUSY[id]="Reading your notes… (about 30 seconds)";redraw();
+    AI_BUSY[id]="Reading… about 30 sec";redraw();
     let resp; try{resp=await fetch(AI_URL,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(body)})}catch(e){throw new Error("Couldn't reach the AI helper. Check your data, or open the installed ScrubUp app (the AI doesn't work in this preview).")}
     let j={}; try{j=await resp.json()}catch(e){throw new Error("The AI helper only works in the installed ScrubUp app.")}
     if(!resp.ok)throw new Error(j.error||"The AI helper had a problem.");
@@ -1020,14 +1277,15 @@ async function runAI(id){
 }
 
 /* ===================== LIBRARY + FORMS ===================== */
-let libFilter="all";
+let libFilter=null;
 function library(){
-  const mods=allModules().filter(m=>resFor(m.id).length);
-  return `<h1 class="ph">My library</h1><p class="muted small sub">Your lecture PDFs, photos of class notes and links, saved on this phone so you can revise without data.</p>
+  if(libFilter===null)libFilter=curMod().id;
+  const mods=allModules().filter(m=>resFor(m.id).length||m.id===libFilter);
+  return `<h1 class="ph">My library</h1><p class="muted small sub">Your notes, saved on this phone.</p>
   ${form&&form.type==="res"?resFormHTML(form.module||"pharm",form.topic):`<button class="btn primary wide" data-addres="${libFilter==="all"?"pharm":libFilter}">+ Add a resource</button>`}
   <div class="chips"><button class="chip" aria-pressed="${libFilter==="all"}" data-lib="all">All</button>${mods.map(m=>`<button class="chip" aria-pressed="${libFilter===m.id}" data-lib="${m.id}">${esc(m.name)}</button>`).join("")}</div>
   ${resList(resFor(libFilter==="all"?null:libFilter))}
-  <section class="soon"><p class="eyebrow">✦ AI helper</p><b>Turn your notes into revision points and past-paper style questions</b><p class="small muted">Add a photo of your notes, a PDF chapter or a typed note, then tap "Make revision questions with AI". It needs data while it works (about 30 seconds), then everything is saved on your phone for offline revision. ${AI_PER_DAY} per day. The AI can make mistakes, so check its answers against your notes and lecturer. Never upload anything with a patient's name or details.</p></section>`;
+  <section class="soon"><p class="eyebrow">${ic("spark")} AI helper</p><b>Open any note, tap "Explain & quiz me"</b><p class="small muted">Needs data for 30 seconds. ${AI_PER_DAY} a day. Check AI answers with your notes. No patient names.</p></section>`;
 }
 const urls={};
 const kb=n=>n>1048576?(n/1048576).toFixed(1)+" MB":Math.max(1,Math.round(n/1024))+" KB";
@@ -1077,7 +1335,7 @@ function qList(list,module){
 async function onSubmit(e){
   e.preventDefault(); const g=id=>document.getElementById(id), err=g("f-err"), fail=t=>{err.hidden=false;err.textContent=t};
   try{
-    if(e.target.id==="modform"){const name=g("m-name").value.trim();const code=(g("m-code").value.trim()||name.slice(0,2)).toUpperCase();const m={id:"m_"+newId(),name,code,color:"var(--nur)",added:Date.now()};await DB.put("mods",m);form=null;await loadUser();view.module=m.id;render();toast("Module added");return}
+    if(e.target.id==="modform"){const name=g("m-name").value.trim();const code=(g("m-code").value.trim()||name.slice(0,2)).toUpperCase();const m={id:"m_"+newId(),name,code,color:"var(--nur)",added:Date.now()};await DB.put("mods",m);form=null;await loadUser();P.mod=m.id;save();view.module=m.id;view.tab="home";render();scrollTo(0,0);toast("Module added");return}
     const module=g("f-module").value, topic=g("f-topic")?g("f-topic").value:"";
     if(e.target.id==="resform"){
       const r={id:newId(),kind:form.kind||"file",title:g("f-title").value.trim(),module,topic,added:Date.now()};
@@ -1095,10 +1353,10 @@ async function onSubmit(e){
 }
 
 /* ===================== WORDS + NOTES ===================== */
-function words(){return `<h1 class="ph">Word bank</h1><p class="muted small sub">Hard words in plain English, with Kiswahili where it helps.</p><input class="search" id="wsearch" type="search" placeholder="Search a word…" aria-label="Search words"><div class="stack" id="wlist">${wordList("")}</div>`}
+function words(){return `<h1 class="ph">Word bank</h1><p class="muted small sub">Hard words, made simple.</p><input class="search" id="wsearch" type="search" placeholder="Search a word…" aria-label="Search words"><div class="stack" id="wlist">${wordList("")}</div>`}
 const wordList=s=>WORDS.filter(w=>!["Liver toxicity","Anaerobic"].includes(w[0])&&(w[0]+" "+w[1]).toLowerCase().includes(s)).sort((a,b)=>a[0].localeCompare(b[0])).map(([w,m,sw])=>`<div class="word"><b>${esc(w)}</b>${esc(m)}${sw?`<em>Kiswahili: ${esc(sw)}</em>`:""}</div>`).join("")||'<p class="muted">No match yet.</p>';
 function notesView(){const lbl={ok:["Correct","b-ok"],fix:["Fix","b-fix"],add:["Add","b-add"]};
-  return `${back("Pharmacology")}<h1 class="ph">Notes check: Flucytosine</h1><div class="stack">${NOTES.map(n=>`<div class="nrow"><span class="badge ${lbl[n.s][1]}">${lbl[n.s][0]}</span><p class="said">"${esc(n.said)}"</p><p style="margin:0">${linkTerms(n.fix)}</p></div>`).join("")}</div><button class="btn primary wide" data-profile="flucytosine">Open the Flucytosine profile</button>`}
+  return `${back("Back")}<h1 class="ph">Notes check: Flucytosine</h1><div class="stack">${NOTES.map(n=>`<div class="nrow"><span class="badge ${lbl[n.s][1]}">${lbl[n.s][0]}</span><p class="said">"${esc(n.said)}"</p><p style="margin:0">${linkTerms(n.fix)}</p></div>`).join("")}</div><button class="btn primary wide" data-profile="flucytosine">Open the Flucytosine profile</button>`}
 
 /* ===================== RENDER + EVENTS ===================== */
 function render(){
@@ -1109,17 +1367,21 @@ function render(){
   if(view.test){app.innerHTML=testView();return}
   if(view.notes){app.innerHTML=notesView();return}
   if(view.cases){app.innerHTML=casesView();return}
+  if(view.install){app.innerHTML=installView();return}
+  if(view.casepop){app.innerHTML=casePop(DRUGS.find(d=>d.id===view.casepop));return}
   if(view.profile){app.innerHTML=profile();return}
   if(view.module){app.innerHTML=moduleView();return}
-  app.innerHTML=({home,modules,practice,library,words}[tabKey]||home)();
+  app.innerHTML=({home,practice,library,words}[tabKey]||home)();
   if(tabKey==="words")document.getElementById("wsearch").addEventListener("input",e=>{document.getElementById("wlist").innerHTML=wordList(e.target.value.toLowerCase())});
 }
-const go=(patch)=>{clearInterval(timerId);form=null;confirmDel=null;view={...view,deck:null,game:null,test:null,notes:false,cases:false,...patch};render();scrollTo(0,0)};
+const go=(patch)=>{clearInterval(timerId);form=null;confirmDel=null;view={...view,deck:null,game:null,test:null,notes:false,cases:false,install:false,sheet:null,casepop:null,...patch};render();scrollTo(0,0)};
 function goBack(){
   if(view.deck||view.game||view.test){clearInterval(timerId);view.deck=null;view.game=null;view.test=null;form=null;render();scrollTo(0,0);return}
-  if(view.notes||view.cases){view.notes=false;view.cases=false;render();return}
-  if(view.profile){go({profile:null,organ:null,module:"pharm"});return}
-  if(view.module){go({module:null,tab:"modules"});return}
+  if(view.notes||view.cases||view.install){view.notes=false;view.cases=false;view.install=false;render();scrollTo(0,0);return}
+  if(view.casepop){view.sheet={kind:"drug",id:view.casepop};view.casepop=null;render();return}
+  if(view.profile){go({profile:null,organ:null,module:"pharm",goal:view.goal||"learn",tab:"home"});return}
+  if(view.module&&view.goal){form=null;view.goal=null;view.sheet=null;render();scrollTo(0,0);return}
+  if(view.module){go({module:null,goal:null,tab:"home"});return}
   go({});
 }
 function saveTA(){const ta=document.getElementById("ta");if(ta&&view.test)view.test.ans[view.test.i]=ta.value}
@@ -1132,29 +1394,38 @@ document.addEventListener("click",e=>{
   if(el=$("[data-tab]"))return go({tab:el.dataset.tab,module:null,profile:null});
   if($("[data-back]"))return goBack();
   if(el=$("[data-organ]")){view.organ=el.dataset.organ;const d=DRUGS.find(x=>x.id===view.profile);document.getElementById("organ").innerHTML=organPanel(d,view.organ);document.querySelectorAll(".spot").forEach(s=>{const on=s.dataset.organ===view.organ;s.classList.toggle("on",on);s.querySelectorAll("circle")[1].setAttribute("r",on?9:7)});return}
-  if(el=$("[data-module]"))return go({module:el.dataset.module,profile:null});
-  if(el=$("[data-profile]"))return go({profile:el.dataset.profile,organ:null,module:"pharm",tab:view.tab==="home"?"home":"modules"});
-  if(el=$("[data-open]")){view.deck=el.dataset.open;view.slide=0;render();scrollTo(0,0);return}
+  if($("[data-closesheet]")){view.sheet=null;confirmDel=null;const y=scrollY;render();scrollTo(0,y);return}
+  if(el=$("[data-goal]")){view.goal=el.dataset.goal;form=null;render();scrollTo(0,0);return}
+  if(el=$("[data-sheet]")){view.sheet={kind:el.dataset.sheet,id:el.dataset.id||null};const y=scrollY;render();scrollTo(0,y);return}
+  if(el=$("[data-casepop]")){view.sheet=null;view.casepop=el.dataset.casepop;render();scrollTo(0,0);return}
+  if(el=$("[data-module]")){P.mod=el.dataset.module;save();libFilter=P.mod;return go({tab:"home",module:el.dataset.module,goal:null,profile:null})}
+  if(el=$("[data-profile]")){P.mod="pharm";save();return go({profile:el.dataset.profile,organ:null,module:"pharm",goal:view.goal||"learn",tab:"home"})}
+  if(el=$("[data-open]")){view.sheet=null;view.deck=el.dataset.open;view.slide=0;render();scrollTo(0,0);return}
   if(el=$("[data-step]")){const dk=document.getElementById("deck");dk.scrollTo({left:(view.slide+ +el.dataset.step)*(dk.clientWidth+12),behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});return}
   if(el=$("[data-why]")){el.querySelector(".ans").hidden=false;el.querySelector(".tap").hidden=true;return}
   if(el=$("[data-dq]")){const q=QUIZ[+el.dataset.dq],pick=+el.dataset.o,blk=el.closest(".qblock");blk.querySelectorAll(".opt").forEach((b,i)=>{b.disabled=true;if(i===q.a)b.classList.add("right");else if(i===pick)b.classList.add("wrong")});const ex=blk.querySelector(".explain");ex.hidden=false;ex.innerHTML=`<b>${pick===q.a?"Correct.":"Not quite."}</b> ${linkTerms(esc(q.e))}`;if(pick===q.a)addXP(5);return}
   if(el=$("[data-finish]")){P.done[el.dataset.finish]=true;addXP(20);view.deck=null;render();scrollTo(0,0);return}
   if($("[data-notes]")){view.notes=true;render();scrollTo(0,0);return}
   if($("[data-cases]")){go({cases:true});return}
+  if($("[data-install]")){go({install:true,installTab:null});return}
+  if(el=$("[data-itab]")){view.installTab=el.dataset.itab;render();return}
+  if($("[data-doinstall]")){if(installPrompt){installPrompt.prompt();installPrompt.userChoice.finally(()=>{installPrompt=null;render()})}return}
+  if($("[data-share]")){const url=location.origin.startsWith("http")?location.origin:"";const text="ScrubUp: free nursing revision app with drug notes, past-paper tests and ward cases. Works offline.";
+    if(navigator.share){navigator.share({title:"ScrubUp",text,url}).catch(()=>{})}else if(navigator.clipboard&&url){navigator.clipboard.writeText(url).then(()=>toast("Link copied")).catch(()=>toast("Copy the link shown"))}else toast("Copy the link shown");return}
   if($("[data-pickTest]")||$("[data-picktest]"))return go({tab:"practice",module:null,profile:null});
-  if(el=$("[data-test]")){startTest(el.dataset.test,el.dataset.topic||null);return}
+  if(el=$("[data-test]")){view.sheet=null;startTest(el.dataset.test,el.dataset.topic||null);return}
   if(el=$("[data-tans]")){view.test.ans[view.test.i]=+el.dataset.tans;render();return}
   if($("[data-tnext]")){saveTA();const T=view.test;if(T.i<T.items.length-1){T.i++}else{T.done=true;clearInterval(timerId);T.end=Date.now()}render();scrollTo(0,0);return}
   if($("[data-tprev]")){saveTA();view.test.i--;render();return}
   if(el=$("[data-self]")){view.test.self[+el.dataset.self]=+el.dataset.v;const y=scrollY;render();scrollTo(0,y);return}
   if($("[data-claim]")){const T=view.test;let got=0,total=0;T.items.forEach((it,i)=>{if(it.q.type==="mcq"){total++;if(T.ans[i]===it.q.a)got++}else{total+=it.q.m||1;got+=T.self[i]||0}});T.xp=true;addXP(Math.max(5,Math.round(got/total*100/5)));render();return}
-  if(el=$("[data-game]")){startGame(el.dataset.game);scrollTo(0,0);return}
+  if(el=$("[data-game]")){view.sheet=null;startGame(el.dataset.game);scrollTo(0,0);return}
   if(el=$("[data-tf]")){if(!G||G.over)return;const s=G.list[G.i%G.list.length];const ok=(el.dataset.tf==="1")===s[1];if(ok)G.score++;G.i++;render();const c=document.getElementById("tfcard");if(c)c.classList.add(ok?"flash-ok":"flash-no");if(!ok)toast(`It was ${s[1]?"TRUE":"FALSE"}`);return}
   if(el=$("[data-ml]")){G.sel=el.dataset.ml;render();return}
   if(el=$("[data-mr]")){if(!G.sel)return;if(el.dataset.mr===G.sel){G.ok[G.sel]=true;G.sel=null;if(Object.keys(G.ok).length===G.ids.length)addXP(G.mistakes===0?15:10);render()}else{G.mistakes++;el.classList.add("bad");setTimeout(()=>el.classList.remove("bad"),400)}return}
   if($("[data-addmod]")){form={type:"mod"};render();return}
-  if(el=$("[data-addres]")){form={type:"res",kind:"file",module:el.dataset.addres,topic:el.dataset.topic||""};if(view.tab==="library"&&!view.module&&!view.profile){render()}else render();document.getElementById("resform")?.scrollIntoView({block:"center"});return}
-  if(el=$("[data-addq]")){const m=el.dataset.addq;form={type:"q",kind:"mcq",module:m,topic:el.dataset.topic||"",src:el.dataset.src||""};if(!view.module||view.module!==m){view={...view,module:m,profile:null,deck:null,game:null,test:null,notes:false,cases:false}}render();document.getElementById("qform")?.scrollIntoView({block:"center"});return}
+  if(el=$("[data-addres]")){form={type:"res",kind:el.dataset.k||"file",module:el.dataset.addres,topic:el.dataset.topic||""};view.sheet=null;if(view.tab==="library"&&!view.module&&!view.profile){render()}else render();document.getElementById("resform")?.scrollIntoView({block:"center"});return}
+  if(el=$("[data-addq]")){const m=el.dataset.addq;form={type:"q",kind:el.dataset.qk||"mcq",module:m,topic:el.dataset.topic||"",src:el.dataset.src||""};if(view.tab==="library"||view.profile||view.module!==m||!view.goal){P.mod=m;save();view={...view,tab:"home",module:m,goal:view.module===m&&view.goal?view.goal:"add",profile:null,deck:null,game:null,test:null,notes:false,cases:false,install:false,sheet:null}}else view.sheet=null;render();document.getElementById("qform")?.scrollIntoView({block:"center"});return}
   if(el=$("[data-kind]")){form.kind=el.dataset.kind;render();document.getElementById("resform")?.scrollIntoView({block:"center"});return}
   if(el=$("[data-qkind]")){form.kind=el.dataset.qkind;render();document.getElementById("qform")?.scrollIntoView({block:"center"});return}
   if($("[data-cancel]")){form=null;render();return}
@@ -1162,10 +1433,10 @@ document.addEventListener("click",e=>{
   if(el=$("[data-lib]")){libFilter=el.dataset.lib;render();return}
   if(el=$("[data-del]")){confirmDel=el.dataset.del;const y=scrollY;render();scrollTo(0,y);return}
   if($("[data-delno]")){confirmDel=null;render();return}
-  if(el=$("[data-delyes]")){DB.del(el.dataset.store,el.dataset.delyes).then(loadUser).then(()=>{confirmDel=null;render();toast("Deleted")});return}
+  if(el=$("[data-delyes]")){DB.del(el.dataset.store,el.dataset.delyes).then(loadUser).then(()=>{confirmDel=null;view.sheet=null;render();toast("Deleted")});return}
 });
 document.addEventListener("change",e=>{ if(e.target.id==="f-module"&&form){ form.module=e.target.value; const f=document.getElementById("f-topic"); if(e.target.value!=="pharm"&&f)f.closest("label").remove(); }});
-document.addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.matches("[data-why],[data-organ]"))e.target.dispatchEvent(new MouseEvent("click",{bubbles:true}))});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&view.sheet){view.sheet=null;render();return}if(e.key==="Enter"&&e.target.matches("[data-why],[data-organ]"))e.target.dispatchEvent(new MouseEvent("click",{bubbles:true}))});
 addEventListener("online",()=>{if(view.tab==="home"&&!view.module&&!view.profile)render()});
 addEventListener("offline",()=>{if(view.tab==="home"&&!view.module&&!view.profile)render()});
 render();

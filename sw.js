@@ -2,7 +2,7 @@
 // The app opens from the phone's saved copy first (works with no data), then quietly
 // fetches a fresh copy in the background when there is a connection.
 // Change VERSION whenever you upload new files, so phones pick up the update.
-const VERSION = "scrubup-v3";
+const VERSION = "scrubup-v6";
 const SHELL = ["/", "/index.html", "/manifest.webmanifest", "/content.json", "/icon-192.png", "/icon-512.png"];
 self.addEventListener("install", e => { e.waitUntil(caches.open(VERSION).then(c => c.addAll(SHELL))); self.skipWaiting(); });
 self.addEventListener("activate", e => { e.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k => k !== VERSION).map(k => caches.delete(k))))); self.clients.claim(); });
